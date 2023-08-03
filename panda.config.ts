@@ -12,7 +12,13 @@ export default defineConfig({
 
   // Useful for theme customization
   theme: {
-    extend: {},
+    extend: {
+      tokens: {
+        fonts: {
+          roboto: { value: 'Roboto, Helvetica, sans-serif' },
+        },
+      },
+    },
   },
 
   // The output directory for your css system
