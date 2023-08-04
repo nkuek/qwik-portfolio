@@ -24,7 +24,21 @@ export default component$(() => {
         <link rel="manifest" href="/manifest.json" />
         <RouterHead />
       </head>
-      <body lang="en" class={css({ fontFamily: 'roboto' })}>
+      <body
+        lang="en"
+        class={css({
+          fontFamily: 'roboto',
+          backgroundColor: 'neutral.900',
+          color: 'stone.50',
+          backgroundImage: `-webkit-linear-gradient(
+      top,
+      rgba(23, 24, 32, 0.95),
+      rgba(23, 24, 32, 0.95)
+    ),
+    url('/images/overlay.png')`,
+          minH: '100vh',
+        })}
+      >
         <RouterOutlet />
         <ServiceWorkerRegister />
       </body>

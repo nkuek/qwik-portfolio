@@ -18,10 +18,16 @@
     "noEmit": true,
     "types": ["node", "vite/client"],
     "paths": {
-      "~/*": ["./src/*"],
-      "@styles/*": ["./styled-system/*"]
+      "@styles/*": ["./src/styled-system/*"],
+      "~/*": ["./src/*"]
     }
   },
   "files": ["./.eslintrc.cjs"],
-  "include": ["src", "./*.d.ts", "./*.config.ts", "styled-system"]
+  "include": [
+    "src",
+    "./*.d.ts",
+    "./*.config.ts",
+    "src/styled-system",
+    "src/components/design-system/recipes"
+  ]
 }
