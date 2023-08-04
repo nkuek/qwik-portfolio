@@ -22,6 +22,7 @@ const AboutMe = component$(() => {
           },
           gridTemplateColumns: '1fr',
           w: 'full',
+          maxW: '1408px',
           gap: {
             base: 4,
             md: 10,
@@ -33,6 +34,9 @@ const AboutMe = component$(() => {
             gap: 4,
             display: 'flex',
             flexDir: 'column',
+            '@media (min-width: 979px)': {
+              textAlign: 'left',
+            },
             textAlign: 'center',
           })}
         >
