@@ -21,7 +21,14 @@ const sections: NavbarSection[] = [
 export const Navbar = component$(() => {
   return (
     <>
-      <nav class={css({ position: 'fixed', zIndex: 2, w: 'full' })}>
+      <nav
+        class={css({
+          position: 'fixed',
+          zIndex: 2,
+          w: 'full',
+          background: 'inherit',
+        })}
+      >
         <MobileNavbar />
         <DesktopNavbar />
       </nav>
