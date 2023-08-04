@@ -51,38 +51,45 @@ const MobileNavbar = component$(() => {
       >
         <button
           class={vstack({
-            color: 'inherit',
-            gap: 1.5,
-            '& div': { w: '24px', h: '2px', background: 'neutral.500' },
             p: 4,
             zIndex: 3,
-            '& > div': {
-              transition: 'transform linear 200ms',
-              '&:first-child': {
-                transform: showNavDrawer.value
-                  ? 'rotateZ(45deg) translateY(2px)'
-                  : 'none',
-              },
-              '&:nth-child(2)': {
-                transform: showNavDrawer.value
-                  ? 'rotate(-45deg) scaleX(1.41) translate(2px, -1px)'
-                  : 'none',
-              },
-              '&:last-child': {
-                transform: showNavDrawer.value
-                  ? 'rotateZ(45deg) translateY(-2px)'
-                  : 'none',
-                transformOrigin: '22px',
-              },
-            },
           })}
           onClick$={() => {
             showNavDrawer.value = !showNavDrawer.value;
           }}
         >
-          <div></div>
-          <div></div>
-          <div></div>
+          <div
+            class={vstack({
+              color: 'inherit',
+              gap: 1.5,
+              '& div': { w: '24px', h: '2px', background: 'neutral.500' },
+              transform: showNavDrawer.value ? 'translateY(4px)' : 'none',
+              transition: 'transform linear 200ms',
+              '& > div': {
+                transition: 'transform linear 200ms',
+                '&:first-child': {
+                  transform: showNavDrawer.value
+                    ? 'rotateZ(45deg) translateY(2px)'
+                    : 'none',
+                },
+                '&:nth-child(2)': {
+                  transform: showNavDrawer.value
+                    ? 'rotate(-45deg) scaleX(1.41) translate(2px, -1px)'
+                    : 'none',
+                },
+                '&:last-child': {
+                  transform: showNavDrawer.value
+                    ? 'rotateZ(45deg) translateY(-2px)'
+                    : 'none',
+                  transformOrigin: '22px',
+                },
+              },
+            })}
+          >
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
         </button>
       </div>
       {showNavDrawer.value && (
