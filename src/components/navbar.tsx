@@ -57,6 +57,10 @@ const MobileNavbar = component$(() => {
           onClick$={() => {
             showNavDrawer.value = !showNavDrawer.value;
           }}
+          aria-haspopup
+          aria-expanded={showNavDrawer.value}
+          aria-controls="nav-menu"
+          aria-label="open navigation menu"
         >
           <div
             class={vstack({
@@ -120,6 +124,8 @@ const MobileNavbar = component$(() => {
           zIndex: 3,
           pt: 6,
         })}
+        role="menu"
+        id="nav-menu"
       >
         {sections.map((section, idx) => (
           <li
@@ -130,6 +136,7 @@ const MobileNavbar = component$(() => {
               paddingInline: 4,
             })}
             onClick$={() => (showNavDrawer.value = false)}
+            role="none"
           >
             <Link
               href={section.href}
@@ -140,6 +147,7 @@ const MobileNavbar = component$(() => {
                 borderColor: 'zinc.700',
                 '&:hover': { color: 'teal.600' },
               })}
+              role="menuitem"
             >
               {section.title}
             </Link>

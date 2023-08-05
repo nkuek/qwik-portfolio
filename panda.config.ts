@@ -19,10 +19,35 @@ export default defineConfig({
       tokens: {
         fonts: {
           roboto: { value: 'Roboto, Helvetica, sans-serif' },
+          sourceCodePro: { value: 'Source Code Pro, monospace' },
         },
       },
       recipes: {
         text: textRecipe,
+      },
+      keyframes: {
+        blink: {
+          '0%, 50%': {
+            opacity: 1,
+          },
+          '60%': {
+            opacity: 0,
+          },
+          '70%, 100%': {
+            opacity: 1,
+          },
+        },
+        type: {
+          '0%': {
+            left: 0,
+          },
+          '40%, 75%': {
+            left: '100%',
+          },
+          '100%': {
+            left: 0,
+          },
+        },
       },
     },
   },

@@ -5,6 +5,7 @@ import { text } from '@styles/recipes';
 const AboutMe = component$(() => {
   return (
     <section
+      id="about-me"
       class={css({
         minH: 'dvh',
         p: {
@@ -12,6 +13,7 @@ const AboutMe = component$(() => {
           md: 8,
           lg: 16,
         },
+        scrollMargin: '56px',
       })}
     >
       <div

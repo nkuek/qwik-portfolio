@@ -1,0 +1,122 @@
+import { component$, useComputed$, useSignal } from '@builder.io/qwik';
+import { css, cx } from '@styles/css';
+import { vstack } from '@styles/patterns';
+import { text } from '@styles/recipes';
+
+const roles = [
+  'Software Engineer',
+  'Keyboard Hobbyist',
+  'Frontend Developer',
+  'CSS Enthusiast',
+];
+
+const RoleTyper = component$(() => {
+  const roleIndex = useSignal(0);
+
+  const role = useComputed$(() => {
+    return roles[roleIndex.value];
+  });
+
+  return (
+    <div class={vstack({ gap: 4 })}>
+      <h1
+        class={text({
+          size: {
+            base: 'mobileHero',
+            md: 'hero',
+          },
+        })}
+      >
+        Hi, Iʼm Nick Kuek
+      </h1>
+      <div
+        class={cx(
+          text({
+            size: {
+              base: 'mobileSubtitle',
+              md: 'subtitle',
+            },
+          }),
+          css({
+            w: 'full',
+            display: 'inline',
+          })
+        )}
+      >
+        <div
+          class={css({
+            width: 'full',
+            whiteSpace: 'nowrap',
+            display: 'flex',
+            minW: {
+              base: '344px',
+              md: '473px',
+            },
+          })}
+        >
+          <span class={css({ marginRight: '.25em' })}>Iʼm a</span>
+          <span
+            onAnimationIteration$={(event) => {
+              if (
+                event.animationName === 'type' &&
+                event.pseudoElement === '::before'
+              ) {
+                const newIdx = roleIndex.value + 1;
+                roleIndex.value = newIdx % roles.length;
+                console.log(newIdx);
+              }
+            }}
+            style={{
+              // add 1 to account for period
+              '--textLength': role.value.length + 1,
+              '--typeSpeed': '4.5s',
+            }}
+            class={css({
+              fontFamily: 'sourceCodePro',
+              textDecoration: 'underline',
+              textDecorationColor: 'teal.700',
+              position: 'relative',
+              width: 'max-content',
+              // overlay to hide the words and reveal each letter one at a time
+              // overlay should match the same color as the page background
+              _before: {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0,
+                background: 'neutral.900',
+                backgroundImage: `-webkit-linear-gradient(
+                top,
+                rgba(23, 24, 32, 0.95),
+                rgba(23, 24, 32, 0.95)
+                ),
+                url('/images/overlay.png')`,
+                animation:
+                  'type var(--typeSpeed) steps(var(--textLength)) infinite',
+              },
+              // blinking cursor
+              _after: {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0,
+                width: '0.125em',
+                background: 'teal.600',
+                animation:
+                  'type var(--typeSpeed) steps(var(--textLength)) infinite, blink var(--typeSpeed) infinite',
+              },
+            })}
+          >
+            {role.value}.
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+});
+
+export default RoleTyper;

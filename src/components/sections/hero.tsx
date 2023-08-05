@@ -4,7 +4,7 @@ import ProfilePic from '~/images/profile.jpg?jsx';
 import ChevronDown from '~/images/chevronDown.svg?jsx';
 import { css } from '@styles/css';
 import { Link } from '@builder.io/qwik-city';
-import { text } from '@styles/recipes';
+import RoleTyper from '~/components/roleTyper';
 
 export const Hero = component$(() => {
   return (
@@ -27,28 +27,7 @@ export const Hero = component$(() => {
           flexDir: 'column',
         })}
       >
-        <div class={vstack({ gap: 4 })}>
-          <h1
-            class={text({
-              size: {
-                base: 'mobileHero',
-                md: 'hero',
-              },
-            })}
-          >
-            Hi, Iʼm Nick Kuek
-          </h1>
-          <p
-            class={text({
-              size: {
-                base: 'mobileSubtitle',
-                md: 'subtitle',
-              },
-            })}
-          >
-            Iʼm a Software Engineer.
-          </p>
-        </div>
+        <RoleTyper />
         <ProfilePic
           class={circle({
             size: {
@@ -57,11 +36,13 @@ export const Hero = component$(() => {
             },
             objectFit: 'cover',
           })}
+          alt="Picture of me sitting on a wall with a sunset behind me."
         />
       </div>
       <Link
         href="#about-me"
         class={css({ color: 'inherit', position: 'absolute', bottom: 5 })}
+        aria-label="go to next section"
       >
         <ChevronDown
           class={css({
@@ -72,6 +53,7 @@ export const Hero = component$(() => {
             aspectRatio: 1,
             animation: 'bounce linear infinite 1000ms',
           })}
+          alt=""
         />
       </Link>
     </section>
