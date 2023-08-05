@@ -63,7 +63,6 @@ const RoleTyper = component$(() => {
               ) {
                 const newIdx = roleIndex.value + 1;
                 roleIndex.value = newIdx % roles.length;
-                console.log(newIdx);
               }
             }}
             style={{
