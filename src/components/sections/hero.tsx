@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { $, component$, useOnWindow, useSignal } from '@builder.io/qwik';
 import { circle, vstack } from '@styles/patterns';
 import ProfilePic from '~/images/profile.jpg?jsx';
 import ChevronDown from '~/images/chevronDown.svg?jsx';
@@ -7,12 +7,27 @@ import { Link } from '@builder.io/qwik-city';
 import RoleTyper from '~/components/roleTyper';
 
 export const Hero = component$(() => {
+  const hasScrolled = useSignal(false);
+  const hideChevron = useSignal(false);
+
+  useOnWindow(
+    'scroll',
+    $(() => {
+      if (window.scrollY > 0 && !hasScrolled.value) {
+        hasScrolled.value = true;
+      } else if (hasScrolled.value && window.scrollY === 0) {
+        hasScrolled.value = false;
+        hideChevron.value = false;
+      }
+    })
+  );
   return (
     <section
       class={vstack({
         minH: 'calc(100dvh - 56px)',
         justifyContent: 'center',
         position: 'relative',
+        marginInline: 4,
       })}
     >
       <div
@@ -25,15 +40,14 @@ export const Hero = component$(() => {
           alignItems: 'center',
           justifyContent: 'center',
           flexDir: 'column',
+          w: 'full',
         })}
       >
         <RoleTyper />
         <ProfilePic
           class={circle({
-            size: {
-              base: '144px',
-              mdTo2xl: '288px',
-            },
+            size: '288px',
+            aspectRatio: 1,
             objectFit: 'cover',
           })}
           alt="Picture of me sitting on a wall with a sunset behind me."
@@ -41,7 +55,21 @@ export const Hero = component$(() => {
       </div>
       <Link
         href="#about-me"
-        class={css({ color: 'inherit', position: 'absolute', bottom: 5 })}
+        style={{
+          opacity: hasScrolled.value ? 0 : 1,
+          visibility: hideChevron.value ? 'hidden' : 'visible',
+        }}
+        onTransitionEnd$={() => {
+          if (hasScrolled.value) {
+            hideChevron.value = true;
+          }
+        }}
+        class={css({
+          color: 'inherit',
+          position: 'absolute',
+          bottom: 5,
+          transition: 'opacity 500ms ease',
+        })}
         aria-label="go to next section"
       >
         <ChevronDown

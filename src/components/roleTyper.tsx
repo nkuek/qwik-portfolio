@@ -46,11 +46,15 @@ const RoleTyper = component$(() => {
         <div
           class={css({
             width: 'full',
-            whiteSpace: 'nowrap',
             display: 'flex',
             minW: {
               base: '344px',
               md: '473px',
+            },
+            '@media (max-width: 400px)': {
+              flexDir: 'column',
+              alignItems: 'center',
+              minW: 'unset',
             },
           })}
         >

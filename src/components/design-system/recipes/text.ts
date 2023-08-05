@@ -25,15 +25,15 @@ export const textRecipe = defineRecipe({
       },
       subtitle: {
         fontSize: '32px',
-        fontWeight: 100,
+        fontWeight: 300,
       },
       mobileSubtitle: {
         fontSize: '24px',
-        fontWeight: 100,
+        fontWeight: 300,
       },
       body: {
         fontSize: '16px',
-        fontWeight: 100,
+        fontWeight: 300,
       },
     },
   },
