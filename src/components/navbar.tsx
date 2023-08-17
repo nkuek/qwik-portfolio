@@ -27,6 +27,20 @@ export const Navbar = component$(() => {
           position: 'fixed',
           zIndex: 2,
           w: 'full',
+          backdropFilter: 'blur(5px)',
+          _before: {
+            content: '""',
+            inset: 0,
+            position: 'absolute',
+            backgroundImage: `-webkit-linear-gradient(
+                top,
+                rgba(23, 24, 32, 0.95),
+                rgba(23, 24, 32, 0.95)
+                ),
+                url('/images/overlay.png')`,
+            opacity: '.7',
+            zIndex: -1,
+          },
         })}
       >
         <MobileNavbar />
@@ -119,7 +133,7 @@ const MobileNavbar = component$(() => {
           background: 'neutral.800',
           top: '0',
           position: 'fixed',
-          width: '40vw',
+          width: 'max(40vw, 266px)',
           alignItems: 'flex-start',
           zIndex: 3,
           pt: 6,
@@ -170,20 +184,6 @@ const DesktopNavbar = component$(() => {
         px: 6,
         fontSize: 16,
         hideBelow: 'sm',
-        backdropFilter: 'blur(5px)',
-        _before: {
-          content: '""',
-          inset: 0,
-          position: 'absolute',
-          backgroundImage: `-webkit-linear-gradient(
-                top,
-                rgba(23, 24, 32, 0.95),
-                rgba(23, 24, 32, 0.95)
-                ),
-                url('/images/overlay.png')`,
-          opacity: '.7',
-          zIndex: -1,
-        },
       })}
     >
       {sections.map((section, idx) => (

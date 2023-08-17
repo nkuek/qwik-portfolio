@@ -35,6 +35,10 @@ export const textRecipe = defineRecipe({
         fontSize: '20px',
         fontWeight: 300,
       },
+      mobileBody: {
+        fontSize: '16px',
+        fontWeight: 300,
+      },
     },
   },
 });

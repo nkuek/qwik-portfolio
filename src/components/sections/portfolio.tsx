@@ -6,7 +6,7 @@ import SortEd from '~/images/sorted.png?jsx&quality=100&imagetools';
 import WhatsAppening from '~/images/whatsappening.png?jsx&quality=80&imagetools';
 import Discordance from '~/images/discordance.png?jsx&quality=100&imagetools';
 import { css, cx } from '@styles/css';
-import { grid } from '@styles/patterns';
+import { flex } from '@styles/patterns';
 
 type Project = {
   title: string;
@@ -94,7 +94,12 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
           zIndex: -1,
           backgroundImage: "url('/images/overlay.png')",
         },
-        minH: 'dvh',
+        mdDown: {
+          position: 'relative',
+        },
+        md: {
+          minH: 'dvh',
+        },
         '&:nth-child(even)': {
           alignItems: 'flex-end',
         },
@@ -102,28 +107,41 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
     >
       <Image
         class={css({
-          position: 'fixed',
-          inset: '0',
-          height: '100vh',
-          objectFit: 'cover',
-          objectPosition: '0 62px',
-          width: 'full',
+          md: {
+            position: 'fixed',
+            inset: '0',
+            height: '100vh',
+            objectFit: 'cover',
+            objectPosition: '0 62px',
+            width: 'full',
+          },
           zIndex: -2,
         })}
         alt=""
       />
       <div
         class={css({
-          width: '35%',
-          paddingBlock: '120px',
-          paddingInline: '60px',
           background: 'rgba(23, 23, 23, .90)',
-          height: '100vh',
+          padding: '32px 16px 64px',
+          sm: {
+            padding: '48px 32px 64px',
+          },
+          md: {
+            width: 'max(35%, 350px)',
+            maxWidth: '660px',
+            padding: '120px 60px',
+            height: '100vh',
+          },
         })}
       >
         <h3
           class={cx(
-            text({ size: 'title' }),
+            text({
+              size: {
+                base: 'mobileHero',
+                md: 'hero',
+              },
+            }),
             css({
               marginBottom: '24px',
               borderBottom: '1px solid',
@@ -133,7 +151,14 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
         >
           {project.title}
         </h3>
-        <span class={text({ size: 'mobileSubtitle' })}>
+        <span
+          class={text({
+            size: {
+              base: 'mobileSubtitle',
+              md: 'subtitle',
+            },
+          })}
+        >
           {project.technologies.join(', ')}
         </span>
         <p
@@ -146,17 +171,24 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
         </p>
         <div
           class={cx(
-            grid({
-              columns: 2,
-              width: '50%',
+            flex({
+              flexWrap: 'wrap',
               gap: '20px',
               '& a': {
-                padding: '12px 24px',
+                md: {
+                  padding: '12px 24px',
+                },
+                padding: '12px 6px',
                 borderRadius: '12px',
                 textAlign: 'center',
               },
             }),
-            text({ size: 'body' })
+            text({
+              size: {
+                base: 'mobileBody',
+                md: 'body',
+              },
+            })
           )}
         >
           {project.liveLink && (
