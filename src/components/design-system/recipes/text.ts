@@ -32,7 +32,7 @@ export const textRecipe = defineRecipe({
         fontWeight: 300,
       },
       body: {
-        fontSize: '16px',
+        fontSize: '20px',
         fontWeight: 300,
       },
     },

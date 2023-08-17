@@ -18,8 +18,8 @@ export const head: DocumentHead = {
   title: 'Nick Kuek',
   meta: [
     {
-      name: "Nick Kuek's Web Developer Portfolio",
-      content: 'Web Developer Portfolio',
+      name: 'description',
+      content: "Nick Kuek's Web Developer Portfolio",
     },
   ],
 };

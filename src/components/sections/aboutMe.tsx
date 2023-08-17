@@ -1,6 +1,7 @@
 import { component$ } from '@builder.io/qwik';
 import { css } from '@styles/css';
 import { text } from '@styles/recipes';
+import Overlook from '~/images/overlook.jpeg?jsx&quality=80&imagetools';
 
 const AboutMe = component$(() => {
   return (
@@ -8,26 +9,51 @@ const AboutMe = component$(() => {
       id="about-me"
       class={css({
         minH: 'dvh',
-        p: {
-          base: 4,
-          md: 8,
-          lg: 16,
-        },
         scrollMargin: '56px',
+        position: 'relative',
+        display: 'flex',
+        clipPath: 'inset(0)',
+        _before: {
+          content: '""',
+          position: 'absolute',
+          inset: 0,
+          zIndex: -1,
+          backgroundImage: "url('/images/overlay.png')",
+        },
       })}
     >
+      <Overlook
+        alt="Me overlooking a sunset"
+        class={css({
+          position: 'fixed',
+          inset: '0',
+          height: '100vh',
+          objectFit: 'cover',
+          width: 'full',
+          zIndex: -2,
+        })}
+      />
       <div
         class={css({
           display: 'grid',
           '@media (min-width: 979px)': {
-            gridTemplateColumns: '1fr 1fr 1fr',
+            gridTemplateColumns: 'auto 1fr 1fr',
           },
           gridTemplateColumns: '1fr',
           w: 'full',
-          maxW: '1408px',
           gap: {
             base: 4,
             md: 10,
+          },
+          alignSelf: 'flex-end',
+          padding: '104px 0',
+          height: '35vh',
+          position: 'relative',
+          background: 'rgba(23, 23, 23, .90)',
+          paddingInline: {
+            base: 4,
+            md: 8,
+            lg: 16,
           },
         })}
       >

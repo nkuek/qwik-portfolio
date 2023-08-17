@@ -23,11 +23,5 @@
     }
   },
   "files": ["./.eslintrc.cjs"],
-  "include": [
-    "src",
-    "./*.d.ts",
-    "./*.config.ts",
-    "src/styled-system",
-    "src/components/design-system/recipes"
-  ]
+  "include": ["./src", "./*.d.ts", "./*.config.ts"]
 }

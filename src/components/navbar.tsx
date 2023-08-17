@@ -1,7 +1,8 @@
 import { component$, useSignal } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
-import { css } from '@styles/css';
+import { css, cx } from '@styles/css';
 import { flex, hstack, vstack } from '@styles/patterns';
+import { text } from '@styles/recipes';
 
 type NavbarSection = {
   title: string;
@@ -26,7 +27,6 @@ export const Navbar = component$(() => {
           position: 'fixed',
           zIndex: 2,
           w: 'full',
-          background: 'inherit',
         })}
       >
         <MobileNavbar />
@@ -39,7 +39,7 @@ export const Navbar = component$(() => {
 const MobileNavbar = component$(() => {
   const showNavDrawer = useSignal(false);
   return (
-    <div class={css({ hideFrom: 'md' })}>
+    <div class={css({ hideFrom: 'md', background: 'inherit' })}>
       <div
         class={flex({
           background: 'inherit',
@@ -140,13 +140,16 @@ const MobileNavbar = component$(() => {
           >
             <Link
               href={section.href}
-              class={css({
-                p: 3,
-                width: 'full',
-                borderBottomWidth: '1px',
-                borderColor: 'zinc.700',
-                '&:hover': { color: 'teal.600' },
-              })}
+              class={cx(
+                css({
+                  p: 3,
+                  width: 'full',
+                  borderBottomWidth: '1px',
+                  borderColor: 'zinc.700',
+                  '&:hover': { color: 'teal.600' },
+                }),
+                text({ size: 'body' })
+              )}
               role="menuitem"
             >
               {section.title}
@@ -167,17 +170,34 @@ const DesktopNavbar = component$(() => {
         px: 6,
         fontSize: 16,
         hideBelow: 'sm',
+        backdropFilter: 'blur(5px)',
+        _before: {
+          content: '""',
+          inset: 0,
+          position: 'absolute',
+          backgroundImage: `-webkit-linear-gradient(
+                top,
+                rgba(23, 24, 32, 0.95),
+                rgba(23, 24, 32, 0.95)
+                ),
+                url('/images/overlay.png')`,
+          opacity: '.7',
+          zIndex: -1,
+        },
       })}
     >
       {sections.map((section, idx) => (
         <li key={idx} class={css({ display: 'flex' })}>
           <Link
             href={section.href}
-            class={css({
-              h: 'full',
-              py: '16px',
-              '&:hover': { color: 'teal.600' },
-            })}
+            class={cx(
+              css({
+                h: 'full',
+                py: '16px',
+                '&:hover': { color: 'teal.600' },
+              }),
+              text({ size: 'body' })
+            )}
           >
             {section.title}
           </Link>
