@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
 import { text } from '@styles/recipes';
 import Archetyper from '~/images/archetyper.png?jsx&quality=100&imagetools';
@@ -47,7 +47,7 @@ const projects: Project[] = [
       'MaterialUI',
     ],
     description:
-      'Fully functional clone of the popular messaging app, WhatsApp, built with a React / Redux frontend and an Express / Sequelize backend to create a seamless, single-page application.',
+      'Fully functional clone of the popular messaging app, WhatsApp, built with a React/Redux frontend and an Express/Sequelize backend to create a seamless, single-page application.',
     githubLink: 'https://github.com/nkuek/WhatsAppening',
     key: 'whatsappening',
   },
@@ -63,7 +63,7 @@ const projects: Project[] = [
       'SQLAlchemy',
     ],
     description:
-      'A clone of the popular gaming platform, Discord built with a React / Redux frontend and Flask-SQLAlchemy backend. Features live chat within servers by utilizing web sockets, autocompleting search functionality, and ability to browse public groups by category.',
+      'A clone of the popular gaming platform, Discord built with a React/Redux frontend and Flask-SQLAlchemy backend. Features live chat within servers by utilizing web sockets, autocompleting search functionality, and ability to browse public groups by category.',
     githubLink: 'https://github.com/nkuek/discordance',
     key: 'discordance',
   },
@@ -81,8 +81,26 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
     discordance: Discordance,
   };
   const Image = imageMap[project.key as keyof typeof imageMap];
+  const sectionRef = useSignal<Element>();
+  const visible = useSignal(false);
+  useVisibleTask$(() => {
+    if (!sectionRef.value) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          visible.value = true;
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(sectionRef.value);
+  });
   return (
     <section
+      ref={sectionRef}
       class={css({
         display: 'flex',
         flexDirection: 'column',
@@ -102,8 +120,25 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
         },
         '&:nth-child(even)': {
           alignItems: 'flex-end',
+          md: {
+            '& > div': {
+              transform: 'translateX(var(--translate))',
+            },
+          },
         },
+        '&:nth-child(odd)': {
+          md: {
+            '& > div': {
+              transform: 'translateX(calc(var(--translate) * -1))',
+            },
+          },
+        },
+        overflow: 'hidden',
       })}
+      style={{
+        '--translate': visible.value ? 0 : '15%',
+        '--opacity': visible.value ? 1 : 0,
+      }}
     >
       <Image
         class={css({
@@ -131,6 +166,8 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
             maxWidth: '660px',
             padding: '120px 60px',
             height: '100vh',
+            transition: 'transform 750ms ease, opacity 750ms ease',
+            opacity: 'var(--opacity)',
           },
         })}
       >
@@ -222,7 +259,7 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
 
 export const Portfolio = component$(() => {
   return (
-    <div>
+    <div id="portfolio">
       {projects.map((project) => (
         <PortfolioSection project={project} key={project.title} />
       ))}

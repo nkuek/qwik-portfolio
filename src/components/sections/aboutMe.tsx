@@ -1,65 +1,62 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import { css } from '@styles/css';
 import { text } from '@styles/recipes';
 import Overlook from '~/images/overlook.jpeg?jsx&quality=80&imagetools';
 
-const AboutMe = component$(() => {
+const AboutMeText = component$(() => {
+  const textContainerRef = useSignal<Element>();
+  const visible = useSignal(false);
+  useVisibleTask$(() => {
+    if (!textContainerRef.value) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          visible.value = true;
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(textContainerRef.value);
+  });
   return (
-    <section
-      id="about-me"
+    <div
+      ref={textContainerRef}
+      style={{
+        '--visible': visible.value ? 1 : 0,
+        '--translate': visible.value ? '0' : '15%',
+      }}
       class={css({
+        position: 'relative',
+        background: 'rgba(23, 23, 23, .90)',
+        width: 'full',
+        alignSelf: 'flex-end',
+        height: 'fit-content',
         md: {
-          minH: 'dvh',
-        },
-        smDown: {
-          position: 'relative',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-end',
-        },
-        scrollMargin: '56px',
-        display: 'flex',
-        clipPath: 'inset(0)',
-        _before: {
-          content: '""',
-          position: 'absolute',
-          inset: 0,
-          zIndex: -1,
-          backgroundImage: "url('/images/overlay.png')",
+          transition: 'opacity 750ms ease, transform 750ms ease',
+          opacity: 'var(--visible)',
+          transform: 'translateY(var(--translate))',
         },
       })}
     >
-      <Overlook
-        alt="Me overlooking a sunset"
-        class={css({
-          zIndex: -2,
-          md: {
-            position: 'fixed',
-            inset: '0',
-            height: '100vh',
-            objectFit: 'cover',
-            width: 'full',
-          },
-        })}
-      />
       <div
         class={css({
           display: 'grid',
           '@media (min-width: 979px)': {
-            gridTemplateColumns: 'minmax(0, 1fr) 1fr 1fr',
+            gridTemplateColumns: '1fr 1fr 1fr',
             minHeight: '35vh',
           },
-          alignSelf: 'flex-end',
-          height: 'fit-content',
+          margin: '0 auto',
           gridTemplateColumns: '1fr',
           w: 'full',
+          maxWidth: '1408px',
           gap: {
             base: 4,
             md: 10,
           },
           padding: '104px 0',
-          position: 'relative',
-          background: 'rgba(23, 23, 23, .90)',
           paddingInline: {
             base: '16px',
             sm: '32px',
@@ -113,6 +110,51 @@ const AboutMe = component$(() => {
           mechanical keyboards.
         </p>
       </div>
+    </div>
+  );
+});
+
+const AboutMe = component$(() => {
+  return (
+    <section
+      id="about-me"
+      class={css({
+        md: {
+          minH: 'dvh',
+        },
+        smDown: {
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-end',
+        },
+        scrollMargin: '56px',
+        display: 'flex',
+        clipPath: 'inset(0)',
+        overflow: 'hidden',
+        _before: {
+          content: '""',
+          position: 'absolute',
+          inset: 0,
+          zIndex: -1,
+          backgroundImage: "url('/images/overlay.png')",
+        },
+      })}
+    >
+      <Overlook
+        alt="Me overlooking a sunset"
+        class={css({
+          zIndex: -2,
+          md: {
+            position: 'fixed',
+            inset: '0',
+            height: '100vh',
+            objectFit: 'cover',
+            width: 'full',
+          },
+        })}
+      />
+      <AboutMeText />
     </section>
   );
 });

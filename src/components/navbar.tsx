@@ -80,7 +80,7 @@ const MobileNavbar = component$(() => {
             class={vstack({
               color: 'inherit',
               gap: 1.5,
-              '& div': { w: '24px', h: '2px', background: 'neutral.500' },
+              '& div': { w: '24px', h: '2px', background: 'stone.50' },
               transform: showNavDrawer.value ? 'translateY(4px)' : 'none',
               transition: 'transform linear 200ms',
               '& > div': {
