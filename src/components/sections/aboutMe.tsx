@@ -8,9 +8,16 @@ const AboutMe = component$(() => {
     <section
       id="about-me"
       class={css({
-        minH: 'dvh',
+        md: {
+          minH: 'dvh',
+        },
+        smDown: {
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-end',
+        },
         scrollMargin: '56px',
-        position: 'relative',
         display: 'flex',
         clipPath: 'inset(0)',
         _before: {
@@ -25,35 +32,38 @@ const AboutMe = component$(() => {
       <Overlook
         alt="Me overlooking a sunset"
         class={css({
-          position: 'fixed',
-          inset: '0',
-          height: '100vh',
-          objectFit: 'cover',
-          width: 'full',
           zIndex: -2,
+          md: {
+            position: 'fixed',
+            inset: '0',
+            height: '100vh',
+            objectFit: 'cover',
+            width: 'full',
+          },
         })}
       />
       <div
         class={css({
           display: 'grid',
           '@media (min-width: 979px)': {
-            gridTemplateColumns: 'auto 1fr 1fr',
+            gridTemplateColumns: 'minmax(0, 1fr) 1fr 1fr',
+            minHeight: '35vh',
           },
+          alignSelf: 'flex-end',
+          height: 'fit-content',
           gridTemplateColumns: '1fr',
           w: 'full',
           gap: {
             base: 4,
             md: 10,
           },
-          alignSelf: 'flex-end',
           padding: '104px 0',
-          height: '35vh',
           position: 'relative',
           background: 'rgba(23, 23, 23, .90)',
           paddingInline: {
-            base: 4,
-            md: 8,
-            lg: 16,
+            base: '16px',
+            sm: '32px',
+            md: '48px',
           },
         })}
       >
@@ -66,11 +76,15 @@ const AboutMe = component$(() => {
               textAlign: 'left',
             },
             textAlign: 'center',
+            marginBottom: '24px',
           })}
         >
           <h2
             class={text({
-              size: 'title',
+              size: {
+                base: 'mobileHero',
+                md: 'hero',
+              },
             })}
           >
             About Me

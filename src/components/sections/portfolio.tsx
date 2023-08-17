@@ -175,10 +175,7 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
               flexWrap: 'wrap',
               gap: '20px',
               '& a': {
-                md: {
-                  padding: '12px 24px',
-                },
-                padding: '12px 6px',
+                padding: '12px 24px',
                 borderRadius: '12px',
                 textAlign: 'center',
               },
