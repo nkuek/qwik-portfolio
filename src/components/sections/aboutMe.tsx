@@ -6,7 +6,7 @@ import Overlook from '~/images/overlook.jpeg?jsx&quality=80&imagetools';
 const AboutMeText = component$(() => {
   const textContainerRef = useSignal<Element>();
   const visible = useSignal(false);
-  useVisibleTask$(() => {
+  useVisibleTask$(({ cleanup }) => {
     if (!textContainerRef.value) {
       return;
     }
@@ -20,6 +20,7 @@ const AboutMeText = component$(() => {
       { threshold: 0.5 }
     );
     observer.observe(textContainerRef.value);
+    cleanup(() => observer.disconnect());
   });
   return (
     <div
@@ -30,7 +31,7 @@ const AboutMeText = component$(() => {
       }}
       class={css({
         position: 'relative',
-        background: 'rgba(23, 23, 23, .90)',
+        background: 'rgba(23, 23, 23, .95)',
         width: 'full',
         alignSelf: 'flex-end',
         height: 'fit-content',

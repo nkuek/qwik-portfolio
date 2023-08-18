@@ -25,7 +25,10 @@ export const RouterHead = component$(() => {
         href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;700&family=Source+Code+Pro:wght@300&display=swap"
         rel="stylesheet"
       />
-
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"
+      />
       {head.meta.map((m) => (
         <meta key={m.key} {...m} />
       ))}

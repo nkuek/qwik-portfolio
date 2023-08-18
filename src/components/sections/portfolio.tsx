@@ -83,7 +83,7 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
   const Image = imageMap[project.key as keyof typeof imageMap];
   const sectionRef = useSignal<Element>();
   const visible = useSignal(false);
-  useVisibleTask$(() => {
+  useVisibleTask$(({ cleanup }) => {
     if (!sectionRef.value) {
       return;
     }
@@ -97,6 +97,8 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
       { threshold: 0.5 }
     );
     observer.observe(sectionRef.value);
+
+    cleanup(() => observer.disconnect());
   });
   return (
     <section
@@ -156,7 +158,7 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
       />
       <div
         class={css({
-          background: 'rgba(23, 23, 23, .90)',
+          background: 'rgba(23, 23, 23, .95)',
           padding: '32px 16px 64px',
           sm: {
             padding: '48px 32px 64px',
