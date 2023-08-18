@@ -1,4 +1,11 @@
-import { component$ } from '@builder.io/qwik';
+import {
+  type Signal,
+  component$,
+  createContextId,
+  useContextProvider,
+  useSignal,
+  useVisibleTask$,
+} from '@builder.io/qwik';
 import {
   QwikCityProvider,
   RouterOutlet,
@@ -8,6 +15,14 @@ import { css } from '@styles/css';
 import { RouterHead } from './components/router-head/router-head';
 
 import './global.css';
+import {
+  type ThemePreference,
+  colorSchemeChangeListener,
+  getColorPreference,
+  setPreference,
+} from '~/components/themeToggle/themeTogle';
+
+export const ThemeContext = createContextId<Signal<ThemePreference>>('dark');
 
 export default component$(() => {
   /**
@@ -16,6 +31,15 @@ export default component$(() => {
    *
    * Don't remove the `<head>` and `<body>` elements.
    */
+  const theme = useSignal<ThemePreference>();
+  useVisibleTask$(() => {
+    theme.value = getColorPreference();
+    return colorSchemeChangeListener((isDark) => {
+      theme.value = isDark ? 'dark' : 'light';
+      setPreference(theme.value);
+    });
+  });
+  useContextProvider(ThemeContext, theme);
 
   return (
     <QwikCityProvider>
@@ -27,16 +51,13 @@ export default component$(() => {
       <body
         lang="en"
         class={css({
-          fontFamily: 'roboto',
-          backgroundColor: 'neutral.900',
-          color: 'stone.50',
+          fontFamily: 'poppins',
+          backgroundColor: 'background',
+          color: 'text',
           minH: '100vh',
-          backgroundImage: `-webkit-linear-gradient(
-                top,
-                rgba(23, 24, 32, 0.95),
-                rgba(23, 24, 32, 0.95)
-                ),
-                url('/images/overlay.png')`,
+          backgroundImage: 'backgroundImage',
+          transition:
+            'background 500ms ease, backgroundImage 500ms ease, color 500ms ease',
         })}
       >
         <RouterOutlet />

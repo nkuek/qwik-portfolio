@@ -8,20 +8,20 @@ export const textRecipe = defineRecipe({
       hero: {
         fontSize: '48px',
         letterSpacing: '-0.025em',
-        fontWeight: 300,
+        fontWeight: 400,
       },
       mobileHero: {
         fontSize: '32px',
         letterSpacing: '-0.025em',
-        fontWeight: 300,
+        fontWeight: 400,
       },
       title: {
         fontSize: '32px',
-        fontWeight: 300,
+        fontWeight: 400,
       },
       mobileTitle: {
         fontSize: '24px',
-        fontWeight: 300,
+        fontWeight: 400,
       },
       subtitle: {
         fontSize: '32px',
@@ -30,14 +30,17 @@ export const textRecipe = defineRecipe({
       mobileSubtitle: {
         fontSize: '24px',
         fontWeight: 300,
+        lineHeight: '29px',
       },
       body: {
         fontSize: '20px',
         fontWeight: 300,
+        lineHeight: '29px',
       },
       mobileBody: {
         fontSize: '16px',
         fontWeight: 300,
+        lineHeight: '26px',
       },
     },
   },

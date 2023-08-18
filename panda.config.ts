@@ -13,17 +13,57 @@ export default defineConfig({
   // Files to exclude
   exclude: [],
 
+  conditions: {
+    light: '[data-theme=light] &',
+    dark: '[data-theme=dark] &',
+  },
+
   // Useful for theme customization
   theme: {
     extend: {
       tokens: {
         fonts: {
-          roboto: { value: 'Roboto, Helvetica, sans-serif' },
+          poppins: { value: 'Poppins, sans-serif' },
           sourceCodePro: { value: 'Source Code Pro, monospace' },
         },
       },
       recipes: {
         text: textRecipe,
+      },
+      semanticTokens: {
+        colors: {
+          background: {
+            value: {
+              base: '{colors.neutral.900}',
+              _light: '{colors.stone.50}',
+            },
+          },
+
+          text: {
+            value: {
+              base: '{colors.stone.50}',
+              _light: '{colors.neutral.900}',
+            },
+          },
+        },
+        assets: {
+          backgroundImage: {
+            value: {
+              base: `-webkit-linear-gradient(
+                top,
+                rgba(23, 24, 32, 0.95),
+                rgba(23, 24, 32, 0.95)
+                ),
+                url('/images/overlay.png')`,
+              _light: `-webkit-linear-gradient(
+                top,
+                rgba(255, 255, 255, 0.95),
+                rgba(255, 255, 255, 0.95)
+                ),
+                url('/images/overlay.png')`,
+            },
+          },
+        },
       },
       keyframes: {
         blink: {
