@@ -10,12 +10,11 @@ type NavbarSection = {
 };
 
 const sections: NavbarSection[] = [
-  { title: 'Resume', href: '/resume' },
+  { title: 'Resume', href: '/KuekResume.pdf' },
   { title: 'Snippets', href: '/snippets' },
   { title: 'About Me', href: '#about-me' },
   { title: 'Portfolio', href: '#portfolio' },
   { title: 'Skills', href: '#skills' },
-  { title: 'Education', href: '#education' },
   { title: 'Contact', href: '#contact' },
 ];
 
@@ -28,6 +27,7 @@ export const Navbar = component$(() => {
           zIndex: 2,
           w: 'full',
           backdropFilter: 'blur(5px)',
+          top: 0,
           _before: {
             content: '""',
             inset: 0,
