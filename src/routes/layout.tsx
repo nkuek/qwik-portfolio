@@ -18,7 +18,7 @@ export default component$(() => {
   return (
     <>
       <Navbar />
-      <div class={css({ position: 'relative', top: '56px' })}>
+      <div class={css({ position: 'relative', top: '70px' })}>
         <Slot />
       </div>
     </>

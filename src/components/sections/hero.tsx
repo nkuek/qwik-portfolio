@@ -1,6 +1,6 @@
 import { $, component$, useOnWindow, useSignal } from '@builder.io/qwik';
 import { circle, vstack } from '@styles/patterns';
-import ProfilePic from '~/images/profile.jpg?jsx';
+import ProfilePic from '~/images/profile.jpg?jsx&w=288px&h=288px&quality=100&imagetools';
 import ChevronDown from '~/images/chevronDown.svg?jsx';
 import { css } from '@styles/css';
 import { Link } from '@builder.io/qwik-city';

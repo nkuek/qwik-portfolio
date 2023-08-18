@@ -4,7 +4,7 @@ import { css, cx } from '@styles/css';
 import { flex, hstack, vstack } from '@styles/patterns';
 import { text } from '@styles/recipes';
 import { ThemeToggle } from '~/components/themeToggle/themeTogle';
-
+import Logo from '~/images/logo.svg?jsx';
 type NavbarSection = {
   title: string;
   href: string;
@@ -36,8 +36,14 @@ export const Navbar = component$(() => {
             opacity: '.7',
             zIndex: -1,
           },
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
         })}
       >
+        <Link href="/" class={css({ padding: '16px 24px' })} aria-label="Home">
+          <Logo />
+        </Link>
         <MobileNavbar />
         <DesktopNavbar />
       </nav>
@@ -48,81 +54,84 @@ export const Navbar = component$(() => {
 const MobileNavbar = component$(() => {
   const showNavDrawer = useSignal(false);
   return (
-    <div class={css({ hideFrom: 'md', background: 'inherit' })}>
-      <div
-        class={flex({
-          background: 'inherit',
-          justifyContent: 'flex-end',
-          minH: '14',
-          left: 0,
-          right: 0,
-        })}
-      >
-        <button
-          class={vstack({
-            p: 4,
-            zIndex: 3,
+    <>
+      <div class={css({ hideFrom: 'md', background: 'inherit' })}>
+        <div
+          class={flex({
+            background: 'inherit',
+            justifyContent: 'flex-end',
+            minH: '14',
+            left: 0,
+            right: 0,
           })}
-          onClick$={() => {
-            showNavDrawer.value = !showNavDrawer.value;
-          }}
-          aria-haspopup
-          aria-expanded={showNavDrawer.value}
-          aria-controls="nav-menu"
-          aria-label="open navigation menu"
         >
-          <div
+          <button
             class={vstack({
-              color: 'inherit',
-              gap: 1.5,
-              '& div': { w: '24px', h: '2px', background: 'text' },
-              transform: showNavDrawer.value ? 'translateY(4px)' : 'none',
-              transition: 'transform linear 200ms',
-              '& > div': {
-                transition: 'transform linear 200ms',
-                '&:first-child': {
-                  transform: showNavDrawer.value
-                    ? 'rotateZ(45deg) translateY(2px)'
-                    : 'none',
-                },
-                '&:nth-child(2)': {
-                  transform: showNavDrawer.value
-                    ? 'rotate(-45deg) scaleX(1.41) translate(2px, -1px)'
-                    : 'none',
-                },
-                '&:last-child': {
-                  transform: showNavDrawer.value
-                    ? 'rotateZ(45deg) translateY(-2px)'
-                    : 'none',
-                  transformOrigin: '22px',
-                },
-              },
+              p: 4,
+              zIndex: 3,
             })}
+            onClick$={() => {
+              showNavDrawer.value = !showNavDrawer.value;
+            }}
+            aria-haspopup
+            aria-expanded={showNavDrawer.value}
+            aria-controls="nav-menu"
+            aria-label="open navigation menu"
           >
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </button>
+            <div
+              class={vstack({
+                color: 'inherit',
+                gap: 1.5,
+                '& div': { w: '24px', h: '2px', background: 'text' },
+                transform: showNavDrawer.value ? 'translateY(4px)' : 'none',
+                transition: 'transform linear 200ms',
+                '& > div': {
+                  transition: 'transform linear 200ms',
+                  '&:first-child': {
+                    transform: showNavDrawer.value
+                      ? 'rotateZ(45deg) translateY(2px)'
+                      : 'none',
+                  },
+                  '&:nth-child(2)': {
+                    transform: showNavDrawer.value
+                      ? 'rotate(-45deg) scaleX(1.41) translate(2px, -1px)'
+                      : 'none',
+                  },
+                  '&:last-child': {
+                    transform: showNavDrawer.value
+                      ? 'rotateZ(45deg) translateY(-2px)'
+                      : 'none',
+                    transformOrigin: '22px',
+                  },
+                },
+              })}
+            >
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </button>
+        </div>
+        <div
+          style={{
+            '--visible': showNavDrawer.value ? 'visible' : 'hidden',
+            '--opacity': showNavDrawer.value ? '.5' : '0',
+          }}
+          class={css({
+            visibility: 'var(--visible)' as any,
+            w: 'screen',
+            h: 'screen',
+            zIndex: 1,
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            background: 'neutral.800',
+            opacity: 'var(--opacity)',
+            transition: 'visibility 500ms ease, opacity 500ms ease',
+          })}
+          onClick$={() => (showNavDrawer.value = false)}
+        />
       </div>
-      <div
-        style={{
-          '--visible': showNavDrawer.value ? 'visible' : 'hidden',
-          '--opacity': showNavDrawer.value ? '.5' : '0',
-        }}
-        class={css({
-          visibility: 'var(--visible)' as any,
-          w: 'screen',
-          h: 'screen',
-          zIndex: 1,
-          position: 'fixed',
-          top: 0,
-          background: 'neutral.800',
-          opacity: 'var(--opacity)',
-          transition: 'visibility 500ms ease, opacity 500ms ease',
-        })}
-        onClick$={() => (showNavDrawer.value = false)}
-      />
       <ul
         class={vstack({
           gap: '0',
@@ -138,6 +147,7 @@ const MobileNavbar = component$(() => {
           alignItems: 'flex-start',
           zIndex: 3,
           pt: 6,
+          hideFrom: 'md',
         })}
         role="menu"
         id="nav-menu"
@@ -172,7 +182,7 @@ const MobileNavbar = component$(() => {
           </li>
         ))}
       </ul>
-    </div>
+    </>
   );
 });
 

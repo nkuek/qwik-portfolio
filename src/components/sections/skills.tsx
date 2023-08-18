@@ -174,7 +174,7 @@ const Skills = component$(() => {
             transform: 'scale(.75)',
           });
 
-          return <skill.logo key={idx} class={sharedCSS} />;
+          return <skill.logo key={idx} class={sharedCSS} alt={skill.name} />;
         })}
       </div>
     </section>

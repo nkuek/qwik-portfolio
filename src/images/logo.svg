@@ -1,13 +1,12 @@
-<svg width="44" height="38" viewBox="0 0 44 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="44" height="38" viewBox="0 0 44 38" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo">
 <style>
-    path {
+    .logo path {
       fill: black;
+      transition: fill 500ms ease
     }
-    @media (prefers-color-scheme: dark) {
-      path {
-        fill: white;
-      }
-    }
+   [data-theme="dark"] .logo path {
+      fill: white
+   }
   </style>
 <path d="M25 31H21.36L6.72 8.8V31H3.08V3.08H6.72L21.36 25.24V3.08H25V31Z" fill="black"/>
 <path d="M36.2 31L24.72 18.28V31H21.08V3.12H24.72V16.04L36.24 3.12H40.84L28.2 17.08L40.96 31H36.2Z" fill="black"/>
