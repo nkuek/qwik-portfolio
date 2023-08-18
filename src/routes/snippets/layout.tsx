@@ -6,17 +6,15 @@ export default component$(() => {
   useStyles$(styles);
   return (
     <div
-      class={cx(
-        css({
-          minHeight: '100vh',
-          maxWidth: '676px',
-          margin: '0 auto',
-          paddingBottom: '80px',
-        }),
-        'snippets'
-      )}
+      class={css({
+        minHeight: '100vh',
+        paddingBottom: '80px',
+        margin: '0 32px',
+      })}
     >
-      <Slot />
+      <div class={cx(css({ margin: '0 auto', maxWidth: '676px' }), 'snippets')}>
+        <Slot />
+      </div>
     </div>
   );
 });

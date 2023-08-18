@@ -1,5 +1,10 @@
+[data-theme='light'] .snippets {
+  & p > code {
+    background: #d4d4d4;
+  }
+}
 .snippets {
-  & > * {
+  & > *:not(h1) {
     margin: 16px auto;
   }
   & h1 {
@@ -10,21 +15,51 @@
     font-size: 32px;
   }
 
+  & h1 {
+    position: relative;
+    width: fit-content;
+    scroll-margin-top: 61px;
+    & a {
+      position: absolute;
+      inset: 0;
+    }
+
+    & a:hover .icon {
+      display: inline;
+    }
+  }
+
+  & .icon-link:after {
+    position: absolute;
+    content: '#';
+    left: -1em;
+    color: #0d9488;
+  }
+
+  & .icon-link {
+    display: none;
+  }
+
   & p {
     font-size: 20px;
+    line-height: 29px;
     & > code {
       background: #525252;
-      padding: 0.12rem 0.25rem;
+      padding: 0 0.25rem;
       border-radius: 0.375rem;
       white-space: nowrap;
+      font-family: 'Source Code Pro', sans-serif;
     }
   }
 
   & pre {
-    background: #282a36;
     display: flex;
     padding: 12px;
     border-radius: 6px;
+    overflow: auto;
+    & > * {
+      font-family: 'Fira Code', monospace;
+    }
   }
 
   & hr {
@@ -33,5 +68,51 @@
 
   & em {
     font-style: italic;
+  }
+
+  & [data-rehype-pretty-code-fragment] {
+    margin: 24px auto;
+  }
+
+  & [data-rehype-pretty-code-title] {
+    background: #525252;
+    border-radius: 6px 6px 0 0px;
+    padding: 4px 12px;
+    color: #fafaf9;
+    & + pre {
+      border-radius: 0 0 6px 6px;
+    }
+  }
+
+  & [data-highlighted-line] {
+    background: #404040;
+    box-sizing: border-box;
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 4px;
+      top: 0;
+      bottom: 0;
+      background: #0f766e;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .snippets {
+    & h1 {
+      font-size: 32px;
+    }
+
+    & h2 {
+      font-size: 24px;
+    }
+
+    & p {
+      font-size: 18px;
+    }
   }
 }

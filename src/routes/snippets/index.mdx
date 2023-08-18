@@ -12,13 +12,13 @@ import { LiquidFillButton } from '~/components/liquidFillButton';
 
 <LiquidFillButton>Hover</LiquidFillButton>
 
-```html
+```html title="src/components/Button/index.tsx"
 <div>
   <button class="my-button">Hover</button>
 </div>
 ```
 
-```css
+```css title="src/components/Button/styles.css"
 .my-button {
   all: unset;
   display: flex;
@@ -57,7 +57,7 @@ This creates a rather satisfying effect where it looks like a fluid is filling u
 
 Confused what's happening?
 
-Maybe this visual will help - here's a slowed down version next to the finished version:
+Maybe this visual will help:
 
 <br />
 <div
@@ -69,11 +69,10 @@ Maybe this visual will help - here's a slowed down version next to the finished 
   }}
 >
   <LiquidFillButton breakdown>Hover</LiquidFillButton>
-  <LiquidFillButton>Hover</LiquidFillButton>
 </div>
 <br />
 
-```css
+```css title="src/components/Button/styles.css" {13}
 .my-button {
   all: unset;
   display: flex;
@@ -86,27 +85,26 @@ Maybe this visual will help - here's a slowed down version next to the finished 
   position: relative;
   z-index: 1;
   font-size: 2em;
-  /* overflow: hidden;  */ <------ commenting out
+  /* overflow: hidden;  */
 }
 
 .my-button:before {
-content: '';
-position: absolute;
-right: 0;
-left: 0;
-aspect-ratio: 1.25/1;
-min-height: 100%;
-z-index: -1;
-border-radius: 40%;
-transform: translateX(-100%) rotate(0deg);
-transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-background: #dee2ff;
+  content: '';
+  position: absolute;
+  right: 0;
+  left: 0;
+  aspect-ratio: 1.25/1;
+  min-height: 100%;
+  z-index: -1;
+  border-radius: 40%;
+  transform: translateX(-100%) rotate(0deg);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #dee2ff;
 }
 
 .my-button:hover:before {
-transform: translateX(0) rotate(-180deg);
+  transform: translateX(0) rotate(-180deg);
 }
-
 ```
 
 By commenting out the `overflow: hidden`, we can see that the true star of the show is the `:before` pseudo element on the button.
