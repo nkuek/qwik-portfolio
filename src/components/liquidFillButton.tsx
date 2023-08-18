@@ -10,8 +10,15 @@ export const LiquidFillButton = component$<LiquidFillButtonProps>(
     return (
       <button
         class={css({
+          transform: 'scale(.65)',
+          sm: {
+            transform: 'scale(.75)',
+          },
+          md: {
+            transform: 'none',
+          },
           display: ' flex',
-          padding: '12px 48px',
+          padding: '12px 24px',
           alignItems: 'center',
           border: '1px solid',
           borderRadius: '24px',
@@ -21,7 +28,7 @@ export const LiquidFillButton = component$<LiquidFillButtonProps>(
           zIndex: 1,
           fontSize: '2em',
           overflow: breakdown ? 'initial' : 'hidden',
-          color: 'stone.50',
+          color: 'text',
           _before: {
             content: '""',
             position: 'absolute',
@@ -35,10 +42,10 @@ export const LiquidFillButton = component$<LiquidFillButtonProps>(
             transitionProperty: 'transform',
             transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
             transitionDuration: breakdown ? '2s' : '.5s',
-            background: '#0d9488',
+            background: 'teal.600',
           },
           _hover: {
-            color: 'neutral.900',
+            color: 'text',
             _before: {
               transform: 'translateX(0) rotate(-180deg)',
             },
