@@ -31,6 +31,12 @@ export default component$(() => {
           backgroundColor: 'neutral.900',
           color: 'stone.50',
           minH: '100vh',
+          backgroundImage: `-webkit-linear-gradient(
+                top,
+                rgba(23, 24, 32, 0.95),
+                rgba(23, 24, 32, 0.95)
+                ),
+                url('/images/overlay.png')`,
         })}
       >
         <RouterOutlet />

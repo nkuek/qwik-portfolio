@@ -15,7 +15,6 @@ const sections: NavbarSection[] = [
   { title: 'About Me', href: '#about-me' },
   { title: 'Portfolio', href: '#portfolio' },
   { title: 'Skills', href: '#skills' },
-  { title: 'Contact', href: '#contact' },
 ];
 
 export const Navbar = component$(() => {

@@ -1,0 +1,110 @@
+---
+title: Snippets
+---
+
+import { LiquidFillButton } from '~/components/liquidFillButton';
+
+# Liquid Fill Button
+
+---
+
+## The finished product:
+
+<LiquidFillButton>Hover</LiquidFillButton>
+
+```html
+<div>
+  <button class="my-button">Hover</button>
+</div>
+```
+
+```css
+.my-button {
+  all: unset;
+  display: flex;
+  padding: 32px 48px;
+  align-items: center;
+  border: 1px solid;
+  border-radius: 48px;
+  width: fit-content;
+  height: fit-content;
+  position: relative;
+  z-index: 1;
+  font-size: 2em;
+  overflow: hidden;
+}
+
+.my-button:before {
+  content: '';
+  position: absolute;
+  right: 0;
+  left: 0;
+  aspect-ratio: 1.25/1;
+  min-height: 100%;
+  z-index: -1;
+  border-radius: 40%;
+  transform: translateX(-100%) rotate(0deg);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #dee2ff;
+}
+
+.my-button:hover:before {
+  transform: translateX(0) rotate(-180deg);
+}
+```
+
+This creates a rather satisfying effect where it looks like a fluid is filling up this button container!
+
+Confused what's happening?
+
+Maybe this visual will help:
+
+<br />
+<LiquidFillButton breakdown>Hover</LiquidFillButton>
+<br />
+
+```css
+.my-button {
+  all: unset;
+  display: flex;
+  padding: 32px 48px;
+  align-items: center;
+  border: 1px solid;
+  border-radius: 48px;
+  width: fit-content;
+  height: fit-content;
+  position: relative;
+  z-index: 1;
+  font-size: 2em;
+  /* overflow: hidden;  */ <------ commenting out
+}
+
+.my-button:before {
+content: '';
+position: absolute;
+right: 0;
+left: 0;
+aspect-ratio: 1.25/1;
+min-height: 100%;
+z-index: -1;
+border-radius: 40%;
+transform: translateX(-100%) rotate(0deg);
+transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+background: #dee2ff;
+}
+
+.my-button:hover:before {
+transform: translateX(0) rotate(-180deg);
+}
+
+```
+
+By commenting out the `overflow: hidden`, we can see that the true star of the show is the `:before` pseudo element on the button.
+
+First, we need to ensure that that the pseudo element is _always_ larger than the actual element by playing around with the `height` and `aspect-ratio`.
+
+Next, we ensure that the pseudo element is always behind the button via `z-index`.
+
+Then, in order to get the actual cool liquid effect, we add a `border-radius` to smooth out the edges and apply a rotation paired with `overflow: hidden`.
+
+I definitely encourage you to mess around with border-radii, aspect-ratios, and transition timing functions because even changing them around slightly can lead to some drastic differences!
