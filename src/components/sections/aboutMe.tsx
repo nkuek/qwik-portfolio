@@ -40,6 +40,7 @@ const AboutMeText = component$(() => {
           opacity: 'var(--visible)',
           transform: 'translateY(var(--translate))',
         },
+        color: 'stone.50',
       })}
     >
       <div

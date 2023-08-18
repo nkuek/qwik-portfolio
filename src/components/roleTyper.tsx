@@ -85,17 +85,16 @@ const RoleTyper = component$(() => {
               _before: {
                 content: '""',
                 position: 'absolute',
-                top: 0,
+                md: {
+                  top: '-.35em',
+                  bottom: '-.35em',
+                },
+                top: '-.25em',
+                bottom: '-.25em',
                 right: 0,
-                bottom: 0,
                 left: 0,
-                background: 'neutral.900',
-                backgroundImage: `-webkit-linear-gradient(
-                top,
-                rgba(23, 24, 32, 0.95),
-                rgba(23, 24, 32, 0.95)
-                ),
-                url('/images/overlay.png')`,
+                background: 'background',
+                backgroundImage: 'backgroundImage',
                 animation:
                   'type var(--typeSpeed) steps(var(--textLength)) infinite',
               },
@@ -103,9 +102,13 @@ const RoleTyper = component$(() => {
               _after: {
                 content: '""',
                 position: 'absolute',
-                top: 0,
+                md: {
+                  top: '-.35em',
+                  bottom: '-.35em',
+                },
+                top: '-.25em',
+                bottom: '-.25em',
                 right: 0,
-                bottom: 0,
                 left: 0,
                 width: '0.125em',
                 background: 'teal.600',

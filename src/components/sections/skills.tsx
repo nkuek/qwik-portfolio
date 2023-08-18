@@ -22,8 +22,8 @@ import ReactLogo from '~/images/react.svg?jsx';
 const Skills = component$(() => {
   const iconContainerRef = useSignal<Element>();
   const skills = [
-    { name: 'JavaScript', logo: JavaScriptLogo },
     { name: 'TypeScript', logo: TypeScriptLogo },
+    { name: 'JavaScript', logo: JavaScriptLogo },
     { name: 'React', logo: ReactLogo },
     { name: 'NextJS', logo: NextJSLogo },
     { name: 'QwikJS', logo: QwikLogo },
@@ -100,13 +100,9 @@ const Skills = component$(() => {
           position: 'absolute',
           inset: 0,
           zIndex: -1,
-          backgroundImage: `-webkit-linear-gradient(
-                top,
-                rgba(23, 24, 32, 0.95),
-                rgba(23, 24, 32, 0.95)
-                ),
-                url('/images/overlay.png')`,
+          backgroundImage: 'backgroundImage',
         },
+        color: 'text',
       })}
     >
       <div>
@@ -167,6 +163,7 @@ const Skills = component$(() => {
           placeItems: 'center',
           maxWidth: '1408px',
           margin: '0 auto',
+          fill: 'text',
         })}
       >
         {skills.map((skill, idx) => {

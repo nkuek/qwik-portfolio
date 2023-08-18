@@ -28,6 +28,7 @@ export const Hero = component$(() => {
         justifyContent: 'center',
         position: 'relative',
         paddingInline: 4,
+        backgroundImage: 'backgroundImage',
       })}
     >
       <div
