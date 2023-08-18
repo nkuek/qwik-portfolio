@@ -3,6 +3,7 @@ import { Link } from '@builder.io/qwik-city';
 import { css, cx } from '@styles/css';
 import { flex, hstack, vstack } from '@styles/patterns';
 import { text } from '@styles/recipes';
+import { ThemeToggle } from '~/components/themeToggle/themeTogle';
 
 type NavbarSection = {
   title: string;
@@ -11,10 +12,10 @@ type NavbarSection = {
 
 const sections: NavbarSection[] = [
   { title: 'Resume', href: '/KuekResume.pdf' },
-  { title: 'Snippets', href: '/snippets' },
   { title: 'About Me', href: '/#about-me' },
   { title: 'Portfolio', href: '/#portfolio' },
   { title: 'Skills', href: '#skills' },
+  { title: 'Snippets', href: '/snippets' },
 ];
 
 export const Navbar = component$(() => {
@@ -31,12 +32,7 @@ export const Navbar = component$(() => {
             content: '""',
             inset: 0,
             position: 'absolute',
-            backgroundImage: `-webkit-linear-gradient(
-                top,
-                rgba(23, 24, 32, 0.95),
-                rgba(23, 24, 32, 0.95)
-                ),
-                url('/images/overlay.png')`,
+            backgroundImage: 'backgroundImage',
             opacity: '.7',
             zIndex: -1,
           },
@@ -79,7 +75,7 @@ const MobileNavbar = component$(() => {
             class={vstack({
               color: 'inherit',
               gap: 1.5,
-              '& div': { w: '24px', h: '2px', background: 'stone.50' },
+              '& div': { w: '24px', h: '2px', background: 'text' },
               transform: showNavDrawer.value ? 'translateY(4px)' : 'none',
               transition: 'transform linear 200ms',
               '& > div': {
@@ -109,18 +105,24 @@ const MobileNavbar = component$(() => {
           </div>
         </button>
       </div>
-      {showNavDrawer.value && (
-        <div
-          class={css({
-            w: 'screen',
-            h: 'screen',
-            zIndex: 1,
-            position: 'fixed',
-            top: 0,
-          })}
-          onClick$={() => (showNavDrawer.value = false)}
-        />
-      )}
+      <div
+        style={{
+          '--visible': showNavDrawer.value ? 'visible' : 'hidden',
+          '--opacity': showNavDrawer.value ? '.5' : '0',
+        }}
+        class={css({
+          visibility: 'var(--visible)' as any,
+          w: 'screen',
+          h: 'screen',
+          zIndex: 1,
+          position: 'fixed',
+          top: 0,
+          background: 'neutral.800',
+          opacity: 'var(--opacity)',
+          transition: 'visibility 500ms ease, opacity 500ms ease',
+        })}
+        onClick$={() => (showNavDrawer.value = false)}
+      />
       <ul
         class={vstack({
           gap: '0',
@@ -129,7 +131,7 @@ const MobileNavbar = component$(() => {
             ? 'translateX(-100%)'
             : 'translateX(0)',
           transition: 'transform ease 250ms',
-          background: 'neutral.800',
+          background: 'background',
           top: '0',
           position: 'fixed',
           width: 'max(40vw, 266px)',
@@ -202,6 +204,9 @@ const DesktopNavbar = component$(() => {
           </Link>
         </li>
       ))}
+      <li>
+        <ThemeToggle />
+      </li>
     </ul>
   );
 });
