@@ -42,13 +42,7 @@ const Skills = component$(() => {
     }
     const skillsObserver = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry, idx) => {
-          const parent = entry.target.parentElement!;
-          console.log(
-            parent.getBoundingClientRect().height -
-              entry.target.scrollHeight * idx,
-            parent.getBoundingClientRect().top * 0.3
-          );
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
           }

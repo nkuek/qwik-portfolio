@@ -34,7 +34,7 @@ const AboutMeText = component$(() => {
         background: 'rgba(23, 23, 23, .95)',
         width: 'full',
         alignSelf: 'flex-end',
-        height: 'fit-content',
+        flexGrow: 1,
         md: {
           transition: 'opacity 750ms ease, transform 750ms ease',
           opacity: 'var(--visible)',
@@ -120,9 +120,7 @@ const AboutMe = component$(() => {
     <section
       id="about-me"
       class={css({
-        md: {
-          minH: 'dvh',
-        },
+        minH: 'dvh',
         smDown: {
           position: 'relative',
           display: 'flex',

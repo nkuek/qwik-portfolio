@@ -27,13 +27,7 @@ export const Hero = component$(() => {
         minH: 'calc(100dvh - 56px)',
         justifyContent: 'center',
         position: 'relative',
-        marginInline: 4,
-        backgroundImage: `-webkit-linear-gradient(
-                top,
-                rgba(23, 24, 32, 0.95),
-                rgba(23, 24, 32, 0.95)
-                ),
-                url('/images/overlay.png')`,
+        paddingInline: 4,
       })}
     >
       <div
