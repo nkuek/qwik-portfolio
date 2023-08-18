@@ -57,10 +57,20 @@ This creates a rather satisfying effect where it looks like a fluid is filling u
 
 Confused what's happening?
 
-Maybe this visual will help:
+Maybe this visual will help - here's a slowed down version next to the finished version:
 
 <br />
-<LiquidFillButton breakdown>Hover</LiquidFillButton>
+<div
+  style={{
+    display: 'flex',
+    width: '100%',
+    gap: '12px',
+    justifyContent: 'center',
+  }}
+>
+  <LiquidFillButton breakdown>Hover</LiquidFillButton>
+  <LiquidFillButton>Hover</LiquidFillButton>
+</div>
 <br />
 
 ```css
