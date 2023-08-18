@@ -12,8 +12,8 @@ type NavbarSection = {
 const sections: NavbarSection[] = [
   { title: 'Resume', href: '/KuekResume.pdf' },
   { title: 'Snippets', href: '/snippets' },
-  { title: 'About Me', href: '#about-me' },
-  { title: 'Portfolio', href: '#portfolio' },
+  { title: 'About Me', href: '/#about-me' },
+  { title: 'Portfolio', href: '/#portfolio' },
   { title: 'Skills', href: '#skills' },
 ];
 
