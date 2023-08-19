@@ -21,7 +21,8 @@ export const head: DocumentHead = {
   meta: [
     {
       name: 'description',
-      content: "Nick Kuek's Web Developer Portfolio",
+      content:
+        'Nick Kuek is a frontend engineer with a passion for making the web more beautiful.',
     },
     {
       name: 'og:title',
@@ -29,16 +30,18 @@ export const head: DocumentHead = {
     },
     {
       name: 'og:description',
-      content: "Nick Kuek's Web Developer Portfolio",
+      content:
+        'Nick Kuek is a frontend engineer with a passion for making the web more beautiful.',
     },
     {
       name: 'og:image',
-      content: 'https://nkuek.dev/images/profile.jpg',
+      content: 'https://nkuek.dev/images/openGraph.png',
     },
+    { name: 'og:image', content: 'NK Logo' },
     {
       name: 'og:type',
       content: 'website',
     },
   ],
-  links: [{ rel: 'canonical', href: 'https://nkuek.dev/' }],
+  links: [{ rel: 'canonical', href: 'https://www.nkuek.dev/' }],
 };
