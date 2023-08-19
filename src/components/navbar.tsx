@@ -193,6 +193,7 @@ const MobileNavbar = component$(() => {
             justifyContent: 'center',
             paddingBlock: '24px',
           })}
+          role="menuitem"
         >
           <ThemeToggle />
         </li>

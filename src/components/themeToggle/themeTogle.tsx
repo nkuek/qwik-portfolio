@@ -87,7 +87,6 @@ export const ThemeToggle = component$(() => {
               },
             },
           })}
-          id="theme-toggle"
           title="Toggles light & dark"
           aria-label={theme.value}
           aria-live="polite"

@@ -23,5 +23,22 @@ export const head: DocumentHead = {
       name: 'description',
       content: "Nick Kuek's Web Developer Portfolio",
     },
+    {
+      name: 'og:title',
+      content: 'Nick Kuek',
+    },
+    {
+      name: 'og:description',
+      content: "Nick Kuek's Web Developer Portfolio",
+    },
+    {
+      name: 'og:image',
+      content: 'https://nkuek.dev/images/profile.jpg',
+    },
+    {
+      name: 'og:type',
+      content: 'website',
+    },
   ],
+  links: [{ rel: 'canonical', href: 'https://nkuek.dev/' }],
 };
