@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "@vercel/analytics": "^1.0.2",
+    "qwik": "^1.0.57",
     "rehype-pretty-code": "^0.10.0",
     "shiki": "^0.14.3"
   }

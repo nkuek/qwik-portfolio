@@ -50,6 +50,7 @@ export const Hero = component$(() => {
           <source
             srcSet={ProfilePicWebp}
             sizes="(min-width: 787px) 576px, 288px"
+            type="image/webp"
           />
 
           <img
@@ -64,6 +65,8 @@ export const Hero = component$(() => {
             height={288}
             alt="Picture of me sitting on a wall with a sunset behind me."
             loading="eager"
+            //@ts-ignore
+            fetchPriority="high"
           />
         </picture>
       </div>
