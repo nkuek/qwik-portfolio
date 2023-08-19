@@ -25,7 +25,7 @@ export const Hero = component$(() => {
   return (
     <section
       class={vstack({
-        minH: 'calc(100vh - 56px)',
+        minH: 'calc(100dvh - 56px)',
         justifyContent: 'center',
         position: 'relative',
         paddingInline: 4,
