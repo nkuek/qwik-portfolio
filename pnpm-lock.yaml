@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@unpic/qwik':
+    specifier: ^0.0.25
+    version: 0.0.25(@builder.io/qwik@1.2.6)
   '@vercel/analytics':
     specifier: ^1.0.2
     version: 1.0.2
@@ -1498,7 +1501,6 @@ packages:
     dependencies:
       csstype: 3.1.2
       undici: 5.22.1
-    dev: true
 
   /@builder.io/vite-plugin-macro@0.0.7(@types/node@20.4.0):
     resolution: {integrity: sha512-tDdYnRtkxtZ3KRZMdUAetwEXPYQLQWIMtvbFY9klVKQII1P3IooAobByqNiHPy8W0EcLe8ZDVq2cK8z8RNtiHQ==}
@@ -3095,6 +3097,15 @@ packages:
       eslint-visitor-keys: 3.4.2
     dev: true
 
+  /@unpic/qwik@0.0.25(@builder.io/qwik@1.2.6):
+    resolution: {integrity: sha512-8YvmmOwk7dWdtAlZFiNM+z7SWHJ/M6uoleVr8y82eeu2yxPvr5n8kUgG1MdXX+re0RBtumF1vfEe4GP2UJoFMg==}
+    engines: {node: '>=15.0.0'}
+    peerDependencies:
+      '@builder.io/qwik': '*'
+    dependencies:
+      '@builder.io/qwik': 1.2.6(undici@5.22.1)
+    dev: false
+
   /@vanilla-extract/babel-plugin-debug-ids@1.0.3:
     resolution: {integrity: sha512-vm4jYu1xhSa6ofQ9AhIpR3DkAp4c+eoR1Rpm8/TQI4DmWbmGbOjYRcqV0aWsfaIlNhN4kFuxFMKBNN9oG6iRzA==}
     dependencies:
@@ -4643,7 +4654,6 @@ packages:
     engines: {node: '>=10.16.0'}
     dependencies:
       streamsearch: 1.1.0
-    dev: true
 
   /bytes@3.1.2:
     resolution: {integrity: sha512-/Nf7TyzTx6S3yRJObOAV7956r8cr2+Oj8AC5dt8wSP3BQAoeX58NoHyCU8P8zGkNXStjTSi6fzO6F0pBdcYbEg==}
@@ -5046,7 +5056,6 @@ packages:
 
   /csstype@3.1.2:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
-    dev: true
 
   /data-uri-to-buffer@3.0.1:
     resolution: {integrity: sha512-WboRycPNsVw3B3TL559F7kuBUM4d8CgMEvk6xEJlOp7OBPjt6G7z8WMWlD2rOFZLk6OYfFIUGsCOWzcQH9K2og==}
@@ -9872,7 +9881,6 @@ packages:
   /streamsearch@1.1.0:
     resolution: {integrity: sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==}
     engines: {node: '>=10.0.0'}
-    dev: true
 
   /streamx@2.15.0:
     resolution: {integrity: sha512-HcxY6ncGjjklGs1xsP1aR71INYcsXFJet5CU1CHqihQ2J5nOsbd4OjgjHO42w/4QNv9gZb3BueV+Vxok5pLEXg==}
@@ -10412,7 +10420,6 @@ packages:
     engines: {node: '>=14.0'}
     dependencies:
       busboy: 1.6.0
-    dev: true
 
   /unherit@3.0.1:
     resolution: {integrity: sha512-akOOQ/Yln8a2sgcLj4U0Jmx0R5jpIg2IUyRrWOzmEbjBtGzBdHtSeFKgoEcoH4KYIG/Pb8GQ/BwtYm0GCq1Sqg==}

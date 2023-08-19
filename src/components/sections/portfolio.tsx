@@ -6,10 +6,6 @@ import {
 } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
 import { text } from '@styles/recipes';
-import Archetyper from '~/images/archetyper.png?jsx&quality=100&imagetools';
-import SortEd from '~/images/sorted.png?jsx&quality=100&imagetools';
-import WhatsAppening from '~/images/whatsappening.png?jsx&quality=80&imagetools';
-import Discordance from '~/images/discordance.png?jsx&quality=100&imagetools';
 import { css, cx } from '@styles/css';
 import { flex } from '@styles/patterns';
 import ReactLogo from '~/images/react.svg?jsx';
@@ -20,6 +16,7 @@ import PythonLogo from '~/images/python.svg?jsx';
 import MuiLogo from '~/images/mui.svg?jsx';
 import ExpressLogo from '~/images/express.svg?jsx';
 import CSSLogo from '~/images/css.svg?jsx';
+import { Image } from '@unpic/qwik';
 
 type Technology =
   | 'React'
@@ -37,20 +34,67 @@ type Project = {
   description: string;
   liveLink?: string;
   githubLink: string;
-  key: string;
+  src: string;
+  width: number;
+  height: number;
 };
 
 type PortfolioSectionProps = {
   project: Project;
 };
 
+const projects: Project[] = [
+  {
+    title: 'archetyper',
+    technologies: ['React', 'TypeScript', 'MaterialUI'],
+    description:
+      'An aesthetic, fully-themed type tester to calculate and visualize your words per minute.',
+    liveLink: 'https://archetyper.vercel.app/',
+    githubLink: 'https://github.com/nkuek/archetyper',
+    src: 'https://res.cloudinary.com/dunbkcyqq/image/upload/v1692465807/archetyper_itxv7j.png',
+    width: 2876,
+    height: 1578,
+  },
+  {
+    title: 'SortEd',
+    technologies: ['React', 'JavaScript', 'CSS'],
+    description:
+      'An aesthetic, fully-themed type tester to calculate and visualize your words per minute.',
+    githubLink: 'https://github.com/nkuek/SortEd',
+    liveLink: 'https://sort-ed.vercel.app/',
+    src: 'https://res.cloudinary.com/dunbkcyqq/image/upload/v1692465807/sorted_xq4pik.png',
+    width: 2560,
+    height: 1440,
+  },
+  {
+    title: component$(() => (
+      <>
+        Whats
+        <wbr />
+        Appening
+      </>
+    )),
+    technologies: ['React', 'Redux', 'Express', 'MaterialUI'],
+    description:
+      'Fully functional clone of the popular messaging app, WhatsApp, built with a React/Redux frontend and an Express/Sequelize backend to create a seamless, single-page application.',
+    githubLink: 'https://github.com/nkuek/WhatsAppening',
+    src: 'https://res.cloudinary.com/dunbkcyqq/image/upload/v1692465807/whatsappening_gcaib9.png',
+    width: 1924,
+    height: 1309,
+  },
+  {
+    title: 'Discordance',
+    technologies: ['React', 'Redux', 'JavaScript', 'Python'],
+    description:
+      'A clone of the popular gaming platform, Discord built with a React/Redux frontend and Flask-SQLAlchemy backend. Features live chat within servers by utilizing web sockets, autocompleting search functionality, and ability to browse public groups by category.',
+    githubLink: 'https://github.com/nkuek/discordance',
+    src: 'https://res.cloudinary.com/dunbkcyqq/image/upload/v1692465807/discordance_oywept.png',
+    width: 1839,
+    height: 875,
+  },
+];
+
 const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
-  const imageMap = {
-    archetyper: Archetyper,
-    sorted: SortEd,
-    whatsappening: WhatsAppening,
-    discordance: Discordance,
-  };
   const logoMap: Record<Technology, typeof ReactLogo> = {
     React: ReactLogo,
     Redux: ReduxLogo,
@@ -61,7 +105,7 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
     CSS: CSSLogo,
     MaterialUI: MuiLogo,
   };
-  const Image = imageMap[project.key as keyof typeof imageMap];
+  // const Image = imageMap[project.key as keyof typeof imageMap];
   const sectionRef = useSignal<Element>();
   const visible = useSignal(false);
   useVisibleTask$(({ cleanup }) => {
@@ -99,7 +143,7 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
           position: 'relative',
         },
         md: {
-          minH: 'vh',
+          minH: '100vh',
         },
         '&:nth-child(even)': {
           alignItems: 'flex-end',
@@ -136,6 +180,12 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
           zIndex: -2,
         })}
         alt=""
+        width={project.width}
+        aspectRatio="325/206"
+        src={project.src}
+        background="auto"
+        layout="constrained"
+        breakpoints={[767, 1440]}
       />
       <div
         class={css({
@@ -262,48 +312,6 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
 });
 
 export const Portfolio = component$(() => {
-  const projects: Project[] = [
-    {
-      title: 'archetyper',
-      technologies: ['React', 'TypeScript', 'MaterialUI'],
-      description:
-        'An aesthetic, fully-themed type tester to calculate and visualize your words per minute.',
-      liveLink: 'https://archetyper.vercel.app/',
-      githubLink: 'https://github.com/nkuek/archetyper',
-      key: 'archetyper',
-    },
-    {
-      title: 'SortEd',
-      technologies: ['React', 'JavaScript', 'CSS'],
-      description:
-        'An aesthetic, fully-themed type tester to calculate and visualize your words per minute.',
-      githubLink: 'https://github.com/nkuek/SortEd',
-      liveLink: 'https://sort-ed.vercel.app/',
-      key: 'sorted',
-    },
-    {
-      title: component$(() => (
-        <>
-          Whats
-          <wbr />
-          Appening
-        </>
-      )),
-      technologies: ['React', 'Redux', 'Express', 'MaterialUI'],
-      description:
-        'Fully functional clone of the popular messaging app, WhatsApp, built with a React/Redux frontend and an Express/Sequelize backend to create a seamless, single-page application.',
-      githubLink: 'https://github.com/nkuek/WhatsAppening',
-      key: 'whatsappening',
-    },
-    {
-      title: 'Discordance',
-      technologies: ['React', 'Redux', 'JavaScript', 'Python'],
-      description:
-        'A clone of the popular gaming platform, Discord built with a React/Redux frontend and Flask-SQLAlchemy backend. Features live chat within servers by utilizing web sockets, autocompleting search functionality, and ability to browse public groups by category.',
-      githubLink: 'https://github.com/nkuek/discordance',
-      key: 'discordance',
-    },
-  ];
   return (
     <div id="portfolio">
       {projects.map((project, idx) => (

@@ -1,7 +1,7 @@
 import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import { css } from '@styles/css';
 import { text } from '@styles/recipes';
-import Overlook from '~/images/overlook.jpeg?jsx&quality=80&imagetools';
+import { Image } from '@unpic/qwik';
 
 const AboutMeText = component$(() => {
   const textContainerRef = useSignal<Element>();
@@ -121,7 +121,7 @@ const AboutMe = component$(() => {
     <section
       id="about-me"
       class={css({
-        minH: 'vh',
+        minH: '100vh',
         smDown: {
           position: 'relative',
           display: 'flex',
@@ -141,7 +141,7 @@ const AboutMe = component$(() => {
         },
       })}
     >
-      <Overlook
+      <Image
         alt="Me overlooking a sunset"
         class={css({
           zIndex: -2,
@@ -153,6 +153,11 @@ const AboutMe = component$(() => {
             width: 'full',
           },
         })}
+        src="https://res.cloudinary.com/dunbkcyqq/image/upload/v1692465808/overlook_zindcs.jpg"
+        width={1440}
+        height={720}
+        layout="contrained"
+        background="auto"
       />
       <AboutMeText />
     </section>

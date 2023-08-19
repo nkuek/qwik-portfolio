@@ -1,11 +1,10 @@
 import { $, component$, useOnWindow, useSignal } from '@builder.io/qwik';
 import { circle, vstack } from '@styles/patterns';
-import ProfilePicWebp from '~/images/profile.jpg?w=288;576&format=webp&as=srcset&imagetools';
-import ProfilePicFallback from '~/images/profile.jpg?w=288;576&as=srcset&imagetools';
 import ChevronDown from '~/images/chevronDown.svg?jsx';
 import { css } from '@styles/css';
 import { Link } from '@builder.io/qwik-city';
 import RoleTyper from '~/components/roleTyper';
+import { Image } from '@unpic/qwik';
 
 export const Hero = component$(() => {
   const hasScrolled = useSignal(false);
@@ -46,29 +45,21 @@ export const Hero = component$(() => {
         })}
       >
         <RoleTyper />
-        <picture>
-          <source
-            srcSet={ProfilePicWebp}
-            sizes="(min-width: 787px) 576px, 288px"
-            type="image/webp"
-          />
 
-          <img
-            srcSet={ProfilePicFallback}
-            class={circle({
-              size: '288px',
-              aspectRatio: 1,
-              objectFit: 'cover',
-            })}
-            sizes="(min-width: 787px) 576px, 288px"
-            width={288}
-            height={288}
-            alt="Picture of me sitting on a wall with a sunset behind me."
-            loading="eager"
-            //@ts-ignore
-            fetchPriority="high"
-          />
-        </picture>
+        <Image
+          src="https://res.cloudinary.com/dunbkcyqq/image/upload/ar_1.0,c_fill,q_90/r_max/v1691183194/profile_uzs6ye.jpg"
+          class={circle({
+            size: '288px',
+            aspectRatio: 1,
+            objectFit: 'cover',
+          })}
+          width={288}
+          height={288}
+          background="auto"
+          alt="Picture of me sitting on a wall with a sunset behind me."
+          loading="eager"
+          fetchPriority="high"
+        />
       </div>
       <Link
         href="#about-me"

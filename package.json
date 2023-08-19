@@ -41,6 +41,7 @@
     "vite-tsconfig-paths": "4.2.0"
   },
   "dependencies": {
+    "@unpic/qwik": "^0.0.25",
     "@vercel/analytics": "^1.0.2",
     "qwik": "^1.0.57",
     "rehype-pretty-code": "^0.10.0",
