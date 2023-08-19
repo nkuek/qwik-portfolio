@@ -51,22 +51,39 @@ export const ThemeToggle = component$(() => {
 
   return (
     <>
-      <span class={css({ display: 'block' })}>
+      <div
+        class={css({
+          display: 'block',
+          position: 'relative',
+          marginInline: '17.5px',
+        })}
+        style={{
+          '--track-color': theme.value === 'light' ? '#065f46' : '#fafaf9',
+        }}
+      >
         <button
           type="button"
+          role="switch"
+          aria-checked={theme.value === 'light'}
           class={css({
             display: 'block',
             aspectRatio: 1,
             borderRadius: '50%',
-            outlineOffset: '5px',
-            _hover: {
-              '& svg': {
-                '& > circle': {
-                  fill: 'teal.600',
-                },
-                '& > g': {
-                  stroke: 'teal.600',
-                },
+            _before: {
+              content: '""',
+              position: 'absolute',
+              inset: 0,
+              width: '250%',
+              height: '135%',
+              transform: 'translate(-25%, -12.5%)',
+              background: 'var(--track-color)',
+              borderRadius: '2xl',
+            },
+            _focus: {
+              outline: 'none',
+              _before: {
+                outlineOffset: '5px',
+                outline: '5px auto -webkit-focus-ring-color',
               },
             },
           })}
@@ -78,7 +95,7 @@ export const ThemeToggle = component$(() => {
         >
           <SunAndMoon />
         </button>
-      </span>
+      </div>
     </>
   );
 });

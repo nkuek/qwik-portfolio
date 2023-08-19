@@ -4,6 +4,8 @@
   --ease-elastic-4: cubic-bezier(0.5, 1.5, 0.75, 1.25);
   --ease-out-5: cubic-bezier(0, 0, 0, 1);
   --ease-3: cubic-bezier(0.25, 0, 0.3, 1);
+  transform: translateX(50%);
+  transition: transform 500ms ease;
 }
 
 .sun-and-moon > :is(.moon, .sun, .sun-beams) {
@@ -12,6 +14,10 @@
 
 .sun-and-moon > .sun-beams {
   stroke-width: 2px;
+}
+
+[data-theme='dark'] .sun-and-moon {
+  transform: translateX(-50%);
 }
 
 [data-theme='dark'] .sun-and-moon > .sun {

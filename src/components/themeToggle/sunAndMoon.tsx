@@ -1,9 +1,10 @@
-import { component$, useStyles$ } from '@builder.io/qwik';
+import { component$, useId, useStyles$ } from '@builder.io/qwik';
 import sunAndMoonStyles from './sun-and-moon.css?inline';
 import { css, cx } from '@styles/css';
 
 export const SunAndMoon = component$(() => {
   useStyles$(sunAndMoonStyles);
+  const id = useId();
   return (
     <svg
       class="sun-and-moon"
@@ -13,18 +14,18 @@ export const SunAndMoon = component$(() => {
       viewBox="0 0 24 24"
       stroke-linecap="round"
     >
-      <mask class={cx('moon', css({ fill: 'text' }))} id="moon-mask">
+      <mask class={cx('moon', css({ fill: 'background' }))} id={id}>
         <rect x="0" y="0" width="100%" height="100%" fill="white" />
         <circle cx="24" cy="10" r="6" fill="black" />
       </mask>
       <circle
-        class={cx(css({ fill: 'text' }), 'sun')}
+        class={cx(css({ fill: 'background' }), 'sun')}
         cx="12"
         cy="12"
         r="6"
-        mask="url(#moon-mask)"
+        mask={`url(#${id})`}
       />
-      <g class={cx(css({ stroke: 'text' }), 'sun-beams')}>
+      <g class={cx(css({ stroke: 'background' }), 'sun-beams')}>
         <line x1="12" y1="1" x2="12" y2="3" />
         <line x1="12" y1="21" x2="12" y2="23" />
         <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />

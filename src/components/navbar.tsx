@@ -39,11 +39,16 @@ export const Navbar = component$(() => {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
+          '& a': {
+            outlineOffset: '5px',
+          },
         })}
       >
-        <Link href="/" class={css({ padding: '16px 24px' })} aria-label="Home">
-          <Logo />
-        </Link>
+        <div class={css({ padding: '16px 24px' })}>
+          <Link href="/" aria-label="Home">
+            <Logo />
+          </Link>
+        </div>
         <MobileNavbar />
         <DesktopNavbar />
       </nav>
@@ -181,6 +186,16 @@ const MobileNavbar = component$(() => {
             </Link>
           </li>
         ))}
+        <li
+          class={css({
+            display: 'flex',
+            w: 'full',
+            justifyContent: 'center',
+            paddingBlock: '24px',
+          })}
+        >
+          <ThemeToggle />
+        </li>
       </ul>
     </>
   );
@@ -192,7 +207,8 @@ const DesktopNavbar = component$(() => {
       class={hstack({
         gap: 6,
         justifyContent: 'flex-end',
-        px: 6,
+        paddingInline: 6,
+        paddingBlock: '16px',
         fontSize: 16,
         hideBelow: 'sm',
       })}
@@ -204,7 +220,6 @@ const DesktopNavbar = component$(() => {
             class={cx(
               css({
                 h: 'full',
-                py: '16px',
                 '&:hover': { color: 'teal.600' },
               }),
               text({ size: 'body' })
