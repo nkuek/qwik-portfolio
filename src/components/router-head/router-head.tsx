@@ -31,6 +31,7 @@ export const RouterHead = component$(() => {
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"
       />
+      <link rel="preload" as="image" href="images/overlay.png" />
       {head.meta.map((m) => (
         <meta key={m.key} {...m} />
       ))}

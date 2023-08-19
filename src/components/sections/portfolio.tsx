@@ -99,7 +99,7 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
           position: 'relative',
         },
         md: {
-          minH: 'dvh',
+          minH: 'vh',
         },
         '&:nth-child(even)': {
           alignItems: 'flex-end',

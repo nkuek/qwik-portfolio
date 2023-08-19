@@ -1,6 +1,7 @@
 import { $, component$, useOnWindow, useSignal } from '@builder.io/qwik';
 import { circle, vstack } from '@styles/patterns';
-import ProfilePic from '~/images/profile.jpg?jsx&w=288px&h=288px&quality=100&imagetools';
+import ProfilePicWebp from '~/images/profile.jpg?w=288;576&format=webp&as=srcset&imagetools';
+import ProfilePicFallback from '~/images/profile.jpg?w=288;576&as=srcset&imagetools';
 import ChevronDown from '~/images/chevronDown.svg?jsx';
 import { css } from '@styles/css';
 import { Link } from '@builder.io/qwik-city';
@@ -24,7 +25,7 @@ export const Hero = component$(() => {
   return (
     <section
       class={vstack({
-        minH: 'calc(100dvh - 56px)',
+        minH: 'calc(100vh - 56px)',
         justifyContent: 'center',
         position: 'relative',
         paddingInline: 4,
@@ -45,14 +46,26 @@ export const Hero = component$(() => {
         })}
       >
         <RoleTyper />
-        <ProfilePic
-          class={circle({
-            size: '288px',
-            aspectRatio: 1,
-            objectFit: 'cover',
-          })}
-          alt="Picture of me sitting on a wall with a sunset behind me."
-        />
+        <picture>
+          <source
+            srcSet={ProfilePicWebp}
+            sizes="(min-width: 787px) 576px, 288px"
+          />
+
+          <img
+            srcSet={ProfilePicFallback}
+            class={circle({
+              size: '288px',
+              aspectRatio: 1,
+              objectFit: 'cover',
+            })}
+            sizes="(min-width: 787px) 576px, 288px"
+            width={288}
+            height={288}
+            alt="Picture of me sitting on a wall with a sunset behind me."
+            loading="eager"
+          />
+        </picture>
       </div>
       <Link
         href="#about-me"

@@ -135,7 +135,7 @@ const MobileNavbar = component$(() => {
       <ul
         class={vstack({
           gap: '0',
-          height: '100dvh',
+          height: '100vh',
           transform: !showNavDrawer.value
             ? 'translateX(-100%)'
             : 'translateX(0)',

@@ -121,7 +121,7 @@ const AboutMe = component$(() => {
     <section
       id="about-me"
       class={css({
-        minH: 'dvh',
+        minH: 'vh',
         smDown: {
           position: 'relative',
           display: 'flex',
