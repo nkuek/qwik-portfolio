@@ -13,6 +13,7 @@ import {
 } from '@builder.io/qwik-city';
 import { css } from '@styles/css';
 import { RouterHead } from './components/router-head/router-head';
+import { inject } from '@vercel/analytics';
 
 import './global.css';
 import {
@@ -33,6 +34,7 @@ export default component$(() => {
    */
   const theme = useSignal<ThemePreference>();
   useVisibleTask$(() => {
+    inject();
     theme.value = getColorPreference();
     return colorSchemeChangeListener((isDark) => {
       theme.value = isDark ? 'dark' : 'light';
