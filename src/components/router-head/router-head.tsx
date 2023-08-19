@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useServerData } from '@builder.io/qwik';
 import { useDocumentHead, useLocation } from '@builder.io/qwik-city';
 import { ThemeScript } from '~/components/router-head/theme-script';
 
@@ -8,6 +8,7 @@ import { ThemeScript } from '~/components/router-head/theme-script';
 export const RouterHead = component$(() => {
   const head = useDocumentHead();
   const loc = useLocation();
+  const nonce = useServerData<string | undefined>('nonce');
 
   return (
     <>
@@ -27,10 +28,6 @@ export const RouterHead = component$(() => {
         href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Poppins:wght@100;300;400&family=Source+Code+Pro&display=swap"
         rel="stylesheet"
       />
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"
-      />
       <link rel="preload" as="image" href="images/overlay.png" />
       {head.meta.map((m) => (
         <meta key={m.key} {...m} />
@@ -43,7 +40,7 @@ export const RouterHead = component$(() => {
       {head.styles.map((s) => (
         <style key={s.key} {...s.props} dangerouslySetInnerHTML={s.style} />
       ))}
-      <ThemeScript />
+      <ThemeScript nonce={nonce} />
     </>
   );
 });

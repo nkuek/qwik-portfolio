@@ -5,6 +5,7 @@ import {
   useContextProvider,
   useSignal,
   useVisibleTask$,
+  useServerData,
 } from '@builder.io/qwik';
 import {
   QwikCityProvider,
@@ -43,6 +44,7 @@ export default component$(() => {
   });
   useContextProvider(ThemeContext, theme);
 
+  const nonce = useServerData<string | undefined>('none');
   return (
     <QwikCityProvider>
       <head>
@@ -63,7 +65,7 @@ export default component$(() => {
         })}
       >
         <RouterOutlet />
-        <ServiceWorkerRegister />
+        <ServiceWorkerRegister nonce={nonce} />
       </body>
     </QwikCityProvider>
   );

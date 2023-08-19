@@ -1,11 +1,11 @@
 export const themeStorageKey = 'theme-preference';
 
-export const ThemeScript = () => {
+export const ThemeScript = ({ nonce }: { nonce?: string }) => {
   const themeScript = `
         document.firstElementChild
             .setAttribute('data-theme',
                 localStorage.getItem('${themeStorageKey}') ??
                 (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
             )`;
-  return <script dangerouslySetInnerHTML={themeScript} />;
+  return <script nonce={nonce} dangerouslySetInnerHTML={themeScript} />;
 };
