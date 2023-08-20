@@ -34,8 +34,8 @@ const AboutMeText = component$(() => {
         background: 'rgba(23, 23, 23, .95)',
         width: 'full',
         alignSelf: 'flex-end',
-        flexGrow: 1,
         md: {
+          flexGrow: 1,
           transition: 'opacity 750ms ease, transform 750ms ease',
           opacity: 'var(--visible)',
           transform: 'translateY(var(--translate))',
@@ -58,7 +58,10 @@ const AboutMeText = component$(() => {
             base: 4,
             md: 10,
           },
-          padding: '104px 0',
+          padding: {
+            base: '48px 0 64px',
+            md: '104px 0',
+          },
           paddingInline: {
             base: '16px',
             sm: '32px',
