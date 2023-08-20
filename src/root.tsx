@@ -44,7 +44,8 @@ export default component$(() => {
   });
   useContextProvider(ThemeContext, theme);
 
-  const nonce = useServerData<string | undefined>('none');
+  const nonce = useServerData<string | undefined>('nonce');
+
   return (
     <QwikCityProvider>
       <head>
