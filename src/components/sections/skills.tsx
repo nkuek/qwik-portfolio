@@ -1,9 +1,4 @@
-import {
-  component$,
-  useSignal,
-  useStylesScoped$,
-  useVisibleTask$,
-} from '@builder.io/qwik';
+import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import { css, cx } from '@styles/css';
 import { text } from '@styles/recipes';
 import GSAPLogo from '~/images/gsap.png?jsx';
@@ -44,7 +39,8 @@ const Skills = component$(() => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
+            const target = entry.target as HTMLSpanElement;
+            target.style.setProperty('--opacity', '1');
           }
         });
       },
@@ -63,7 +59,7 @@ const Skills = component$(() => {
             const el = entries[0].target.children[i] as HTMLElement;
 
             el.style.setProperty('--delay', `${i * 75}ms`);
-            el.classList.add('animate');
+            el.style.setProperty('--scale', '1');
           }
         }
       },
@@ -76,17 +72,6 @@ const Skills = component$(() => {
       iconContainerObserver.disconnect();
     });
   });
-
-  useStylesScoped$(`
-  .visible {
-    opacity: 1
-  }
-
-  .animate {
-    transition: transform 500ms ease var(--delay);
-    transform: scale(1)
-  }
-  `);
 
   return (
     <section
@@ -134,7 +119,10 @@ const Skills = component$(() => {
             <span
               id="skill"
               class={cx(
-                css({ fontSize: 'clamp(3rem, 7vw, 7rem)', opacity: 0.25 }),
+                css({
+                  fontSize: 'clamp(3rem, 7vw, 7rem)',
+                  opacity: 'var(--opacity, .25)',
+                }),
                 'skill'
               )}
               key={skill.name}
@@ -171,7 +159,11 @@ const Skills = component$(() => {
             aspectRatio: 1,
             width: 'full',
             height: 'full',
-            transform: 'scale(.75)',
+            transitionProperty: 'transform',
+            transitionDelay: 'var(--delay)',
+            transitionTimingFunction: 'ease',
+            transitionDuration: '500ms',
+            transform: 'scale(var(--scale, .75))',
           });
 
           return <skill.logo key={idx} class={sharedCSS} alt={skill.name} />;
