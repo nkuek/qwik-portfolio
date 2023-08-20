@@ -28,7 +28,7 @@ export const RouterHead = component$(() => {
         href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Poppins:wght@100;300;400&family=Source+Code+Pro&display=swap"
         rel="stylesheet"
       />
-      <link rel="preload" as="image" href="images/overlay.png" />
+      <link rel="preload" as="image" href="/images/overlay.png" />
       {head.meta.map((m) => (
         <meta key={m.key} {...m} />
       ))}

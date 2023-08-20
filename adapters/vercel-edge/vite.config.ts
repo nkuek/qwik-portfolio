@@ -1,6 +1,7 @@
 import { vercelEdgeAdapter } from "@builder.io/qwik-city/adapters/vercel-edge/vite";
 import { extendConfig } from "@builder.io/qwik-city/vite";
 import baseConfig from "../../vite.config";
+import { builtinModules } from "module";
 
 export default extendConfig(baseConfig, () => {
   return {
@@ -8,6 +9,7 @@ export default extendConfig(baseConfig, () => {
       ssr: true,
       rollupOptions: {
         input: ["src/entry.vercel-edge.tsx", "@qwik-city-plan"],
+        external: builtinModules
       },
       outDir: ".vercel/output/functions/_qwik-city.func",
     },
