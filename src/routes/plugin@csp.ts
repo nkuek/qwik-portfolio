@@ -13,7 +13,7 @@ export const onRequest: RequestHandler = (event) => {
     `img-src 'self' https://res.cloudinary.com/dunbkcyqq/ data:`,
     `script-src 'self' 'unsafe-inline' https: 'nonce-${nonce}' 'strict-dynamic'`,
     `style-src 'self' https://fonts.googleapis.com https://cdn.jsdelivr.net 'unsafe-inline'`,
-    `connect-src 'self' https://vitals.vercel-insights.com`,
+    `connect-src 'self' https://vitals.vercel-insights.com https://vitals.vercel-analytics.com/v1/vitals`,
     `script-src-attr 'none'`,
     `frame-src 'self' 'nonce-${nonce}'`,
     `object-src 'none'`,

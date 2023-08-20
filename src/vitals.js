@@ -18,7 +18,7 @@ function getConnectionSpeed() {
 function sendToAnalytics(metric, options) {
   const page = Object.entries(options.params).reduce(
     (acc, [key, value]) => acc.replace(value, `[${key}]`),
-    options.path
+    options.pathname
   );
 
   const body = {
@@ -50,8 +50,13 @@ function sendToAnalytics(metric, options) {
     });
 }
 
-export function webVitals(options) {
+/**
+ *
+ * @param {{analyticsId: string, pathname: string, params: Record<string, string>}} options
+ */
+export const getVitals = (options) => {
   try {
+    console.log(`[Web Vitals] for page ${options.pathname}`);
     onFID((metric) => sendToAnalytics(metric, options));
     onTTFB((metric) => sendToAnalytics(metric, options));
     onLCP((metric) => sendToAnalytics(metric, options));
@@ -60,4 +65,4 @@ export function webVitals(options) {
   } catch (err) {
     console.error('[Analytics]', err);
   }
-}
+};

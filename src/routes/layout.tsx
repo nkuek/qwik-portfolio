@@ -1,7 +1,9 @@
-import { component$, Slot } from '@builder.io/qwik';
+import { component$, Slot, useVisibleTask$ } from '@builder.io/qwik';
 import type { RequestHandler } from '@builder.io/qwik-city';
 import { css } from '@styles/css';
 import { Navbar } from '~/components/navbar';
+import { getVitals } from '~/vitals';
+import { useLocation } from '@builder.io/qwik-city';
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
   // Control caching for this request for best performance and to reduce hosting costs:
@@ -14,7 +16,19 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
   });
 };
 
+const analyticsId = import.meta.env.VERCEL_ANALYTICS_ID ?? 'test';
+
 export default component$(() => {
+  const location = useLocation();
+
+  useVisibleTask$(({ track }) => {
+    track(() => location.url.pathname);
+    getVitals({
+      pathname: location.url.pathname,
+      analyticsId,
+      params: location.params,
+    });
+  });
   return (
     <>
       <Navbar />

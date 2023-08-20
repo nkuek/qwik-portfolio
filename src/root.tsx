@@ -35,13 +35,17 @@ export default component$(() => {
    */
   const theme = useSignal<ThemePreference>();
   useVisibleTask$(() => {
-    inject();
     theme.value = getColorPreference();
     return colorSchemeChangeListener((isDark) => {
       theme.value = isDark ? 'dark' : 'light';
       setPreference(theme.value);
     });
   });
+
+  useVisibleTask$(() => {
+    inject();
+  });
+
   useContextProvider(ThemeContext, theme);
 
   const nonce = useServerData<string | undefined>('nonce');
