@@ -3,13 +3,10 @@ lockfileVersion: '6.0'
 dependencies:
   '@unpic/qwik':
     specifier: ^0.0.25
-    version: 0.0.25(@builder.io/qwik@1.2.6)
+    version: 0.0.25(@builder.io/qwik@1.2.7)
   '@vercel/analytics':
     specifier: ^1.0.2
     version: 1.0.2
-  qwik:
-    specifier: ^1.0.57
-    version: 1.0.57
   rehype-pretty-code:
     specifier: ^0.10.0
     version: 0.10.0(shiki@0.14.3)
@@ -22,8 +19,8 @@ dependencies:
 
 devDependencies:
   '@builder.io/qwik':
-    specifier: ^1.2.6
-    version: 1.2.6(undici@5.22.1)
+    specifier: ^1.2.7
+    version: 1.2.7(undici@5.22.1)
   '@builder.io/qwik-city':
     specifier: ^1.2.7
     version: 1.2.7
@@ -1170,7 +1167,7 @@ packages:
       '@babel/helper-module-imports': 7.22.5
       '@babel/helper-plugin-utils': 7.22.5
       '@babel/plugin-syntax-jsx': 7.22.5(@babel/core@7.22.9)
-      '@babel/types': 7.22.5
+      '@babel/types': 7.22.10
     dev: true
 
   /@babel/plugin-transform-regenerator@7.22.10(@babel/core@7.22.9):
@@ -1495,8 +1492,8 @@ packages:
       - supports-color
     dev: true
 
-  /@builder.io/qwik@1.2.6(undici@5.22.1):
-    resolution: {integrity: sha512-Cm1sLAimML55I5T1RI80R1lLgI4cnSeQt5obQtcMKa8wMmf2/luEyQaEkeN2fV3sp/gaVXCfAuKaddXK6ONdww==}
+  /@builder.io/qwik@1.2.7(undici@5.22.1):
+    resolution: {integrity: sha512-jTaJ/LaifUD7UvvSg1JGSySiUl/RxQaul/QrXVr+jbky+hpa6jk0HHQ9Hv21MptAqwU+EPKL81Wqfws4CsHkaQ==}
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
     hasBin: true
     peerDependencies:
@@ -3104,13 +3101,13 @@ packages:
       eslint-visitor-keys: 3.4.2
     dev: true
 
-  /@unpic/qwik@0.0.25(@builder.io/qwik@1.2.6):
+  /@unpic/qwik@0.0.25(@builder.io/qwik@1.2.7):
     resolution: {integrity: sha512-8YvmmOwk7dWdtAlZFiNM+z7SWHJ/M6uoleVr8y82eeu2yxPvr5n8kUgG1MdXX+re0RBtumF1vfEe4GP2UJoFMg==}
     engines: {node: '>=15.0.0'}
     peerDependencies:
       '@builder.io/qwik': '*'
     dependencies:
-      '@builder.io/qwik': 1.2.6(undici@5.22.1)
+      '@builder.io/qwik': 1.2.7(undici@5.22.1)
     dev: false
 
   /@vanilla-extract/babel-plugin-debug-ids@1.0.3:
@@ -9158,10 +9155,6 @@ packages:
     resolution: {integrity: sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==}
     engines: {node: '>=10'}
     dev: true
-
-  /qwik@1.0.57:
-    resolution: {integrity: sha512-ZquaQgRx7MlmdILKZ7ifXcwiHGpuY7Fza+i/moG+8eSgK+/FeqXnu2dMjKCD/3tByhzwy7kh2LZF2s+9MKMUBg==}
-    dev: false
 
   /range-parser@1.2.1:
     resolution: {integrity: sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==}
