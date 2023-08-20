@@ -34,8 +34,8 @@ const AboutMeText = component$(() => {
         background: 'rgba(23, 23, 23, .95)',
         width: 'full',
         alignSelf: 'flex-end',
+        flexGrow: 1,
         md: {
-          flexGrow: 1,
           transition: 'opacity 750ms ease, transform 750ms ease',
           opacity: 'var(--visible)',
           transform: 'translateY(var(--translate))',
@@ -157,10 +157,12 @@ const AboutMe = component$(() => {
           },
         })}
         src="https://res.cloudinary.com/dunbkcyqq/image/upload/v1692465808/overlook_zindcs.jpg"
+        sizes="(min-width:768px) 1440w, 768w"
         width={1440}
-        height={720}
+        aspectRatio="16/9"
         layout="contrained"
         background="auto"
+        breakpoints={[767, 1440]}
       />
       <AboutMeText />
     </section>
