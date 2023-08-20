@@ -137,15 +137,19 @@ const Skills = component$(() => {
         class={css({
           display: 'grid',
           paddingBlock: {
-            base: '48px',
+            base: '104px',
             md: '300px',
           },
-          gridTemplateColumns: {
-            base: 'repeat(2, 1fr)',
-            sm: 'repeat(3, 1fr)',
-            md: 'repeat(4, 1fr)',
+          paddingInline: {
+            base: '16px',
+            md: '32px',
+            lg: '64px',
           },
-          paddingInline: '16px',
+          gridTemplateColumns: {
+            base: 'repeat(2, auto)',
+            sm: 'repeat(3, auto)',
+            md: 'repeat(4, auto)',
+          },
           gap: '3vmax',
           justifyContent: 'center',
           placeItems: 'center',
@@ -155,18 +159,23 @@ const Skills = component$(() => {
         })}
       >
         {skills.map((skill, idx) => {
-          const sharedCSS = css({
-            aspectRatio: 1,
-            width: 'full',
-            height: 'full',
-            transitionProperty: 'transform',
-            transitionDelay: 'var(--delay)',
-            transitionTimingFunction: 'ease',
-            transitionDuration: '500ms',
-            transform: 'scale(var(--scale, .75))',
-          });
-
-          return <skill.logo key={idx} class={sharedCSS} alt={skill.name} />;
+          return (
+            <skill.logo
+              key={idx}
+              class={css({
+                aspectRatio: 1,
+                width: 'full',
+                height: 'full',
+                transitionProperty: 'transform',
+                transitionDelay: 'var(--delay)',
+                transitionTimingFunction: 'ease',
+                transitionDuration: '500ms',
+                transform: 'scale(var(--scale, .75))',
+                maxWidth: '200px',
+              })}
+              alt={skill.name}
+            />
+          );
         })}
       </div>
     </section>

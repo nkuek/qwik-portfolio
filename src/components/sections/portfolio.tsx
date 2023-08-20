@@ -190,21 +190,18 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
       <div
         class={css({
           background: 'rgba(23, 23, 23, .95)',
-          padding: '32px 16px 64px',
           color: 'stone.50',
-          sm: {
-            padding: '48px 32px 64px',
-          },
           md: {
             width: 'max(35%, 400px)',
             maxWidth: '660px',
-            padding: '80px 32px',
             height: '100vh',
             transition: 'transform 750ms ease, opacity 750ms ease',
             opacity: 'var(--opacity)',
           },
-          lg: {
-            padding: '120px 60px',
+          padding: {
+            base: '48px 16px 64px',
+            md: '80px 32px',
+            lg: '120px 48px',
           },
         })}
       >
