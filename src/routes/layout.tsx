@@ -16,7 +16,7 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
   });
 };
 
-const analyticsId = import.meta.env.VERCEL_ANALYTICS_ID ?? 'test';
+const analyticsId = import.meta.env.VITE_VERCEL_ANALYTICS_ID;
 
 export default component$(() => {
   const location = useLocation();
