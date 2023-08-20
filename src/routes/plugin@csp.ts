@@ -1,3 +1,6 @@
+// the plugin@name paradigm is used to create middleware
+// in this case, we want to attach the CSP to every request in the app.
+
 import type { RequestHandler } from '@builder.io/qwik-city';
 import { isDev } from '@builder.io/qwik/build';
 
