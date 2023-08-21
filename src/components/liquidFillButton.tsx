@@ -47,7 +47,7 @@ export const LiquidFillButton = component$<LiquidFillButtonProps>(
             background: 'teal.600',
           },
           _hover: {
-            color: 'text',
+            color: darkBackground ? 'stone.50' : 'text',
             _before: {
               transform: 'translateX(0) rotate(-180deg)',
             },

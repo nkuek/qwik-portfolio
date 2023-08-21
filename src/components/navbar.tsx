@@ -14,7 +14,7 @@ const sections: NavbarSection[] = [
   { title: 'Resume', href: '/KuekResume.pdf' },
   { title: 'About Me', href: '/#about-me' },
   { title: 'Portfolio', href: '/#portfolio' },
-  { title: 'Skills', href: '#skills' },
+  { title: 'Skills', href: '/#skills' },
   { title: 'Snippets', href: '/snippets' },
 ];
 

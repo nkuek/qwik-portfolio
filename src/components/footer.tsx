@@ -81,7 +81,7 @@ export default component$(() => {
           <LinkedInLogo />
         </FooterLinkItem>
         <FooterLinkItem
-          href="mailto:nkuek1@gmail.com"
+          href="mailto:contact@nkuek.dev"
           aria-label="Email"
           title="Email"
         >
