@@ -19,9 +19,7 @@ export default component$(() => {
       slug: 'liquid-fill-button',
       title: 'Liquid Fill Button',
       caption: 'Transforming static confines into a fluid dreamscape',
-      preview: component$(() => (
-        <LiquidFillButton darkBackground>Hover</LiquidFillButton>
-      )),
+      preview: component$(() => <LiquidFillButton>Hover</LiquidFillButton>),
     },
   ];
   return (
