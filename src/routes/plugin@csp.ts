@@ -7,11 +7,11 @@ import { isDev } from '@builder.io/qwik/build';
 export const onRequest: RequestHandler = (event) => {
   if (isDev) return; // Will not return CSP headers in dev mode
   const nonce = Date.now().toString(36); // Your custom nonce logic here
-  event.sharedMap.set('@nonce', nonce);
+  event.sharedMap.set('nonce', nonce);
   const csp = [
     `font-src 'self' https://fonts.gstatic.com`,
     `img-src 'self' https://res.cloudinary.com/dunbkcyqq/ data:`,
-    `script-src 'self' 'unsafe-inline' https: 'nonce-${nonce}' 'strict-dynamic'`,
+    `script-src 'self' 'unsafe-inline' 'nonce-${nonce}'`,
     `style-src 'self' https://fonts.googleapis.com https://cdn.jsdelivr.net 'unsafe-inline'`,
     `connect-src 'self' https://vitals.vercel-insights.com https://vitals.vercel-analytics.com/v1/vitals`,
     `script-src-attr 'none'`,
