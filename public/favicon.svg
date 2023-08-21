@@ -1,16 +1,16 @@
 <svg width="44" height="38" viewBox="0 0 44 38" fill="none" xmlns="http://www.w3.org/2000/svg">
 <style>
     path {
-      fill: black;
+      fill: #171717;
     }
     @media (prefers-color-scheme: dark) {
       path {
-        fill: white;
+        fill: #FAFAF9;
       }
     }
   </style>
-<path d="M25 31H21.36L6.72 8.8V31H3.08V3.08H6.72L21.36 25.24V3.08H25V31Z" fill="black"/>
-<path d="M36.2 31L24.72 18.28V31H21.08V3.12H24.72V16.04L36.24 3.12H40.84L28.2 17.08L40.96 31H36.2Z" fill="black"/>
+<path d="M25 31H21.36L6.72 8.8V31H3.08V3.08H6.72L21.36 25.24V3.08H25V31Z" fill="#171717"/>
+<path d="M36.2 31L24.72 18.28V31H21.08V3.12H24.72V16.04L36.24 3.12H40.84L28.2 17.08L40.96 31H36.2Z" fill="#171717"/>
 <path d="M5 35.099L13.9688 35.0743" stroke="#FAFF1A" stroke-width="5" stroke-linecap="round"/>
 <path d="M13.9686 35.0945L22.9374 35.0698" stroke="#6DD3CE" stroke-width="5" stroke-linecap="round"/>
 <path d="M22.9374 35.0904L31.9061 35.0656" stroke="#3A0CA3" stroke-width="5" stroke-linecap="round"/>

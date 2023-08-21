@@ -109,10 +109,10 @@ const AboutMeText = component$(() => {
         </p>
         <p class={text({ size: 'body' })}>
           By channeling the work ethic and interpersonal skills I gained as an
-          EMT, I have developed a passion for frontend development, which you
-          will see in the projects I've listed below. Outside of software
-          engineering and medicine, I enjoy hiking, guitar, and building custom
-          mechanical keyboards.
+          EMT, I developed a passion for making the web a little more beautiful,
+          which you will see in the projects I've listed below. Outside of
+          software engineering and medicine, I enjoy hiking, guitar, and
+          building custom mechanical keyboards.
         </p>
       </div>
     </div>

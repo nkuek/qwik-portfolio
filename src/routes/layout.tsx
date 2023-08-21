@@ -4,6 +4,7 @@ import { css } from '@styles/css';
 import { Navbar } from '~/components/navbar';
 import { getVitals } from '~/vitals';
 import { useLocation } from '@builder.io/qwik-city';
+import Footer from '~/components/footer';
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
   // Control caching for this request for best performance and to reduce hosting costs:
@@ -35,6 +36,7 @@ export default component$(() => {
       <div class={css({ position: 'relative', top: '70px' })}>
         <Slot />
       </div>
+      <Footer />
     </>
   );
 });
