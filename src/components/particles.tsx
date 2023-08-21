@@ -48,7 +48,6 @@ const ParticlesAnimation = component$(() => {
     let prevCanvasHeight: number;
     let prevCanvasWidth: number;
     let isCreated = false;
-    console.log('running');
 
     function updateCanvasSize() {
       if (!canvas) {
