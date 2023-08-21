@@ -41,7 +41,6 @@ const Skills = component$(() => {
       ) as HTMLCollectionOf<HTMLSpanElement>;
       for (const el of skillElements) {
         const elementId = parseInt(el.getAttribute('data-id') ?? '');
-        console.log(elementId, minId, maxId);
 
         if (minId && elementId >= minId && maxId && elementId <= maxId) {
           el.style.setProperty('--opacity', '1');
@@ -202,6 +201,7 @@ const Skills = component$(() => {
               })}
               target="_blank"
               rel="noopener"
+              aria-label={skill.name}
             >
               <skill.logo
                 class={css({

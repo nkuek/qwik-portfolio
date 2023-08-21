@@ -228,6 +228,7 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
                   target="_blank"
                   rel="noopener"
                   class={css({})}
+                  aria-label={technology}
                 >
                   <technologyInfo.logo
                     alt={technology}
