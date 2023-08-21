@@ -29,7 +29,7 @@ export const LiquidFillButton = component$<LiquidFillButtonProps>(
           zIndex: 1,
           fontSize: '2em',
           overflow: breakdown ? 'initial' : 'hidden',
-          color: darkBackground ? 'invertedText' : 'text',
+          color: darkBackground ? 'stone.50' : 'text',
           transition: 'color 500ms ease',
           _before: {
             content: '""',
