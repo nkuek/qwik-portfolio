@@ -17,33 +17,27 @@ interface Particle {
   speedY: number;
 }
 
-function createParticle(canvasWidth: number, canvasHeight: number): Particle {
+function createParticle(
+  canvasWidth: number,
+  canvasHeight: number,
+  particle?: Particle
+): Particle {
   return {
-    x: Math.random() * canvasWidth,
-    y: Math.random() * canvasHeight,
-    size: Math.random() * 3 + 1,
-    speedX: Math.random() * 1 - 0.5,
-    speedY: Math.random() * 1 - 0.5,
+    x: particle?.x ?? Math.random() * canvasWidth,
+    y: particle?.y ?? Math.random() * canvasHeight,
+    size: particle?.size ?? Math.random() * 3 + 1,
+    speedX: particle?.speedX ?? Math.random() * 1 - 0.5,
+    speedY: particle?.speedY ?? Math.random() * 1 - 0.5,
   };
 }
 
-type WindowDimensions = {
-  height: number;
-  width: number;
-};
-
 const ParticlesAnimation = component$(() => {
   const canvasSignal = useSignal<HTMLCanvasElement | undefined>();
-  const particles: Particle[] = [];
-  const windowDimensions = useSignal<WindowDimensions | undefined>();
+  const particles = useSignal<Particle[]>([]);
 
   const theme = useContext(ThemeContext);
 
   useVisibleTask$(() => {
-    windowDimensions.value = {
-      height: window.innerHeight,
-      width: window.innerWidth,
-    };
     const canvas = canvasSignal.value;
     if (!canvas) {
       return;
@@ -51,12 +45,39 @@ const ParticlesAnimation = component$(() => {
 
     const ctx = canvas.getContext('2d');
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    let prevCanvasHeight: number;
+    let prevCanvasWidth: number;
+    let isCreated = false;
+    console.log('running');
 
-    for (let i = 0; i < NUM_PARTICLES; i++) {
-      particles.push(createParticle(canvas.width, canvas.height));
+    function updateCanvasSize() {
+      if (!canvas) {
+        return;
+      }
+
+      prevCanvasHeight = isCreated ? canvas.height : window.innerHeight;
+      prevCanvasWidth = isCreated ? canvas.width : window.innerWidth;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      // calculate ratio to determine position after screen resize
+      const widthRatio = canvas.width / prevCanvasWidth;
+      const heightRatio = canvas.height / prevCanvasHeight;
+
+      for (let i = 0; i < NUM_PARTICLES; i++) {
+        particles.value[i] = createParticle(
+          canvas.width,
+          canvas.height,
+          particles.value[i]
+        );
+        particles.value[i].x *= widthRatio;
+        particles.value[i].y *= heightRatio;
+      }
+      isCreated = true;
     }
+
+    updateCanvasSize();
+    window.addEventListener('resize', updateCanvasSize);
 
     function update(particle: Particle) {
       if (!canvas) {
@@ -64,6 +85,7 @@ const ParticlesAnimation = component$(() => {
       }
       particle.x += particle.speedX;
       particle.y += particle.speedY;
+
       // Wrap around the screen
       if (particle.x > canvas.width) particle.x = 0;
       if (particle.x < 0) particle.x = canvas.width;
@@ -80,17 +102,12 @@ const ParticlesAnimation = component$(() => {
     }
 
     function animate() {
-      if (!ctx || !windowDimensions.value) {
+      if (!ctx) {
         return;
       }
-      ctx.clearRect(
-        0,
-        0,
-        windowDimensions.value.width,
-        windowDimensions.value.height
-      );
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
-      for (const particle of particles) {
+      for (const particle of particles.value) {
         update(particle);
         draw(ctx, particle);
       }
@@ -110,6 +127,9 @@ const ParticlesAnimation = component$(() => {
         width: '100%',
         height: '100%',
         zIndex: '-1',
+        _motionReduce: {
+          display: 'none',
+        },
       })}
     />
   );
