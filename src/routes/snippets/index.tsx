@@ -121,5 +121,5 @@ export const head: DocumentHead = {
         'Exploring elegant solutions through code. A collection of carefully crafted code snippets that showcase my journey in web development.',
     },
   ],
-  links: [{ rel: 'canonical', href: 'https://nkuek.dev/snippets/' }],
+  links: [{ rel: 'canonical', href: 'https://www.nkuek.dev/snippets/' }],
 };
