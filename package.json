@@ -45,6 +45,7 @@
     "@vercel/analytics": "^1.0.2",
     "rehype-pretty-code": "^0.10.0",
     "shiki": "^0.14.3",
+    "vite-plugin-node-polyfills": "^0.11.2",
     "web-vitals": "^3.4.0"
   }
 }
