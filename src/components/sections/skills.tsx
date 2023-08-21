@@ -1,57 +1,91 @@
 import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
+import { Link } from '@builder.io/qwik-city';
 import { css, cx } from '@styles/css';
 import { text } from '@styles/recipes';
-import GSAPLogo from '~/images/gsap.png?jsx';
-import QwikLogo from '~/images/qwik.svg?jsx';
-import JavaScriptLogo from '~/images/javascript.svg?jsx';
-import TypeScriptLogo from '~/images/typescript.svg?jsx';
-import NextJSLogo from '~/images/nextjs.svg?jsx';
-import CSSLogo from '~/images/css.svg?jsx';
-import HTMLLogo from '~/images/html.svg?jsx';
-import SvelteLogo from '~/images/svelte.svg?jsx';
-import ReduxLogo from '~/images/redux.svg?jsx';
-import PythonLogo from '~/images/python.svg?jsx';
-import NodeJSLogo from '~/images/node.svg?jsx';
-import ReactLogo from '~/images/react.svg?jsx';
+import { type Technology, logoMap } from '~/utils/technologies';
+
+const generateSkills = (skills: Technology[]) => {
+  return skills.map((skill) => ({ name: skill, ...logoMap[skill] }));
+};
+
+const showcaseSkills: Technology[] = [
+  'TypeScript',
+  'JavaScript',
+  'React',
+  'Next.js',
+  'Qwik',
+  'CSS',
+  'HTML',
+  'Svelte',
+  'Redux',
+  'Python',
+  'NodeJS',
+  'GSAP',
+];
+
+const skills = generateSkills(showcaseSkills);
 
 const Skills = component$(() => {
   const iconContainerRef = useSignal<Element>();
-  const skills = [
-    { name: 'TypeScript', logo: TypeScriptLogo },
-    { name: 'JavaScript', logo: JavaScriptLogo },
-    { name: 'React', logo: ReactLogo },
-    { name: 'Next.js', logo: NextJSLogo },
-    { name: 'Qwik', logo: QwikLogo },
-    { name: 'CSS', logo: CSSLogo },
-    { name: 'HTML', logo: HTMLLogo },
-    { name: 'Svelte', logo: SvelteLogo },
-    { name: 'Redux', logo: ReduxLogo },
-    { name: 'Python', logo: PythonLogo },
-    { name: 'NodeJS', logo: NodeJSLogo },
-    { name: 'GSAP', logo: GSAPLogo },
-  ];
 
   useVisibleTask$(({ cleanup }) => {
-    if (!iconContainerRef.value) {
-      return;
+    let minId: number | null = null;
+    let maxId: number | null = null;
+    let debounceTimeout: NodeJS.Timeout;
+
+    // because intersection observer is asynchronous, if the user scrolls too fast, they can pass over a skill name, meaning the opacity won't be updated
+    // this debouncer loops over all skill elements and applies changes if the element is within the range of elements the user has scrolled past
+    function applyChanges() {
+      const skillElements = document.getElementsByClassName(
+        'skill'
+      ) as HTMLCollectionOf<HTMLSpanElement>;
+      for (const el of skillElements) {
+        const elementId = parseInt(el.getAttribute('data-id') ?? '');
+        console.log(elementId, minId, maxId);
+
+        if (minId && elementId >= minId && maxId && elementId <= maxId) {
+          el.style.setProperty('--opacity', '1');
+        }
+      }
+      minId = null;
+      maxId = null;
     }
-    const skillsObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const target = entry.target as HTMLSpanElement;
-            target.style.setProperty('--opacity', '1');
+
+    function reportIntersection(entries: IntersectionObserverEntry[]) {
+      clearTimeout(debounceTimeout);
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const entryId = parseInt(entry.target.getAttribute('data-id') ?? '');
+          // keep track of what element the user has scrolled past
+          if (minId === null || maxId === null) {
+            minId = entryId;
+            maxId = entryId;
+          } else {
+            minId = Math.min(minId, entryId);
+            maxId = Math.max(maxId, entryId);
           }
-        });
-      },
-      { rootMargin: '-70% 0% -30% 0%' }
-    );
+        }
+      });
+      debounceTimeout = setTimeout(applyChanges, 100);
+    }
+
+    const skillsObserver = new IntersectionObserver(reportIntersection, {
+      rootMargin: '-60% 0% -40% 0%',
+    });
+
     const skillElements = document.getElementsByClassName('skill');
 
     for (const el of skillElements) {
       skillsObserver.observe(el);
     }
 
+    cleanup(() => skillsObserver.disconnect());
+  });
+
+  useVisibleTask$(({ cleanup }) => {
+    if (!iconContainerRef.value) {
+      return;
+    }
     const iconContainerObserver = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
@@ -66,11 +100,7 @@ const Skills = component$(() => {
       { threshold: 0.4 }
     );
     iconContainerObserver.observe(iconContainerRef.value);
-
-    cleanup(() => {
-      skillsObserver.disconnect();
-      iconContainerObserver.disconnect();
-    });
+    cleanup(() => iconContainerObserver.disconnect());
   });
 
   return (
@@ -115,13 +145,14 @@ const Skills = component$(() => {
             },
           })}
         >
-          {skills.map((skill) => (
+          {skills.map((skill, idx) => (
             <span
-              id="skill"
+              data-id={idx + 1}
               class={cx(
                 css({
                   fontSize: 'clamp(3rem, 7vw, 7rem)',
                   opacity: 'var(--opacity, .25)',
+                  transition: 'opacity 250ms ease',
                 }),
                 'skill'
               )}
@@ -160,21 +191,34 @@ const Skills = component$(() => {
       >
         {skills.map((skill, idx) => {
           return (
-            <skill.logo
+            <Link
               key={idx}
+              href={skill.href}
               class={css({
-                aspectRatio: 1,
-                width: 'full',
-                height: 'full',
-                transitionProperty: 'transform',
-                transitionDelay: 'var(--delay)',
-                transitionTimingFunction: 'ease',
-                transitionDuration: '500ms',
-                transform: 'scale(var(--scale, .75))',
-                maxWidth: '200px',
+                transition: 'transform 500ms ease',
+                _hover: {
+                  transform: 'scale(1.05)',
+                },
               })}
-              alt={skill.name}
-            />
+              target="_blank"
+              rel="noopener"
+            >
+              <skill.logo
+                class={css({
+                  aspectRatio: 1,
+                  width: 'full',
+                  height: 'full',
+                  transitionProperty: 'transform',
+                  transitionDelay: 'var(--delay)',
+                  transitionTimingFunction: 'ease',
+                  transitionDuration: '500ms',
+                  transform: 'scale(var(--scale, .75))',
+                  maxWidth: '200px',
+                  fill: 'text',
+                })}
+                alt={skill.name}
+              />
+            </Link>
           );
         })}
       </div>

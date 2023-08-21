@@ -8,25 +8,8 @@ import { Link } from '@builder.io/qwik-city';
 import { text } from '@styles/recipes';
 import { css, cx } from '@styles/css';
 import { flex } from '@styles/patterns';
-import ReactLogo from '~/images/react.svg?jsx';
-import ReduxLogo from '~/images/redux.svg?jsx';
-import JavaScriptLogo from '~/images/javascript.svg?jsx';
-import TypeScriptLogo from '~/images/typescript.svg?jsx';
-import PythonLogo from '~/images/python.svg?jsx';
-import MuiLogo from '~/images/mui.svg?jsx';
-import ExpressLogo from '~/images/express.svg?jsx';
-import CSSLogo from '~/images/css.svg?jsx';
 import { Image } from '@unpic/qwik';
-
-type Technology =
-  | 'React'
-  | 'Redux'
-  | 'JavaScript'
-  | 'TypeScript'
-  | 'MaterialUI'
-  | 'Express'
-  | 'CSS'
-  | 'Python';
+import { type Technology, logoMap } from '~/utils/technologies';
 
 type Project = {
   title: string | Component<{}>;
@@ -57,7 +40,7 @@ const projects: Project[] = [
   },
   {
     title: 'SortEd',
-    technologies: ['React', 'JavaScript', 'CSS'],
+    technologies: ['React', 'JavaScript', 'CSS', 'MaterialUI'],
     description:
       'Discover the elegance of sorting algorithms through an interactive visualizer built with React. Customize themes, sizes, and speeds for deeper understanding and coding insights.',
     githubLink: 'https://github.com/nkuek/SortEd',
@@ -95,16 +78,6 @@ const projects: Project[] = [
 ];
 
 const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
-  const logoMap: Record<Technology, typeof ReactLogo> = {
-    React: ReactLogo,
-    Redux: ReduxLogo,
-    TypeScript: TypeScriptLogo,
-    JavaScript: JavaScriptLogo,
-    Express: ExpressLogo,
-    Python: PythonLogo,
-    CSS: CSSLogo,
-    MaterialUI: MuiLogo,
-  };
   // const Image = imageMap[project.key as keyof typeof imageMap];
   const sectionRef = useSignal<Element>();
   const visible = useSignal(false);
@@ -243,14 +216,30 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
           })}
         >
           {project.technologies.map((technology) => {
-            const Logo = logoMap[technology];
+            const technologyInfo = logoMap[technology];
             return (
               <div
                 class={css({ width: 'full', maxWidth: '48px' })}
                 title={technology}
                 key={technology}
               >
-                <Logo alt={technology} />
+                <Link
+                  href={technologyInfo.href}
+                  target="_blank"
+                  rel="noopener"
+                  class={css({})}
+                >
+                  <technologyInfo.logo
+                    alt={technology}
+                    class={css({
+                      fill: 'stone.50',
+                      transition: 'transform 250ms ease',
+                      _hover: {
+                        transform: 'scale(1.05)',
+                      },
+                    })}
+                  />
+                </Link>
               </div>
             );
           })}

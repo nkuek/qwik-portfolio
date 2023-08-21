@@ -37,6 +37,8 @@ const FooterLinkItem = component$((props: LinkProps) => (
         text({ size: 'title' }),
         css({ height: 'auto', width: '32px' })
       )}
+      target="_blank"
+      rel="noopener"
       {...props}
     >
       <Slot />
