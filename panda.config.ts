@@ -94,6 +94,11 @@ export default defineConfig({
             left: 0,
           },
         },
+        buttonShowcase: {
+          '25%, 75%': {
+            transform: 'translateX(0) rotate(-180deg)',
+          },
+        },
       },
     },
   },

@@ -4,10 +4,11 @@ import { css } from '@styles/css';
 type LiquidFillButtonProps = {
   breakdown?: boolean;
   darkBackground?: boolean;
+  showcase?: boolean;
 };
 
 export const LiquidFillButton = component$<LiquidFillButtonProps>(
-  ({ breakdown, darkBackground }) => {
+  ({ breakdown, darkBackground, showcase }) => {
     return (
       <button
         class={css({
@@ -45,11 +46,16 @@ export const LiquidFillButton = component$<LiquidFillButtonProps>(
             transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
             transitionDuration: breakdown ? '2s' : '.5s',
             background: 'teal.600',
+            animation: showcase
+              ? 'buttonShowcase 4s cubic-bezier(0.4, 0, 0.2, 1) infinite'
+              : 'none',
+            animationDelay: '1s',
           },
           _hover: {
             color: darkBackground ? 'stone.50' : 'text',
             _before: {
               transform: 'translateX(0) rotate(-180deg)',
+              animation: 'none',
             },
           },
         })}

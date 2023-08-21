@@ -20,7 +20,9 @@ export default component$(() => {
       title: 'Liquid Fill Button',
       caption: 'Transforming static confines into a fluid dreamscape',
       preview: component$(() => (
-        <LiquidFillButton darkBackground>Hover</LiquidFillButton>
+        <LiquidFillButton darkBackground showcase>
+          Hover
+        </LiquidFillButton>
       )),
     },
   ];
@@ -55,9 +57,6 @@ export default component$(() => {
               class={flex({
                 flexDirection: 'column',
                 borderTop: '1px solid',
-                '&:only-child': {
-                  borderBlock: '1px solid',
-                },
                 padding: '24px 0',
                 justifyContent: 'space-between',
                 width: 'full',
