@@ -125,8 +125,8 @@ const AboutMe = component$(() => {
       id="about-me"
       class={css({
         minH: '100vh',
+        position: 'relative',
         smDown: {
-          position: 'relative',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'flex-end',

@@ -4,8 +4,15 @@
   }
 }
 .snippets {
-  & > *:not(h1) {
-    margin: 16px auto;
+  & article {
+    & > *:not(h1) {
+      margin: 16px auto;
+    }
+
+    & hr {
+      color: #0f766e;
+      margin: 24px auto 48px;
+    }
   }
   & h1 {
     font-size: 48px;
@@ -60,10 +67,6 @@
     & > * {
       font-family: 'Fira Code', monospace;
     }
-  }
-
-  & hr {
-    color: #0f766e;
   }
 
   & em {

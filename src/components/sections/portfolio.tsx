@@ -132,15 +132,13 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
         display: 'flex',
         flexDirection: 'column',
         clipPath: 'inset(0)',
+        position: 'relative',
         _before: {
           content: '""',
           position: 'absolute',
           inset: 0,
           zIndex: -1,
           backgroundImage: "url('/images/overlay.png')",
-        },
-        mdDown: {
-          position: 'relative',
         },
         md: {
           minH: '100vh',

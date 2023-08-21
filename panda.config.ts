@@ -45,6 +45,18 @@ export default defineConfig({
               _light: '{colors.neutral.900}',
             },
           },
+          invertedText: {
+            value: {
+              base: '{colors.neutral.900}',
+              _light: '{colors.stone.50}',
+            },
+          },
+          caption: {
+            value: {
+              base: '{colors.stone.300}',
+              _light: '{colors.neutral.600}',
+            },
+          },
         },
         assets: {
           backgroundImage: {

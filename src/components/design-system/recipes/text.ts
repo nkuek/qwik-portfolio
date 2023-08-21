@@ -37,6 +37,11 @@ export const textRecipe = defineRecipe({
         fontWeight: 300,
         lineHeight: '29px',
       },
+      caption: {
+        fontSize: '18px',
+        fontWeight: 300,
+        lineHeight: '29px',
+      },
       mobileBody: {
         fontSize: '16px',
         fontWeight: 300,

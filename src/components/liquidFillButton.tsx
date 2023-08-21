@@ -3,10 +3,11 @@ import { css } from '@styles/css';
 
 type LiquidFillButtonProps = {
   breakdown?: boolean;
+  darkBackground?: boolean;
 };
 
 export const LiquidFillButton = component$<LiquidFillButtonProps>(
-  ({ breakdown }) => {
+  ({ breakdown, darkBackground }) => {
     return (
       <button
         class={css({
@@ -28,7 +29,7 @@ export const LiquidFillButton = component$<LiquidFillButtonProps>(
           zIndex: 1,
           fontSize: '2em',
           overflow: breakdown ? 'initial' : 'hidden',
-          color: 'text',
+          color: darkBackground ? 'invertedText' : 'text',
           transition: 'color 500ms ease',
           _before: {
             content: '""',
