@@ -87,26 +87,30 @@ const MobileNavbar = component$(() => {
               class={vstack({
                 color: 'inherit',
                 gap: 1.5,
-                '& div': { w: '24px', h: '2px', background: 'text' },
                 transform: showNavDrawer.value ? 'translateY(4px)' : 'none',
                 transition: 'transform linear 200ms',
                 '& > div': {
+                  w: '23.5px',
+                  h: '2px',
+                  background: 'text',
                   transition: 'transform linear 200ms',
                   '&:first-child': {
                     transform: showNavDrawer.value
                       ? 'rotateZ(45deg) translateY(2px)'
                       : 'none',
+                    transformOrigin: 'center',
                   },
                   '&:nth-child(2)': {
                     transform: showNavDrawer.value
-                      ? 'rotate(-45deg) scaleX(1.41) translate(2px, -1px)'
+                      ? 'rotate(-45deg) scaleX(1.37) translate(2.75px, -.75px)'
                       : 'none',
+                    transformOrigin: 'center',
                   },
                   '&:last-child': {
                     transform: showNavDrawer.value
-                      ? 'rotateZ(45deg) translateY(-2px)'
+                      ? 'rotateZ(45deg) translateY(-1.1px)'
                       : 'none',
-                    transformOrigin: '22px',
+                    transformOrigin: '23.5px',
                   },
                 },
               })}
