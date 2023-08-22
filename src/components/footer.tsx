@@ -35,7 +35,12 @@ const FooterLinkItem = component$((props: LinkProps) => (
     <Link
       class={cx(
         text({ size: 'title' }),
-        css({ height: 'auto', width: '32px' })
+        css({
+          height: 'auto',
+          width: '32px',
+          transition: 'transform 250ms ease',
+          _hover: { transform: 'scale(1.1)' },
+        })
       )}
       target="_blank"
       rel="noopener"
