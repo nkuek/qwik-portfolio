@@ -6,6 +6,7 @@ import { isDev } from '@builder.io/qwik/build';
 import crypto from 'crypto';
 
 export const onRequest: RequestHandler = (event) => {
+  console.log(isDev);
   if (isDev) return; // Will not return CSP headers in dev mode
   const nonce = crypto.randomBytes(16).toString('hex'); // Your custom nonce logic here
   event.sharedMap.set('@nonce', nonce);
