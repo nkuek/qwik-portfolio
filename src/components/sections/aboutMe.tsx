@@ -157,12 +157,12 @@ const AboutMe = component$(() => {
           },
         })}
         src="https://res.cloudinary.com/dunbkcyqq/image/upload/v1692465808/overlook_zindcs.jpg"
-        sizes="(min-width:768px) 1440w, 768w"
         width={1440}
+        height={1080}
         aspectRatio="16/9"
         layout="contrained"
         background="auto"
-        breakpoints={[767, 1440]}
+        breakpoints={[768, 1440]}
       />
       <AboutMeText />
     </section>
