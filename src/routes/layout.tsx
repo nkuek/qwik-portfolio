@@ -5,6 +5,7 @@ import { Navbar } from '~/components/navbar';
 import { getVitals } from '~/vitals';
 import { useLocation } from '@builder.io/qwik-city';
 import Footer from '~/components/footer';
+import { isDev } from '@builder.io/qwik/build';
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
   // Control caching for this request for best performance and to reduce hosting costs:
@@ -23,6 +24,7 @@ export default component$(() => {
   const location = useLocation();
 
   useVisibleTask$(({ track }) => {
+    console.log(isDev);
     track(() => location.url.pathname);
     getVitals({
       pathname: location.url.pathname,
