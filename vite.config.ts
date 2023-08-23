@@ -4,7 +4,6 @@ import { qwikCity } from "@builder.io/qwik-city/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { macroPlugin } from "@builder.io/vite-plugin-macro";
 import rehypePrettyCode from 'rehype-pretty-code'
-import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 export default defineConfig(({mode, command}) => {
   const env = loadEnv(mode, process.cwd(), '')
@@ -20,7 +19,6 @@ export default defineConfig(({mode, command}) => {
       }),
       qwikVite(),
       tsconfigPaths(),
-      nodePolyfills()
     ],
     define: {
       'import.meta.env.VITE_VERCEL_ANALYTICS_ID': JSON.stringify(env.VERCEL_ANALYTICS_ID)

@@ -65,7 +65,7 @@ const Skills = component$(() => {
           }
         }
       });
-      debounceTimeout = setTimeout(applyChanges, 100);
+      debounceTimeout = setTimeout(applyChanges, 25);
     }
 
     const skillsObserver = new IntersectionObserver(reportIntersection, {
