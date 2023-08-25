@@ -46,7 +46,7 @@ export const Navbar = component$(() => {
       >
         <div class={css({ padding: '16px 24px' })}>
           <Link href="/" aria-label="Home">
-            <Logo />
+            <Logo class={css({ width: '44px', height: 'auto' })} />
           </Link>
         </div>
         <MobileNavbar />
