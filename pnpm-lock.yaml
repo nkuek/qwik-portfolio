@@ -3,7 +3,7 @@ lockfileVersion: '6.0'
 dependencies:
   '@unpic/qwik':
     specifier: ^0.0.25
-    version: 0.0.25(@builder.io/qwik@1.2.7)
+    version: 0.0.25(@builder.io/qwik@1.2.9)
   '@vercel/analytics':
     specifier: ^1.0.2
     version: 1.0.2
@@ -19,11 +19,11 @@ dependencies:
 
 devDependencies:
   '@builder.io/qwik':
-    specifier: ^1.2.7
-    version: 1.2.7(undici@5.22.1)
+    specifier: ^1.2.9
+    version: 1.2.9(undici@5.22.1)
   '@builder.io/qwik-city':
-    specifier: ^1.2.7
-    version: 1.2.7
+    specifier: ^1.2.9
+    version: 1.2.9
   '@builder.io/vite-plugin-macro':
     specifier: ~0.0.7
     version: 0.0.7(@types/node@20.4.0)
@@ -1476,8 +1476,8 @@ packages:
       to-fast-properties: 2.0.0
     dev: true
 
-  /@builder.io/qwik-city@1.2.7:
-    resolution: {integrity: sha512-L5zykrLcvQ8wo2UO9SBIw3R7f07Mp3S5YHoEWir/9s4kJfrunyyyjEXwqhWbUo7GqPZL+o3R6fi5iXuc2Fg4rQ==}
+  /@builder.io/qwik-city@1.2.9:
+    resolution: {integrity: sha512-p+etf1zQ+srhjNH5fX/YSFBjayWEIpnlTKKJgvb22f4E6R4CEPYIhRtcZtg3ljPuC2k+ouGdA0GMHj6LA3enhA==}
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
     dependencies:
       '@mdx-js/mdx': 2.3.0
@@ -1492,8 +1492,8 @@ packages:
       - supports-color
     dev: true
 
-  /@builder.io/qwik@1.2.7(undici@5.22.1):
-    resolution: {integrity: sha512-jTaJ/LaifUD7UvvSg1JGSySiUl/RxQaul/QrXVr+jbky+hpa6jk0HHQ9Hv21MptAqwU+EPKL81Wqfws4CsHkaQ==}
+  /@builder.io/qwik@1.2.9(undici@5.22.1):
+    resolution: {integrity: sha512-LLifLKFHIe0181aYgzoayG2mSv0asBQq38BrwxS3sBfnsQSEJuTXUfx1PwUq5xZRHQ/jNbkyMHuznC06SU3mPg==}
     engines: {node: '>=16.8.0 <18.0.0 || >=18.11'}
     hasBin: true
     peerDependencies:
@@ -3101,13 +3101,13 @@ packages:
       eslint-visitor-keys: 3.4.2
     dev: true
 
-  /@unpic/qwik@0.0.25(@builder.io/qwik@1.2.7):
+  /@unpic/qwik@0.0.25(@builder.io/qwik@1.2.9):
     resolution: {integrity: sha512-8YvmmOwk7dWdtAlZFiNM+z7SWHJ/M6uoleVr8y82eeu2yxPvr5n8kUgG1MdXX+re0RBtumF1vfEe4GP2UJoFMg==}
     engines: {node: '>=15.0.0'}
     peerDependencies:
       '@builder.io/qwik': '*'
     dependencies:
-      '@builder.io/qwik': 1.2.7(undici@5.22.1)
+      '@builder.io/qwik': 1.2.9(undici@5.22.1)
     dev: false
 
   /@vanilla-extract/babel-plugin-debug-ids@1.0.3:
