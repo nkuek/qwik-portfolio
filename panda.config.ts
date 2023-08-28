@@ -99,6 +99,11 @@ export default defineConfig({
             transform: 'translateX(0) rotate(-180deg)',
           },
         },
+        translateColorBar: {
+          '50%': {
+            strokeWidth: '300%',
+          },
+        },
       },
     },
   },

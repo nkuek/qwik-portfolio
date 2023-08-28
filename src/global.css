@@ -4,7 +4,7 @@
  */
 @layer reset, base, tokens, recipes, utilities;
 
-button {
+button:not(:disabled) {
   cursor: pointer;
 }
 

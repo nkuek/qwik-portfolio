@@ -25,8 +25,14 @@ export default component$(() => {
           padding: '72px 0 80px',
           background: 'transparent',
           minHeight: 'calc(100vh - 70px)',
-          backdropFilter: 'blur(5px)',
           transition: 'background 500ms ease',
+          _before: {
+            content: '""',
+            inset: 0,
+            position: 'absolute',
+            zIndex: -1,
+            backdropFilter: 'blur(5px)',
+          },
         })}
       >
         <Slot />

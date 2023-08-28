@@ -1,10 +1,10 @@
-import { type Component, component$ } from '@builder.io/qwik';
-import type { DocumentHead } from '@builder.io/qwik-city';
-import { Link } from '@builder.io/qwik-city';
+import { type Component, component$, Slot } from '@builder.io/qwik';
+import { type DocumentHead, Link } from '@builder.io/qwik-city';
 import { css, cx } from '@styles/css';
-import { flex, vstack } from '@styles/patterns';
+import { vstack } from '@styles/patterns';
 import { text } from '@styles/recipes';
 import { LiquidFillButton } from '~/components/liquidFillButton';
+import SliderPuzzle from '~/components/sliderPuzzle';
 
 type Article = {
   slug: string;
@@ -13,6 +13,28 @@ type Article = {
   preview: Component<any>;
 };
 
+const PreviewComponent = component$(
+  ({ extraClass }: { extraClass?: string }) => {
+    return (
+      <div
+        class={cx(
+          css({
+            background: '#282a36',
+            padding: '12px',
+            borderRadius: '6px',
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '24px',
+          }),
+          extraClass
+        )}
+      >
+        <Slot />
+      </div>
+    );
+  }
+);
+
 export default component$(() => {
   const articleList: Article[] = [
     {
@@ -20,9 +42,31 @@ export default component$(() => {
       title: 'Liquid Fill Button',
       caption: 'Transforming static confines into a fluid dreamscape',
       preview: component$(() => (
-        <LiquidFillButton darkBackground showcase>
-          Hover
-        </LiquidFillButton>
+        <PreviewComponent>
+          <LiquidFillButton darkBackground showcase>
+            Hover
+          </LiquidFillButton>
+        </PreviewComponent>
+      )),
+    },
+    {
+      slug: 'slider-puzzle',
+      title: 'Slider Puzzle',
+      caption:
+        'Shifting echoes, a fragmented dance; patterns emerge, secrets in motion',
+      preview: component$(() => (
+        <PreviewComponent extraClass={css({ height: '30vh' })}>
+          <div
+            class={css({
+              aspectRatio: 1,
+              height: 'full',
+              width: 'auto',
+              marginInline: 'auto',
+            })}
+          >
+            <SliderPuzzle noShuffle />
+          </div>
+        </PreviewComponent>
       )),
     },
   ];
@@ -54,17 +98,16 @@ export default component$(() => {
           <li key={article.slug}>
             <Link
               href={`/snippets/${article.slug}`}
-              class={flex({
-                flexDirection: 'column',
+              class={css({
                 borderTop: '1px solid',
                 padding: '24px 0',
                 justifyContent: 'space-between',
                 width: 'full',
+                display: 'block',
                 _hover: {
                   color: 'teal.600',
                   borderColor: 'text',
                 },
-                gap: '24px',
               })}
             >
               <div>
@@ -83,18 +126,7 @@ export default component$(() => {
                   {article.caption}
                 </span>
               </div>
-              <div
-                class={css({
-                  background: '#282a36',
-                  padding: '12px',
-                  borderRadius: '6px',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  color: '',
-                })}
-              >
-                <article.preview />
-              </div>
+              <article.preview />
             </Link>
           </li>
         ))}
