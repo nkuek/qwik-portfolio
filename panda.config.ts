@@ -99,9 +99,25 @@ export default defineConfig({
             transform: 'translateX(0) rotate(-180deg)',
           },
         },
-        translateColorBar: {
+        scaleColorBar: {
           '50%': {
             strokeWidth: '200vh',
+          },
+        },
+        revealLeftToRight: {
+          from: {
+            clipPath: 'polygon(0 0, 0 0, 0 100%, 0% 100%)',
+          },
+          to: {
+            clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+          },
+        },
+        revealRightToLeft: {
+          from: {
+            clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)',
+          },
+          to: {
+            clipPath: 'polygon(100% 0, 0 0, 0 100%, 100% 100%)',
           },
         },
       },

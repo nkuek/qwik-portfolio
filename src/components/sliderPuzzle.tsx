@@ -343,19 +343,19 @@ const SliderPuzzle = component$(({ noShuffle }: { noShuffle?: boolean }) => {
                 transition: 'opacity 1000ms ease',
                 '& g': {
                   '& path:nth-child(1)': {
-                    animation: 'translateColorBar 3000ms ease-in',
+                    animation: 'scaleColorBar 3000ms ease-in',
                     animationPlayState: 'var(--animationState)',
                   },
                   '& path:nth-child(2)': {
-                    animation: 'translateColorBar 3000ms ease-in 250ms',
+                    animation: 'scaleColorBar 3000ms ease-in 250ms',
                     animationPlayState: 'var(--animationState)',
                   },
                   '& path:nth-child(3)': {
-                    animation: 'translateColorBar 3000ms ease-in 500ms',
+                    animation: 'scaleColorBar 3000ms ease-in 500ms',
                     animationPlayState: 'var(--animationState)',
                   },
                   '& path:nth-child(4)': {
-                    animation: 'translateColorBar 3000ms ease-in 750ms',
+                    animation: 'scaleColorBar 3000ms ease-in 750ms',
                     animationPlayState: 'var(--animationState)',
                   },
                 },

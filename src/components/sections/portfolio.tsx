@@ -101,6 +101,11 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
   return (
     <section
       ref={sectionRef}
+      style={{
+        '--translate': visible.value ? 0 : '15%',
+        '--opacity': visible.value ? 1 : 0,
+        '--animation-state': visible.value ? 'running' : 'paused',
+      }}
       class={css({
         display: 'flex',
         flexDirection: 'column',
@@ -113,30 +118,42 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
           zIndex: -1,
           backgroundImage: "url('/images/overlay.png')",
         },
+        '& h3': {
+          _after: {
+            animationName: 'revealLeftToRighte',
+            animationPlayState: 'var(--animation-state)',
+            animationDuration: '1000ms',
+            animationTimingFunction: 'ease-out',
+          },
+        },
         md: {
           minH: '100vh',
-        },
-        '&:nth-child(even)': {
-          alignItems: 'flex-end',
-          md: {
+          '&:nth-child(even)': {
+            alignItems: 'flex-end',
             '& > div': {
               transform: 'translateX(var(--translate))',
             },
+            '& h3': {
+              _after: {
+                animationName: 'revealRightToLeft',
+                animationPlayState: 'var(--animation-state)',
+              },
+            },
           },
-        },
-        '&:nth-child(odd)': {
-          md: {
+          '&:nth-child(odd)': {
             '& > div': {
               transform: 'translateX(calc(var(--translate) * -1))',
+            },
+            '& h3': {
+              _after: {
+                animationName: 'revealLeftToRight',
+                animationPlayState: 'var(--animation-state)',
+              },
             },
           },
         },
         overflow: 'hidden',
       })}
-      style={{
-        '--translate': visible.value ? 0 : '15%',
-        '--opacity': visible.value ? 1 : 0,
-      }}
     >
       <Image
         class={css({
@@ -186,8 +203,16 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
             }),
             css({
               marginBottom: '24px',
-              borderBottom: '1px solid',
-              borderColor: 'teal.700',
+              position: 'relative',
+              _after: {
+                content: '""',
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                bottom: 0,
+                height: '1px',
+                background: 'teal.700',
+              },
             })
           )}
         >
