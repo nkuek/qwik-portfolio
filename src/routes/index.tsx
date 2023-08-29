@@ -34,11 +34,6 @@ export const head: DocumentHead = {
         'Nick Kuek is a frontend engineer with a passion for making the web more beautiful.',
     },
     {
-      name: 'og:image',
-      content: 'https://nkuek.dev/images/openGraph.png',
-    },
-    { name: 'og:image', content: 'NK Logo' },
-    {
       name: 'og:type',
       content: 'website',
     },

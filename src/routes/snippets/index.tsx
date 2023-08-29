@@ -62,6 +62,7 @@ export default component$(() => {
               height: 'full',
               width: 'auto',
               marginInline: 'auto',
+              pointerEvents: 'none',
             })}
           >
             <SliderPuzzle noShuffle />
