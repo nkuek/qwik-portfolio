@@ -445,6 +445,9 @@ const SliderPuzzle = component$(({ noShuffle }: { noShuffle?: boolean }) => {
             bottom: '-72px',
             left: '50%',
             transform: 'translate(-50%)',
+            _hover: {
+              color: 'teal.600',
+            },
           })}
           onClick$={() => {
             sliderPuzzleStore.isComplete = false;
