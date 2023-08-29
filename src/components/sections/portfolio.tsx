@@ -120,7 +120,7 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
         },
         '& h3': {
           _after: {
-            animationName: 'revealLeftToRighte',
+            animationName: 'revealLeftToRight',
             animationPlayState: 'var(--animation-state)',
             animationDuration: '1000ms',
             animationTimingFunction: 'ease-out',
