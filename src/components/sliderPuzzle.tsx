@@ -11,6 +11,7 @@ import {
   $,
   Slot,
   component$,
+  useContext,
   useSignal,
   useStore,
   useStylesScoped$,
@@ -18,6 +19,7 @@ import {
 } from '@builder.io/qwik';
 import { css, cx } from '@styles/css';
 import { text } from '@styles/recipes';
+import { ThemeContext } from '~/root';
 
 const depth = 3;
 const numPuzzlePieces = depth ** 2 - 1; // 8
@@ -118,6 +120,7 @@ type SliderPuzzleStore = {
 };
 
 const SliderPuzzle = component$(({ noShuffle }: { noShuffle?: boolean }) => {
+  const theme = useContext(ThemeContext);
   const sliderPuzzleStore = useStore<SliderPuzzleStore>({
     numTurns: 0,
     restartCounter: 0,
@@ -243,7 +246,7 @@ const SliderPuzzle = component$(({ noShuffle }: { noShuffle?: boolean }) => {
 
       & path {
         transition: fill-opacity 1000ms ease, fill 1000ms ease;
-        fill: #171717;
+        fill: var(--fill);
         fill-opacity: 1;
       }
     }
@@ -265,7 +268,7 @@ const SliderPuzzle = component$(({ noShuffle }: { noShuffle?: boolean }) => {
           height: 'var(--side-length)',
           borderRadius: '14%',
           border: '2.65px solid gray',
-          background: 'rgba(211, 214, 233, 0.2)',
+          background: 'rgba(250, 250, 249, 0.2)',
           transition: 'transform 250ms ease',
           backdropFilter: 'blur(6px)',
           overflow: 'hidden',
@@ -328,6 +331,7 @@ const SliderPuzzle = component$(({ noShuffle }: { noShuffle?: boolean }) => {
             '--animationState': sliderPuzzleStore.isComplete
               ? 'running'
               : 'paused',
+            '--fill': theme.value === 'dark' ? '#fafaf9' : '#171717',
           }}
         >
           <FullLogo

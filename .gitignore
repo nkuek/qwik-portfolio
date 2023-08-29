@@ -45,3 +45,6 @@ src/styled-system
 
 # Vercel
 .vercel
+
+#pocketbase
+backend

@@ -101,7 +101,7 @@ export default defineConfig({
         },
         translateColorBar: {
           '50%': {
-            strokeWidth: '300%',
+            strokeWidth: '200vh',
           },
         },
       },
