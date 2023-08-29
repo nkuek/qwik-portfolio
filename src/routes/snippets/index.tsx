@@ -141,8 +141,7 @@ export const head: DocumentHead = {
   meta: [
     {
       name: 'description',
-      content:
-        'Exploring elegant solutions through code. A collection of carefully crafted code snippets that showcase my journey in web development.',
+      content: 'Exploring elegant solutions through code.',
     },
     {
       name: 'og:title',
@@ -150,8 +149,7 @@ export const head: DocumentHead = {
     },
     {
       name: 'og:description',
-      content:
-        'Exploring elegant solutions through code. A collection of carefully crafted code snippets that showcase my journey in web development.',
+      content: 'Exploring elegant solutions through code.',
     },
   ],
   links: [{ rel: 'canonical', href: 'https://www.nkuek.dev/snippets/' }],
