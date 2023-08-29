@@ -18,8 +18,6 @@ type Project = {
   liveLink?: string;
   githubLink: string;
   src: string;
-  width: number;
-  height: number;
 };
 
 type PortfolioSectionProps = {
@@ -35,8 +33,6 @@ const projects: Project[] = [
     liveLink: 'https://archetyper.vercel.app/',
     githubLink: 'https://github.com/nkuek/archetyper',
     src: 'https://res.cloudinary.com/dunbkcyqq/image/upload/v1692465807/archetyper_itxv7j.png',
-    width: 2876,
-    height: 1578,
   },
   {
     title: 'SortEd',
@@ -46,8 +42,6 @@ const projects: Project[] = [
     githubLink: 'https://github.com/nkuek/SortEd',
     liveLink: 'https://sort-ed.vercel.app/',
     src: 'https://res.cloudinary.com/dunbkcyqq/image/upload/v1692465807/sorted_xq4pik.png',
-    width: 2560,
-    height: 1440,
   },
   {
     title: component$(() => (
@@ -62,8 +56,6 @@ const projects: Project[] = [
       'A fully functional clone of the popular messaging app WhatsApp that employs a React/Redux frontend and an Express/Sequelize backend, enabling a real-time messaging experience on a single-page application.',
     githubLink: 'https://github.com/nkuek/WhatsAppening',
     src: 'https://res.cloudinary.com/dunbkcyqq/image/upload/v1692465807/whatsappening_gcaib9.png',
-    width: 1924,
-    height: 1309,
   },
   {
     title: 'Discordance',
@@ -72,8 +64,6 @@ const projects: Project[] = [
       'A Discord-like clone, powered by React/Redux on the frontend and Flask-SQLAlchemy on the backend. It enables live server chat via web sockets, offers auto-complete search, and allows users to explore public groups by category.',
     githubLink: 'https://github.com/nkuek/discordance',
     src: 'https://res.cloudinary.com/dunbkcyqq/image/upload/v1692465807/discordance_oywept.png',
-    width: 1839,
-    height: 875,
   },
 ];
 
@@ -164,16 +154,16 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
             objectFit: 'cover',
             objectPosition: '0 62px',
             width: 'full',
+            aspectRatio: 'unset',
           },
+          aspectRatio: 325 / 206,
           zIndex: -2,
         })}
         alt=""
-        width={project.width}
-        aspectRatio="325/206"
         src={project.src}
         background="auto"
         layout="constrained"
-        breakpoints={[767, 1440]}
+        breakpoints={[768, 1440]}
       />
       <div
         class={css({
