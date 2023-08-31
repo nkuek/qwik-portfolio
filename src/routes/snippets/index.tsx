@@ -74,7 +74,16 @@ export default component$(() => {
   return (
     <div class={vstack({ width: 'full', gap: '96px' })}>
       <div class={vstack({ gap: '24px' })}>
-        <h1>Snippets</h1>
+        <h1
+          class={text({
+            size: {
+              base: 'mobileHero',
+              md: 'hero',
+            },
+          })}
+        >
+          Snippets
+        </h1>
         <p
           class={cx(
             css({
@@ -84,7 +93,7 @@ export default component$(() => {
             text({
               size: {
                 base: 'mobileBody',
-                md: 'caption',
+                md: 'body',
               },
             })
           )}
@@ -101,7 +110,7 @@ export default component$(() => {
               href={`/snippets/${article.slug}`}
               class={css({
                 borderTop: '1px solid',
-                padding: '24px 0',
+                padding: '24px 0 64px',
                 justifyContent: 'space-between',
                 width: 'full',
                 display: 'block',
@@ -112,7 +121,16 @@ export default component$(() => {
               })}
             >
               <div>
-                <h2>{article.title}</h2>
+                <h2
+                  class={text({
+                    size: {
+                      base: 'mobileTitle',
+                      md: 'title',
+                    },
+                  })}
+                >
+                  {article.title}
+                </h2>
                 <span
                   class={cx(
                     text({

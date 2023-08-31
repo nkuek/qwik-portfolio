@@ -4,6 +4,7 @@ import { qwikCity } from "@builder.io/qwik-city/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { macroPlugin } from "@builder.io/vite-plugin-macro";
 import rehypePrettyCode from 'rehype-pretty-code'
+import {recmaJsxRewriteQwik} from 'mdx-js-qwik/plugins'
 
 export default defineConfig(({mode, command}) => {
   const env = loadEnv(mode, process.cwd(), '')
@@ -12,6 +13,8 @@ export default defineConfig(({mode, command}) => {
       macroPlugin({ preset: "pandacss" }),
       qwikCity({
         mdx: {
+          providerImportSource: "mdx-js-qwik",
+          recmaPlugins: [recmaJsxRewriteQwik],
           rehypePlugins: [
             [rehypePrettyCode, {theme: 'dracula'}]
           ]

@@ -25,6 +25,7 @@ export default defineConfig({
         fonts: {
           poppins: { value: 'Poppins, sans-serif' },
           sourceCodePro: { value: 'Source Code Pro, monospace' },
+          firaCode: { value: 'Fira Code, monospace' },
         },
       },
       recipes: {
@@ -49,6 +50,12 @@ export default defineConfig({
             value: {
               base: '{colors.stone.300}',
               _light: '{colors.neutral.600}',
+            },
+          },
+          inlineCode: {
+            value: {
+              base: '{colors.neutral.600}',
+              _light: '{colors.neutral.300}',
             },
           },
         },

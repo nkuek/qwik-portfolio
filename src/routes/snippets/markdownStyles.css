@@ -1,78 +1,4 @@
-[data-theme='light'] .snippets {
-  & p > code {
-    background: #d4d4d4;
-  }
-}
 .snippets {
-  & article {
-    & > *:not(h1) {
-      margin: 16px auto;
-    }
-
-    & hr {
-      color: #0f766e;
-      margin: 24px auto 48px;
-    }
-  }
-  & h1 {
-    font-size: 48px;
-  }
-
-  & h2 {
-    font-size: 32px;
-  }
-
-  & h1 {
-    position: relative;
-    width: fit-content;
-    scroll-margin-top: 70px;
-    & a {
-      position: absolute;
-      inset: 0;
-    }
-
-    & a:hover .icon {
-      display: inline;
-    }
-  }
-
-  & .icon-link:after {
-    position: absolute;
-    content: '#';
-    left: -1em;
-    color: #0d9488;
-  }
-
-  & .icon-link {
-    display: none;
-  }
-
-  & p {
-    font-size: 20px;
-    line-height: 29px;
-    & > code {
-      background: #525252;
-      padding: 0 0.25rem;
-      border-radius: 0.375rem;
-      white-space: nowrap;
-      font-family: 'Source Code Pro', sans-serif;
-    }
-  }
-
-  & pre {
-    display: flex;
-    padding: 12px;
-    border-radius: 6px;
-    overflow: auto;
-    & > * {
-      font-family: 'Fira Code', monospace;
-    }
-  }
-
-  & em {
-    font-style: italic;
-  }
-
   & [data-rehype-pretty-code-fragment] {
     margin: 24px auto;
   }
@@ -103,22 +29,6 @@
       top: 0;
       bottom: 0;
       background: #0f766e;
-    }
-  }
-}
-
-@media (max-width: 767px) {
-  .snippets {
-    & h1 {
-      font-size: 32px;
-    }
-
-    & h2 {
-      font-size: 24px;
-    }
-
-    & p {
-      font-size: 18px;
     }
   }
 }
