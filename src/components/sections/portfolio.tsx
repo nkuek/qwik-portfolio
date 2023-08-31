@@ -27,7 +27,7 @@ type PortfolioSectionProps = {
 const projects: Project[] = [
   {
     title: 'archetyper',
-    technologies: ['React', 'TypeScript', 'MaterialUI'],
+    technologies: ['React', 'TypeScript', 'MaterialUI', 'CSS'],
     description:
       'Elevate your typing experience with this meticulously designed, fully-themed type tester. Calculate and visualize your words per minute in style.',
     liveLink: 'https://archetyper.vercel.app/',
@@ -108,7 +108,7 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
           zIndex: -1,
           backgroundImage: "url('/images/overlay.png')",
         },
-        '& h3': {
+        '& h3, & .technologiesContainer': {
           _after: {
             animationName: 'revealLeftToRight',
             animationPlayState: 'var(--animation-state)',
@@ -123,7 +123,7 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
             '& > div': {
               transform: 'translateX(var(--translate))',
             },
-            '& h3': {
+            '& h3, & .technologiesContainer': {
               _after: {
                 animationName: 'revealRightToLeft',
                 animationPlayState: 'var(--animation-state)',
@@ -134,7 +134,7 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
             '& > div': {
               transform: 'translateX(calc(var(--translate) * -1))',
             },
-            '& h3': {
+            '& h3, & .technologiesContainer': {
               _after: {
                 animationName: 'revealLeftToRight',
                 animationPlayState: 'var(--animation-state)',
@@ -222,45 +222,6 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
           {project.description}
         </p>
         <div
-          class={css({
-            display: 'flex',
-            gap: '12px',
-            margin: '24px 0',
-            fill: 'stone.50',
-            flexWrap: 'wrap',
-          })}
-        >
-          {project.technologies.map((technology) => {
-            const technologyInfo = logoMap[technology];
-            return (
-              <div
-                class={css({ width: 'full', maxWidth: '48px' })}
-                title={technology}
-                key={technology}
-              >
-                <Link
-                  href={technologyInfo.href}
-                  target="_blank"
-                  rel="noopener"
-                  class={css({})}
-                  aria-label={technology}
-                >
-                  <technologyInfo.logo
-                    alt={technology}
-                    class={css({
-                      fill: 'stone.50',
-                      transition: 'transform 250ms ease',
-                      _hover: {
-                        transform: 'scale(1.05)',
-                      },
-                    })}
-                  />
-                </Link>
-              </div>
-            );
-          })}
-        </div>
-        <div
           class={cx(
             flex({
               flexWrap: 'wrap',
@@ -305,6 +266,52 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
           >
             GitHub
           </Link>
+        </div>
+        <div
+          class={cx(
+            css({
+              display: 'flex',
+              gap: '12px',
+              margin: '48px 0',
+              padding: '24px 0',
+              flexWrap: 'wrap',
+              position: 'relative',
+              _after: {
+                content: '""',
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                top: 0,
+                height: '1px',
+                background: 'teal.700',
+              },
+            }),
+            'technologiesContainer'
+          )}
+        >
+          {project.technologies.map((technology) => {
+            const technologyInfo = logoMap[technology];
+            return (
+              <Link
+                key={technology}
+                href={technologyInfo.href}
+                target="_blank"
+                rel="noopener"
+                class={css({
+                  background: 'teal.950',
+                  padding: '6px 12px',
+                  borderRadius: '6px',
+                  color: 'stone.50',
+                  _hover: {
+                    background: 'teal.900',
+                  },
+                })}
+                aria-label={technology}
+              >
+                {technology}
+              </Link>
+            );
+          })}
         </div>
       </div>
     </section>
