@@ -33,6 +33,12 @@ export default {
           css({
             position: 'relative',
             width: 'fit-content',
+            '&:not(:first-child)': {
+              marginTop: '32px',
+            },
+            '& + *': {
+              marginTop: '8px',
+            },
             '& a': {
               position: 'absolute',
               inset: 0,
@@ -60,7 +66,17 @@ export default {
     );
   }),
   h2: component$(() => (
-    <h2 class={text({ size: { base: 'mobileTitle', md: 'title' } })}>
+    <h2
+      class={cx(
+        text({ size: { base: 'mobileTitle', md: 'title' } }),
+        css({
+          marginTop: '32px',
+          '& + *': {
+            marginTop: '8px',
+          },
+        })
+      )}
+    >
       <Slot />
     </h2>
   )),
