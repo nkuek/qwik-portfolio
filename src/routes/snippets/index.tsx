@@ -1,12 +1,19 @@
-import { type Component, component$, Slot } from '@builder.io/qwik';
-import { type DocumentHead, Link } from '@builder.io/qwik-city';
+import {
+  type Component,
+  component$,
+  Slot,
+  $,
+  useResource$,
+  Resource,
+} from '@builder.io/qwik';
+import { type DocumentHead, Link, server$ } from '@builder.io/qwik-city';
 import { css, cx } from '@styles/css';
 import { vstack } from '@styles/patterns';
 import { text } from '@styles/recipes';
 import { LiquidFillButton } from '~/components/liquidFillButton';
 import SliderPuzzle from '~/components/sliderPuzzle';
 
-function extractSlugFromFilePath(path: string) {
+const extractSlugFromFilePath = $((path: string) => {
   const pattern = /\.\/\(articles\)\/([a-z0-9-]+)\/index\.mdx/;
 
   const match = path.match(pattern);
@@ -17,7 +24,7 @@ function extractSlugFromFilePath(path: string) {
   } else {
     return null;
   }
-}
+});
 
 type ArbitraryFileType = {
   headings: () => unknown;
@@ -31,18 +38,16 @@ type ArbitraryFileType = {
 
 const articleMdxFiles = import.meta.glob<ArbitraryFileType>('./**/*.mdx');
 
-const articles = Object.entries(articleMdxFiles).map(
-  async ([articlePath, file]) => {
+const getArticleList = server$(() => {
+  return Object.entries(articleMdxFiles).map(async ([articlePath, file]) => {
     const articleData = await file();
     const slug = extractSlugFromFilePath(articlePath);
     return {
       ...articleData.frontmatter,
       slug,
     };
-  }
-);
-
-const articleList2 = await Promise.all(articles);
+  });
+});
 
 type Article = {
   slug: string;
@@ -74,6 +79,10 @@ const PreviewComponent = component$(
 );
 
 export default component$(() => {
+  const articles = useResource$(async () => {
+    const articlePromises = await getArticleList();
+    return await Promise.all(articlePromises);
+  });
   const articleList: Article[] = [
     {
       slug: 'liquid-fill-button',
@@ -122,7 +131,6 @@ export default component$(() => {
         >
           Snippets
         </h1>
-        {JSON.stringify(articleList2)}
         <p
           class={cx(
             css({
@@ -142,6 +150,10 @@ export default component$(() => {
           web&nbsp;development.
         </p>
       </div>
+      <Resource
+        value={articles}
+        onResolved={(articles) => <>{JSON.stringify(articles)}</>}
+      />
       <ol class={css({ width: 'full' })}>
         {articleList.map((article) => (
           <li key={article.slug}>
