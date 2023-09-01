@@ -6,6 +6,44 @@ import { text } from '@styles/recipes';
 import { LiquidFillButton } from '~/components/liquidFillButton';
 import SliderPuzzle from '~/components/sliderPuzzle';
 
+function extractSlugFromFilePath(path: string) {
+  const pattern = /\.\/\(articles\)\/([a-z0-9-]+)\/index\.mdx/;
+
+  const match = path.match(pattern);
+
+  if (match) {
+    const articleTitle = match[1];
+    return articleTitle;
+  } else {
+    return null;
+  }
+}
+
+type ArbitraryFileType = {
+  headings: () => unknown;
+  head: () => unknown;
+  frontmatter: {
+    title: string;
+    description: string;
+    caption: string;
+  };
+};
+
+const articleMdxFiles = import.meta.glob<ArbitraryFileType>('./**/*.mdx');
+
+const articles = Object.entries(articleMdxFiles).map(
+  async ([articlePath, file]) => {
+    const articleData = await file();
+    const slug = extractSlugFromFilePath(articlePath);
+    return {
+      ...articleData.frontmatter,
+      slug,
+    };
+  }
+);
+
+const articleList2 = await Promise.all(articles);
+
 type Article = {
   slug: string;
   title: string;
@@ -84,6 +122,7 @@ export default component$(() => {
         >
           Snippets
         </h1>
+        {JSON.stringify(articleList2)}
         <p
           class={cx(
             css({
