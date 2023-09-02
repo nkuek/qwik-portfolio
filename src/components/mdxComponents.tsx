@@ -46,11 +46,13 @@ export default {
       </h1>
     );
   }),
-  h2: component$(() => (
+  h2: component$((props) => (
     <h2
+      {...props}
       class={cx(
         text({ size: { base: 'mobileTitle', md: 'title' } }),
         css({
+          scrollMarginTop: '86px',
           marginTop: '32px',
           '& + *': {
             marginTop: '8px',
