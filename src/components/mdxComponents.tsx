@@ -39,25 +39,6 @@ export default {
             '& + *': {
               marginTop: '8px',
             },
-            '& a': {
-              position: 'absolute',
-              inset: 0,
-              '& .icon': {
-                height: '100vh',
-                display: 'none',
-                _after: {
-                  position: 'absolute',
-                  content: '"#"',
-                  left: '-1em',
-                  color: '#0d9488',
-                },
-              },
-              _hover: {
-                '& .icon': {
-                  display: 'inline',
-                },
-              },
-            },
           })
         )}
       >
@@ -73,6 +54,26 @@ export default {
           marginTop: '32px',
           '& + *': {
             marginTop: '8px',
+          },
+          position: 'relative',
+          '& a': {
+            position: 'absolute',
+            inset: 0,
+            '& .icon': {
+              height: '100vh',
+              display: 'none',
+              _after: {
+                position: 'absolute',
+                content: '"#"',
+                left: '-1em',
+                color: '#0d9488',
+              },
+            },
+            _hover: {
+              '& .icon': {
+                display: 'inline',
+              },
+            },
           },
         })
       )}

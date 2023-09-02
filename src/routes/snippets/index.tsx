@@ -1,19 +1,13 @@
-import {
-  type Component,
-  component$,
-  Slot,
-  $,
-  useResource$,
-  Resource,
-} from '@builder.io/qwik';
-import { type DocumentHead, Link, server$ } from '@builder.io/qwik-city';
+import type { Component } from '@builder.io/qwik';
+import { component$, Slot, useResource$, Resource } from '@builder.io/qwik';
+import { type DocumentHead, Link, useLocation } from '@builder.io/qwik-city';
 import { css, cx } from '@styles/css';
 import { vstack } from '@styles/patterns';
 import { text } from '@styles/recipes';
 import { LiquidFillButton } from '~/components/liquidFillButton';
 import SliderPuzzle from '~/components/sliderPuzzle';
 
-const extractSlugFromFilePath = $((path: string) => {
+const extractSlugFromFilePath = (path: string) => {
   const pattern = /\.\/\(articles\)\/([a-z0-9-]+)\/index\.mdx/;
 
   const match = path.match(pattern);
@@ -21,10 +15,8 @@ const extractSlugFromFilePath = $((path: string) => {
   if (match) {
     const articleTitle = match[1];
     return articleTitle;
-  } else {
-    return null;
   }
-});
+};
 
 type ArbitraryFileType = {
   headings: () => unknown;
@@ -36,24 +28,27 @@ type ArbitraryFileType = {
   };
 };
 
+export type Article = ArbitraryFileType['frontmatter'] & {
+  slug: string | undefined;
+};
+
 const articleMdxFiles = import.meta.glob<ArbitraryFileType>('./**/*.mdx');
 
-const getArticleList = server$(() => {
+const getArticleList = () => {
   return Object.entries(articleMdxFiles).map(async ([articlePath, file]) => {
     const articleData = await file();
-    const slug = extractSlugFromFilePath(articlePath);
+    const slug = await extractSlugFromFilePath(articlePath);
     return {
       ...articleData.frontmatter,
       slug,
     };
   });
-});
+};
 
-type Article = {
-  slug: string;
-  title: string;
-  caption: string;
-  preview: Component<any>;
+export const getArticles = async () => {
+  const articlePromises = getArticleList();
+  const articleValues = await Promise.all(articlePromises);
+  return articleValues;
 };
 
 const PreviewComponent = component$(
@@ -79,45 +74,35 @@ const PreviewComponent = component$(
 );
 
 export default component$(() => {
-  const articles = useResource$(async () => {
-    const articlePromises = await getArticleList();
-    return await Promise.all(articlePromises);
-  });
-  const articleList: Article[] = [
-    {
-      slug: 'liquid-fill-button',
-      title: 'Liquid Fill Button',
-      caption: 'Transforming static confines into a fluid dreamscape',
-      preview: component$(() => (
-        <PreviewComponent>
-          <LiquidFillButton darkBackground showcase>
-            Hover
-          </LiquidFillButton>
-        </PreviewComponent>
-      )),
-    },
-    {
-      slug: 'slider-puzzle',
-      title: 'Slider Puzzle',
-      caption:
-        'Shifting echoes, a fragmented dance; patterns emerge, secrets in motion',
-      preview: component$(() => (
-        <PreviewComponent extraClass={css({ height: '30vh' })}>
-          <div
-            class={css({
-              aspectRatio: 1,
-              height: 'full',
-              width: 'auto',
-              marginInline: 'auto',
-              pointerEvents: 'none',
-            })}
-          >
-            <SliderPuzzle noShuffle />
-          </div>
-        </PreviewComponent>
-      )),
-    },
-  ];
+  const articles = useResource$(getArticles);
+
+  const location = useLocation();
+
+  const snippetPreviewMap: Record<string, Component<{}>> = {
+    'liquid-fill-button': component$(() => (
+      <PreviewComponent>
+        <LiquidFillButton darkBackground showcase>
+          Hover
+        </LiquidFillButton>
+      </PreviewComponent>
+    )),
+    'slider-puzzle': component$(() => (
+      <PreviewComponent extraClass={css({ height: '30vh' })}>
+        <div
+          class={css({
+            aspectRatio: 1,
+            height: 'full',
+            width: 'auto',
+            marginInline: 'auto',
+            pointerEvents: 'none',
+          })}
+        >
+          <SliderPuzzle noShuffle />
+        </div>
+      </PreviewComponent>
+    )),
+  };
+
   return (
     <div class={vstack({ width: 'full', gap: '96px' })}>
       <div class={vstack({ gap: '24px' })}>
@@ -152,55 +137,63 @@ export default component$(() => {
       </div>
       <Resource
         value={articles}
-        onResolved={(articles) => <>{JSON.stringify(articles)}</>}
-      />
-      <ol class={css({ width: 'full' })}>
-        {articleList.map((article) => (
-          <li key={article.slug}>
-            <Link
-              href={`/snippets/${article.slug}`}
-              class={css({
-                borderTop: '1px solid',
-                padding: '24px 0 64px',
-                justifyContent: 'space-between',
-                width: 'full',
-                display: 'block',
-                _hover: {
-                  color: 'teal.600',
-                  borderColor: 'text',
-                },
-              })}
-            >
-              <div>
-                <h2
-                  class={text({
-                    size: {
-                      base: 'mobileTitle',
-                      md: 'title',
-                    },
-                  })}
-                >
-                  {article.title}
-                </h2>
-                <span
-                  class={cx(
-                    text({
-                      size: {
-                        base: 'mobileBody',
-                        md: 'caption',
+        onResolved={(articles) => (
+          <ol class={css({ width: 'full' })}>
+            {articles.map((article) => {
+              let PreviewComponent = null;
+
+              if (article.slug && article.slug in snippetPreviewMap) {
+                PreviewComponent = snippetPreviewMap[article.slug];
+              }
+              return (
+                <li key={article.slug}>
+                  <Link
+                    href={location.url.pathname + article.slug}
+                    class={css({
+                      borderTop: '1px solid',
+                      padding: '24px 0 64px',
+                      justifyContent: 'space-between',
+                      width: 'full',
+                      display: 'block',
+                      _hover: {
+                        color: 'teal.600',
+                        borderColor: 'text',
                       },
-                    }),
-                    css({ fontStyle: 'italic' })
-                  )}
-                >
-                  {article.caption}
-                </span>
-              </div>
-              <article.preview />
-            </Link>
-          </li>
-        ))}
-      </ol>
+                    })}
+                  >
+                    <div>
+                      <h2
+                        class={text({
+                          size: {
+                            base: 'mobileTitle',
+                            md: 'title',
+                          },
+                        })}
+                      >
+                        {article.title}
+                      </h2>
+                      <span
+                        class={cx(
+                          text({
+                            size: {
+                              base: 'mobileBody',
+                              md: 'caption',
+                            },
+                          }),
+                          css({ fontStyle: 'italic' })
+                        )}
+                      >
+                        {article.caption}
+                      </span>
+                    </div>
+                    {PreviewComponent && <PreviewComponent />}
+                  </Link>
+                </li>
+              );
+            })}
+          </ol>
+        )}
+      />
     </div>
   );
 });
