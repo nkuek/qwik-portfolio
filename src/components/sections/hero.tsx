@@ -77,6 +77,9 @@ export const Hero = component$(() => {
           position: 'absolute',
           bottom: 5,
           transition: 'opacity 500ms ease',
+          _hover: {
+            color: 'links.hover',
+          },
         })}
         aria-label="go to next section"
       >

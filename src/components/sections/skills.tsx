@@ -1,7 +1,7 @@
 import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
 import { css, cx } from '@styles/css';
-import { text } from '@styles/recipes';
+import { DSText } from '~/components/design-system/DSText';
 import { type Technology, logoMap } from '~/utils/technologies';
 
 const generateSkills = (skills: Technology[]) => {
@@ -120,20 +120,19 @@ const Skills = component$(() => {
       })}
     >
       <div>
-        <div
-          class={cx(
-            css({
-              textAlign: 'center',
-              md: {
-                position: 'sticky',
-                top: '50%',
-              },
-            }),
-            text({ size: { base: 'mobileHero', md: 'hero' } })
-          )}
+        <DSText
+          size="hero"
+          class={css({
+            textAlign: 'center',
+            display: 'block',
+            md: {
+              position: 'sticky',
+              top: '50%',
+            },
+          })}
         >
           Honing my craft in...
-        </div>
+        </DSText>
         <div
           class={css({
             display: 'flex',

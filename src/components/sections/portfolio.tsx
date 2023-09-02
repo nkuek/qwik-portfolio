@@ -4,12 +4,12 @@ import {
   useSignal,
   useVisibleTask$,
 } from '@builder.io/qwik';
-import { Link } from '@builder.io/qwik-city';
-import { text } from '@styles/recipes';
-import { css, cx } from '@styles/css';
+import { css } from '@styles/css';
 import { flex } from '@styles/patterns';
 import { Image } from '@unpic/qwik';
 import { type Technology, logoMap } from '~/utils/technologies';
+import { DSText } from '~/components/design-system/DSText';
+import { DSButtonLink } from '~/components/design-system/DSLink';
 
 type Project = {
   title: string | Component<{}>;
@@ -183,92 +183,58 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
           },
         })}
       >
-        <h3
-          class={cx(
-            text({
-              size: {
-                base: 'mobileHero',
-                md: 'hero',
-              },
-            }),
-            css({
-              marginBottom: '24px',
-              position: 'relative',
-              _after: {
-                content: '""',
-                position: 'absolute',
-                left: 0,
-                right: 0,
-                bottom: 0,
-                height: '1px',
-                background: 'teal.700',
-              },
-            })
-          )}
+        <DSText
+          tag="h3"
+          size="hero"
+          class={css({
+            marginBottom: '24px',
+            position: 'relative',
+            _after: {
+              content: '""',
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              bottom: 0,
+              height: '1px',
+              background: 'teal.700',
+            },
+          })}
         >
           {typeof project.title === 'string' ? (
             project.title
           ) : (
             <project.title />
           )}
-        </h3>
-
-        <p
-          class={cx(
-            text({ size: 'body' }),
-            css({ marginTop: '12px', marginBottom: '24px' })
-          )}
+        </DSText>
+        <DSText
+          tag="p"
+          size="body"
+          class={css({ marginTop: '12px', marginBottom: '24px' })}
         >
           {project.description}
-        </p>
+        </DSText>
         <div
-          class={cx(
-            flex({
-              flexWrap: 'wrap',
-              gap: '20px',
-              '& a': {
-                padding: '12px 24px',
-                borderRadius: '12px',
-                textAlign: 'center',
-              },
-            }),
-            text({
-              size: {
-                base: 'mobileBody',
-                md: 'body',
-              },
-            })
-          )}
+          class={flex({
+            flexWrap: 'wrap',
+            gap: '20px',
+            '& a': {
+              padding: '12px 24px',
+              borderRadius: '12px',
+              textAlign: 'center',
+            },
+          })}
         >
           {project.liveLink && (
-            <Link
-              class={css({
-                background: 'teal.600',
-                transition: 'background 250ms ease',
-                _hover: {
-                  background: 'teal.700',
-                },
-              })}
-              href={project.liveLink}
-            >
+            <DSButtonLink href={project.liveLink} variant="primary">
               Live
-            </Link>
+            </DSButtonLink>
           )}
-          <Link
-            class={css({
-              transition: 'color 250ms ease',
-              border: '1px solid',
-              _hover: {
-                color: 'teal.700',
-              },
-            })}
-            href={project.githubLink}
-          >
+          <DSButtonLink href={project.githubLink} variant="secondary">
             GitHub
-          </Link>
+          </DSButtonLink>
         </div>
         <div
-          class={cx(
+          class={[
             css({
               display: 'flex',
               gap: '12px',
@@ -286,30 +252,21 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
                 background: 'teal.700',
               },
             }),
-            'technologiesContainer'
-          )}
+            'technologiesContainer',
+          ]}
         >
           {project.technologies.map((technology) => {
             const technologyInfo = logoMap[technology];
             return (
-              <Link
-                key={technology}
+              <DSButtonLink
+                variant="tertiary"
                 href={technologyInfo.href}
                 target="_blank"
                 rel="noopener"
-                class={css({
-                  background: 'teal.950',
-                  padding: '6px 12px',
-                  borderRadius: '6px',
-                  color: 'stone.50',
-                  _hover: {
-                    background: 'teal.900',
-                  },
-                })}
-                aria-label={technology}
+                key={technology}
               >
                 {technology}
-              </Link>
+              </DSButtonLink>
             );
           })}
         </div>

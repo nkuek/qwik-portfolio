@@ -1,88 +1,86 @@
 import { Slot, component$ } from '@builder.io/qwik';
-import { css, cx } from '@styles/css';
-import { text } from '@styles/recipes';
+import { css } from '@styles/css';
+import { DSText } from '~/components/design-system/DSText';
 
 export default {
   p: component$((props) => (
-    <p
+    <DSText
+      size="body"
+      tag="p"
       {...props}
-      class={cx(
-        text({ size: { base: 'mobileBody', md: 'body' } }),
-        css({
-          '& > code': {
-            background: 'inlineCode',
-            padding: '0 0.25rem',
-            borderRadius: '0.375rem',
-            whiteSpace: 'nowrap',
-            fontFamily: 'sourceCodePro',
-          },
-        })
-      )}
+      class={css({
+        '& > code': {
+          background: 'inlineCode',
+          padding: '0 0.25rem',
+          borderRadius: '0.375rem',
+          whiteSpace: 'nowrap',
+          fontFamily: 'sourceCodePro',
+        },
+      })}
     >
       <Slot />
-    </p>
+    </DSText>
   )),
   hr: component$(() => (
     <hr class={css({ color: 'teal.700', margin: '24px auto 48px' })} />
   )),
   h1: component$(() => {
     return (
-      <h1
-        class={cx(
-          text({ size: { base: 'mobileHero', md: 'hero' } }),
-          css({
-            position: 'relative',
-            width: 'fit-content',
-            '&:not(:first-child)': {
-              marginTop: '32px',
-            },
-            '& + *': {
-              marginTop: '8px',
-            },
-          })
-        )}
-      >
-        <Slot />
-      </h1>
-    );
-  }),
-  h2: component$((props) => (
-    <h2
-      // Used for the rehypeAutolinkHeadings vite plugin to automatically pass the id for navigation.
-      {...props}
-      class={cx(
-        text({ size: { base: 'mobileTitle', md: 'title' } }),
-        css({
-          scrollMarginTop: '86px',
-          marginTop: '32px',
+      <DSText
+        size="hero"
+        tag="h1"
+        class={css({
+          position: 'relative',
+          width: 'fit-content',
+          '&:not(:first-child)': {
+            marginTop: '32px',
+          },
           '& + *': {
             marginTop: '8px',
           },
-          position: 'relative',
-          '& a': {
-            position: 'absolute',
-            inset: 0,
-            '& .icon': {
-              height: '100vh',
-              display: 'none',
-              _after: {
-                position: 'absolute',
-                content: '"#"',
-                left: '-1em',
-                color: '#0d9488',
-              },
-            },
-            _hover: {
-              '& .icon': {
-                display: 'inline',
-              },
+        })}
+      >
+        <Slot />
+      </DSText>
+    );
+  }),
+  h2: component$((props) => (
+    <DSText
+      tag="h2"
+      size="title"
+      // Used for the rehypeAutolinkHeadings vite plugin to automatically pass the id for navigation.
+      {...props}
+      class={css({
+        scrollMarginTop: '86px',
+        marginTop: '32px',
+        width: 'fit-content',
+        '& + *': {
+          marginTop: '8px',
+        },
+        position: 'relative',
+        '& a': {
+          position: 'absolute',
+          inset: 0,
+          '& .icon': {
+            height: '100vh',
+            display: 'none',
+            _after: {
+              position: 'absolute',
+              content: '"#"',
+              left: '-1em',
+              color: '#0d9488',
             },
           },
-        })
-      )}
+          _hover: {
+            '& .icon': {
+              display: 'inline',
+            },
+          },
+        },
+      })}
     >
       <Slot />
-    </h2>
+    </DSText>
   )),
   pre: component$((props) => (
     <pre

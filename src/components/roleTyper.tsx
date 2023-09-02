@@ -1,7 +1,7 @@
 import { component$, useComputed$, useSignal } from '@builder.io/qwik';
-import { css, cx } from '@styles/css';
+import { css } from '@styles/css';
 import { vstack } from '@styles/patterns';
-import { text } from '@styles/recipes';
+import { DSText } from '~/components/design-system/DSText';
 
 const roles = [
   'Software Engineer',
@@ -19,29 +19,14 @@ const RoleTyper = component$(() => {
 
   return (
     <div class={vstack({ gap: 4 })}>
-      <h1
-        class={text({
-          size: {
-            base: 'mobileHero',
-            md: 'hero',
-          },
-        })}
-      >
+      <DSText size="hero" tag="h1">
         Hi, Iʼm Nick Kuek
-      </h1>
+      </DSText>
       <div
-        class={cx(
-          text({
-            size: {
-              base: 'mobileSubtitle',
-              md: 'subtitle',
-            },
-          }),
-          css({
-            w: 'full',
-            display: 'inline',
-          })
-        )}
+        class={css({
+          w: 'full',
+          display: 'inline',
+        })}
       >
         <div
           class={css({
@@ -58,8 +43,11 @@ const RoleTyper = component$(() => {
             },
           })}
         >
-          <span class={css({ marginRight: '.25em' })}>Iʼm a</span>
-          <span
+          <DSText size="subtitle" class={css({ marginRight: '.25em' })}>
+            Iʼm a
+          </DSText>
+          <DSText
+            size="subtitle"
             onAnimationIteration$={(event) => {
               if (
                 event.animationName === 'type' &&
@@ -118,7 +106,7 @@ const RoleTyper = component$(() => {
             })}
           >
             {role.value}.
-          </span>
+          </DSText>
         </div>
       </div>
     </div>

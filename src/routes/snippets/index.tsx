@@ -1,9 +1,10 @@
 import type { Component } from '@builder.io/qwik';
 import { component$, Slot, useResource$, Resource } from '@builder.io/qwik';
-import { type DocumentHead, Link, useLocation } from '@builder.io/qwik-city';
+import { type DocumentHead, useLocation } from '@builder.io/qwik-city';
 import { css, cx } from '@styles/css';
 import { vstack } from '@styles/patterns';
-import { text } from '@styles/recipes';
+import { DSLinkContainer } from '~/components/design-system/DSLink';
+import { DSText } from '~/components/design-system/DSText';
 import { LiquidFillButton } from '~/components/liquidFillButton';
 import SliderPuzzle from '~/components/sliderPuzzle';
 
@@ -108,34 +109,21 @@ export default component$(() => {
   return (
     <div class={vstack({ width: 'full', gap: '96px' })}>
       <div class={vstack({ gap: '24px' })}>
-        <h1
-          class={text({
-            size: {
-              base: 'mobileHero',
-              md: 'hero',
-            },
-          })}
-        >
+        <DSText tag="h1" size="hero">
           Snippets
-        </h1>
-        <p
-          class={cx(
-            css({
-              color: 'caption',
-              textAlign: 'center',
-            }),
-            text({
-              size: {
-                base: 'mobileBody',
-                md: 'body',
-              },
-            })
-          )}
+        </DSText>
+        <DSText
+          tag="p"
+          size="body"
+          class={css({
+            color: 'caption',
+            textAlign: 'center',
+          })}
         >
           Exploring elegant solutions through code. A collection of carefully
           crafted code snippets that showcase my journey in
           web&nbsp;development.
-        </p>
+        </DSText>
       </div>
       <Resource
         value={articles}
@@ -149,7 +137,7 @@ export default component$(() => {
               }
               return (
                 <li key={article.slug}>
-                  <Link
+                  <DSLinkContainer
                     href={location.url.pathname + article.slug}
                     class={css({
                       borderTop: '1px solid',
@@ -158,38 +146,23 @@ export default component$(() => {
                       width: 'full',
                       display: 'block',
                       _hover: {
-                        color: 'teal.600',
                         borderColor: 'text',
                       },
                     })}
                   >
                     <div>
-                      <h2
-                        class={text({
-                          size: {
-                            base: 'mobileTitle',
-                            md: 'title',
-                          },
-                        })}
-                      >
+                      <DSText size="title" tag="h2">
                         {article.title}
-                      </h2>
-                      <span
-                        class={cx(
-                          text({
-                            size: {
-                              base: 'mobileBody',
-                              md: 'caption',
-                            },
-                          }),
-                          css({ fontStyle: 'italic' })
-                        )}
+                      </DSText>
+                      <DSText
+                        size="caption"
+                        class={css({ fontStyle: 'italic' })}
                       >
                         {article.caption}
-                      </span>
+                      </DSText>
                     </div>
                     {PreviewComponent && <PreviewComponent />}
-                  </Link>
+                  </DSLinkContainer>
                 </li>
               );
             })}
