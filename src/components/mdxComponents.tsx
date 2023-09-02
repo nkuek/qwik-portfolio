@@ -39,25 +39,6 @@ export default {
             '& + *': {
               marginTop: '8px',
             },
-            '& a': {
-              position: 'absolute',
-              inset: 0,
-              '& .icon': {
-                height: '100vh',
-                display: 'none',
-                _after: {
-                  position: 'absolute',
-                  content: '"#"',
-                  left: '-1em',
-                  color: '#0d9488',
-                },
-              },
-              _hover: {
-                '& .icon': {
-                  display: 'inline',
-                },
-              },
-            },
           })
         )}
       >
@@ -65,14 +46,37 @@ export default {
       </h1>
     );
   }),
-  h2: component$(() => (
+  h2: component$((props) => (
     <h2
+      // Used for the rehypeAutolinkHeadings vite plugin to automatically pass the id for navigation.
+      {...props}
       class={cx(
         text({ size: { base: 'mobileTitle', md: 'title' } }),
         css({
+          scrollMarginTop: '86px',
           marginTop: '32px',
           '& + *': {
             marginTop: '8px',
+          },
+          position: 'relative',
+          '& a': {
+            position: 'absolute',
+            inset: 0,
+            '& .icon': {
+              height: '100vh',
+              display: 'none',
+              _after: {
+                position: 'absolute',
+                content: '"#"',
+                left: '-1em',
+                color: '#0d9488',
+              },
+            },
+            _hover: {
+              '& .icon': {
+                display: 'inline',
+              },
+            },
           },
         })
       )}
