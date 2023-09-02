@@ -52,10 +52,12 @@ const FooterNavigation = component$(() => {
               position: 'relative',
               width: 'full',
               marginTop: '24px',
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+              flexWrap: 'wrap',
+              display: 'flex',
               '& a': {
-                position: 'absolute',
-                display: 'flex',
-                alignItems: 'center',
+                padding: 2,
                 _hover: {
                   color: 'teal.600',
                 },
@@ -81,7 +83,7 @@ const FooterNavigation = component$(() => {
             {next && (
               <Link
                 class={cx(
-                  css({ right: 0 }),
+                  css({ marginLeft: 'auto' }),
                   text({
                     size: {
                       base: 'mobileBody',
