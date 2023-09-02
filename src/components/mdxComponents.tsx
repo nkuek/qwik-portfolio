@@ -48,6 +48,7 @@ export default {
   }),
   h2: component$((props) => (
     <h2
+      // Used for the rehypeAutolinkHeadings vite plugin to automatically pass the id for navigation.
       {...props}
       class={cx(
         text({ size: { base: 'mobileTitle', md: 'title' } }),

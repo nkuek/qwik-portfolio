@@ -8,6 +8,8 @@ import { LiquidFillButton } from '~/components/liquidFillButton';
 import SliderPuzzle from '~/components/sliderPuzzle';
 
 const extractSlugFromFilePath = (path: string) => {
+  // matches ./(articles)/article-slug/index.mdx
+  // !Update if directory changes
   const pattern = /\.\/\(articles\)\/([a-z0-9-]+)\/index\.mdx/;
 
   const match = path.match(pattern);
