@@ -1,8 +1,8 @@
 import { Resource, Slot, component$, useResource$ } from '@builder.io/qwik';
-import { Link, useLocation } from '@builder.io/qwik-city';
-import { css, cx } from '@styles/css';
-import { text } from '@styles/recipes';
+import { useLocation } from '@builder.io/qwik-city';
+import { css } from '@styles/css';
 import { MDXProvider } from 'mdx-js-qwik';
+import { DSLink } from '~/components/design-system/DSLink';
 import mdxComponents from '~/components/mdxComponents';
 import { type Article, getArticles } from '~/routes/snippets';
 
@@ -65,36 +65,18 @@ const FooterNavigation = component$(() => {
             })}
           >
             {prev && (
-              <Link
-                class={cx(
-                  css({ left: 0 }),
-                  text({
-                    size: {
-                      base: 'mobileBody',
-                      md: 'body',
-                    },
-                  })
-                )}
-                href={`/${parentSlug}/${prev.slug}`}
-              >
+              <DSLink size="body" href={`/${parentSlug}/${prev.slug}`}>
                 &lt; Previous: {prev.title}
-              </Link>
+              </DSLink>
             )}
             {next && (
-              <Link
-                class={cx(
-                  css({ marginLeft: 'auto' }),
-                  text({
-                    size: {
-                      base: 'mobileBody',
-                      md: 'body',
-                    },
-                  })
-                )}
+              <DSLink
+                size="body"
+                class={css({ marginLeft: 'auto' })}
                 href={`/${parentSlug}/${next.slug}`}
               >
                 Next: {next.title} &gt;
-              </Link>
+              </DSLink>
             )}
           </div>
         );

@@ -18,8 +18,9 @@ import {
   useVisibleTask$,
 } from '@builder.io/qwik';
 import { css, cx } from '@styles/css';
-import { text } from '@styles/recipes';
 import { ThemeContext } from '~/root';
+import { DSButton } from '~/components/design-system/DSButton';
+import { DSText } from '~/components/design-system/DSText';
 
 const depth = 3;
 const numPuzzlePieces = depth ** 2 - 1; // 8
@@ -119,126 +120,132 @@ type SliderPuzzleStore = {
   showPlayAgainButton: boolean;
 };
 
-const SliderPuzzle = component$(({ noShuffle }: { noShuffle?: boolean }) => {
-  const theme = useContext(ThemeContext);
-  const sliderPuzzleStore = useStore<SliderPuzzleStore>({
-    numTurns: 0,
-    restartCounter: 0,
-    isShuffled: false,
-    isComplete: false,
-    showPlayAgainButton: false,
-    shuffledBoard: noShuffle ? initialBoard : shuffleBoard(initialBoard),
-  });
+const SliderPuzzle = component$(
+  ({ noShuffle = true }: { noShuffle?: boolean }) => {
+    const theme = useContext(ThemeContext);
+    const sliderPuzzleStore = useStore<SliderPuzzleStore>({
+      numTurns: 0,
+      restartCounter: 0,
+      isShuffled: false,
+      isComplete: false,
+      showPlayAgainButton: false,
+      shuffledBoard: noShuffle ? initialBoard : shuffleBoard(initialBoard),
+    });
 
-  const puzzleContainerSignal = useSignal<HTMLDivElement>();
-  const puzzleWrapperSignal = useSignal<HTMLDivElement>();
+    const puzzleContainerSignal = useSignal<HTMLDivElement>();
+    const puzzleWrapperSignal = useSignal<HTMLDivElement>();
 
-  const checkAdjacency = $((index: number) => {
-    const maybeAdjacentTile = sliderPuzzleStore.shuffledBoard[index];
-    const emptyTileRow = Math.floor(
-      sliderPuzzleStore.shuffledBoard.empty / depth
-    );
-    const emptyTileCol = sliderPuzzleStore.shuffledBoard.empty % depth;
+    const checkAdjacency = $((index: number) => {
+      const maybeAdjacentTile = sliderPuzzleStore.shuffledBoard[index];
+      const emptyTileRow = Math.floor(
+        sliderPuzzleStore.shuffledBoard.empty / depth
+      );
+      const emptyTileCol = sliderPuzzleStore.shuffledBoard.empty % depth;
 
-    const maybeAdjacentRow = Math.floor(maybeAdjacentTile / depth);
-    const maybeAdjacentCol = maybeAdjacentTile % depth;
+      const maybeAdjacentRow = Math.floor(maybeAdjacentTile / depth);
+      const maybeAdjacentCol = maybeAdjacentTile % depth;
 
-    const rowDiff = Math.abs(emptyTileRow - maybeAdjacentRow);
-    const colDiff = Math.abs(emptyTileCol - maybeAdjacentCol);
+      const rowDiff = Math.abs(emptyTileRow - maybeAdjacentRow);
+      const colDiff = Math.abs(emptyTileCol - maybeAdjacentCol);
 
-    const isVerticallyAdjacent = rowDiff === 1 && colDiff === 0;
-    const isHorizontallyAdjacent = rowDiff === 0 && colDiff === 1;
+      const isVerticallyAdjacent = rowDiff === 1 && colDiff === 0;
+      const isHorizontallyAdjacent = rowDiff === 0 && colDiff === 1;
 
-    return isVerticallyAdjacent || isHorizontallyAdjacent;
-  });
+      return isVerticallyAdjacent || isHorizontallyAdjacent;
+    });
 
-  const swapTiles = $(async (index: number, buttonEl: HTMLButtonElement) => {
-    const isAdjacent = await checkAdjacency(index);
+    const swapTiles = $(async (index: number, buttonEl: HTMLButtonElement) => {
+      const isAdjacent = await checkAdjacency(index);
 
-    const tile = sliderPuzzleStore.shuffledBoard[index];
+      const tile = sliderPuzzleStore.shuffledBoard[index];
 
-    if (!isAdjacent) {
-      return;
-    }
-    buttonEl.style.transform =
-      translationMatrix[sliderPuzzleStore.shuffledBoard.empty];
-
-    sliderPuzzleStore.shuffledBoard[index] =
-      sliderPuzzleStore.shuffledBoard.empty;
-    sliderPuzzleStore.shuffledBoard.empty = tile;
-
-    sliderPuzzleStore.numTurns++;
-  });
-
-  // Shuffle animation
-  useVisibleTask$(({ track }) => {
-    track(() => sliderPuzzleStore.restartCounter);
-    if (!puzzleContainerSignal.value) {
-      return;
-    }
-    const tiles = puzzleContainerSignal.value.children;
-
-    setTimeout(() => {
-      for (let i = 0; i < tiles.length; i++) {
-        const boardTile = sliderPuzzleStore.shuffledBoard[i];
-
-        const tile = tiles[i] as HTMLButtonElement;
-
-        tile.style.transform = translationMatrix[boardTile];
-      }
-
-      sliderPuzzleStore.isShuffled = true;
-    }, 500);
-  });
-
-  // Check for completion state
-  useVisibleTask$(({ track }) => {
-    track(() => sliderPuzzleStore.numTurns);
-    if (sliderPuzzleStore.numTurns === 0) {
-      return;
-    }
-
-    // check the current state of the board against the initial state of the board (ie the piece's currentIndex vs the key in the puzzle map)
-
-    const allCorrect = Object.entries(sliderPuzzleStore.shuffledBoard).every(
-      ([correctIndex, currentIndex]) => {
-        if (correctIndex === 'empty') {
-          return currentIndex === 8;
-        }
-        return currentIndex === parseInt(correctIndex);
-      }
-    );
-
-    if (!allCorrect) {
-      return;
-    }
-
-    setTimeout(() => {
-      puzzleWrapperSignal.value?.classList.add('complete');
-      sliderPuzzleStore.isComplete = true;
-    }, 750);
-  });
-
-  // Check for board state for adjacency to enable/disable buttons
-  // Disable all buttons except for those adjacent to the empty tile
-  useVisibleTask$(async ({ track }) => {
-    track(() => sliderPuzzleStore.numTurns);
-    if (!puzzleContainerSignal.value) {
-      return;
-    }
-    const tiles = puzzleContainerSignal.value.children;
-
-    for (let i = 0; i < tiles.length; i++) {
-      const tileElement = tiles[i] as HTMLButtonElement | undefined;
-      if (!tileElement) {
+      if (!isAdjacent) {
         return;
       }
-      const isAdjacent = await checkAdjacency(i);
-      tileElement.disabled = !isAdjacent;
-    }
-  });
+      buttonEl.style.transform =
+        translationMatrix[sliderPuzzleStore.shuffledBoard.empty];
 
-  useStylesScoped$(`
+      sliderPuzzleStore.shuffledBoard[index] =
+        sliderPuzzleStore.shuffledBoard.empty;
+      sliderPuzzleStore.shuffledBoard.empty = tile;
+
+      sliderPuzzleStore.numTurns++;
+    });
+
+    // Shuffle animation
+    useVisibleTask$(({ track, cleanup }) => {
+      track(() => sliderPuzzleStore.restartCounter);
+      if (!puzzleContainerSignal.value) {
+        return;
+      }
+      const tiles = puzzleContainerSignal.value.children;
+
+      const shuffleTimeout = setTimeout(
+        () => {
+          for (let i = 0; i < tiles.length; i++) {
+            const boardTile = sliderPuzzleStore.shuffledBoard[i];
+
+            const tile = tiles[i] as HTMLButtonElement;
+
+            tile.style.transform = translationMatrix[boardTile];
+          }
+
+          sliderPuzzleStore.isShuffled = true;
+        },
+        sliderPuzzleStore.restartCounter > 0 ? 0 : 500
+      );
+      cleanup(() => clearTimeout(shuffleTimeout));
+    });
+
+    // Check for completion state
+    useVisibleTask$(({ track }) => {
+      track(() => sliderPuzzleStore.numTurns);
+      if (sliderPuzzleStore.numTurns === 0) {
+        return;
+      }
+
+      // check the current state of the board against the initial state of the board (ie the piece's currentIndex vs the key in the puzzle map)
+
+      const allCorrect = Object.entries(sliderPuzzleStore.shuffledBoard).every(
+        ([correctIndex, currentIndex]) => {
+          if (correctIndex === 'empty') {
+            return currentIndex === 8;
+          }
+          return currentIndex === parseInt(correctIndex);
+        }
+      );
+
+      if (!allCorrect) {
+        return;
+      }
+
+      setTimeout(() => {
+        puzzleWrapperSignal.value?.classList.add('complete');
+        sliderPuzzleStore.isComplete = true;
+      }, 750);
+    });
+
+    // Check for board state for adjacency to enable/disable buttons
+    // Disable all buttons except for those adjacent to the empty tile
+    useVisibleTask$(async ({ track }) => {
+      track(() => sliderPuzzleStore.numTurns);
+      track(() => sliderPuzzleStore.restartCounter);
+      if (!puzzleContainerSignal.value) {
+        return;
+      }
+      const tiles = puzzleContainerSignal.value.children;
+
+      for (let i = 0; i < tiles.length; i++) {
+        const tileElement = tiles[i] as HTMLButtonElement | undefined;
+        if (!tileElement) {
+          return;
+        }
+        const isAdjacent = await checkAdjacency(i);
+        tileElement.disabled = !isAdjacent;
+      }
+    });
+
+    useStylesScoped$(`
   .complete {
 
     & .fullPuzzle {
@@ -256,218 +263,215 @@ const SliderPuzzle = component$(({ noShuffle }: { noShuffle?: boolean }) => {
     }
   }
   `);
-  const PuzzlePiece = component$(({ index }: { index: number }) => {
-    return (
-      <button
-        style={{
-          transform: translationMatrix[index],
-        }}
-        class={css({
-          position: 'absolute',
-          width: 'var(--side-length)',
-          height: 'var(--side-length)',
-          borderRadius: '14%',
-          border: '2.65px solid gray',
-          background: 'rgba(250, 250, 249, 0.2)',
-          transition: 'transform 250ms ease',
-          backdropFilter: 'blur(6px)',
-          overflow: 'hidden',
-          left: 0,
-          '& svg': {
-            pointerEvents: 'none',
-            width: '100%',
-            height: '100%',
-          },
-
-          _focus: {
-            outlineWidth: '4px',
-            outlineStyle: 'solid',
-            outlineColor: 'rgba(70, 94, 209)',
-          },
-        })}
-        aria-label={`Puzzle piece ${index + 1}`}
-        onClick$={async (e) => {
-          const buttonEl = e.target as HTMLButtonElement;
-          await swapTiles(index, buttonEl);
-        }}
-      >
-        <Slot />
-      </button>
-    );
-  });
-
-  return (
-    <div
-      class={css({
-        position: 'relative',
-        width: 'full',
-        height: 'auto',
-        aspectRatio: 1,
-      })}
-    >
-      <div
-        style={{
-          '--depth': 3,
-          '--grid-gap': '7px',
-          '--side-length':
-            'calc((100% - var(--grid-gap) * (var(--depth) - 1)) / var(--depth))',
-        }}
-        class={css({ aspectRatio: 1 })}
-        ref={puzzleWrapperSignal}
-      >
-        <div
-          class={cx(
-            css({
-              transition: 'filter 1.25s ease 0.5s',
-              position: 'absolute',
+    const PuzzlePiece = component$(({ index }: { index: number }) => {
+      return (
+        <button
+          style={{
+            transform: translationMatrix[index],
+          }}
+          class={css({
+            position: 'absolute',
+            width: 'var(--side-length)',
+            height: 'var(--side-length)',
+            borderRadius: '14%',
+            border: '2.65px solid gray',
+            background: 'rgba(250, 250, 249, 0.2)',
+            transition: 'transform 250ms ease',
+            backdropFilter: 'blur(6px)',
+            overflow: 'hidden',
+            left: 0,
+            '& svg': {
+              pointerEvents: 'none',
               width: '100%',
               height: '100%',
-              pointerEvents: 'none',
-              overflow: 'hidden',
-            }),
-            'fullPuzzleContainer'
-          )}
-          style={{
-            '--animationState': sliderPuzzleStore.isComplete
-              ? 'running'
-              : 'paused',
-            '--fill': theme.value === 'dark' ? '#fafaf9' : '#171717',
+            },
+
+            _focus: {
+              outlineWidth: '4px',
+              outlineStyle: 'solid',
+              outlineColor: 'rgba(70, 94, 209)',
+            },
+          })}
+          aria-label={`Puzzle piece ${index + 1}`}
+          onClick$={async (e) => {
+            const buttonEl = e.target as HTMLButtonElement;
+            await swapTiles(index, buttonEl);
           }}
         >
-          <FullLogo
-            class={cx(
-              css({
-                width: '100%',
-                height: '100%',
-                opacity: 0.5,
-                transition: 'opacity 1000ms ease',
-                '& g': {
-                  '& path:nth-child(1)': {
-                    animation: 'scaleColorBar 3000ms ease-in',
-                    animationPlayState: 'var(--animationState)',
-                  },
-                  '& path:nth-child(2)': {
-                    animation: 'scaleColorBar 3000ms ease-in 250ms',
-                    animationPlayState: 'var(--animationState)',
-                  },
-                  '& path:nth-child(3)': {
-                    animation: 'scaleColorBar 3000ms ease-in 500ms',
-                    animationPlayState: 'var(--animationState)',
-                  },
-                  '& path:nth-child(4)': {
-                    animation: 'scaleColorBar 3000ms ease-in 750ms',
-                    animationPlayState: 'var(--animationState)',
-                  },
-                },
-              }),
-              'fullPuzzle'
-            )}
-            onAnimationEnd$={(e) => {
-              const target = e.target as HTMLElement;
-              const last = !!target.getAttribute('data-last');
-              if (last) {
-                sliderPuzzleStore.showPlayAgainButton = true;
-              }
+          <Slot />
+        </button>
+      );
+    });
+
+    const resetState = $(() => {
+      sliderPuzzleStore.isComplete = false;
+      sliderPuzzleStore.showPlayAgainButton = false;
+      sliderPuzzleStore.isShuffled = false;
+      sliderPuzzleStore.numTurns = 0;
+      sliderPuzzleStore.shuffledBoard = shuffleBoard(initialBoard);
+      sliderPuzzleStore.restartCounter++;
+      puzzleWrapperSignal.value?.classList.remove('complete');
+      puzzleContainerSignal.value?.style.setProperty('--visibility', 'visible');
+    });
+
+    return (
+      <>
+        <div
+          class={css({
+            position: 'relative',
+            width: 'full',
+            height: 'auto',
+            aspectRatio: 1,
+          })}
+        >
+          <div
+            style={{
+              '--depth': 3,
+              '--grid-gap': '7px',
+              '--side-length':
+                'calc((100% - var(--grid-gap) * (var(--depth) - 1)) / var(--depth))',
             }}
-          />
+            class={css({ aspectRatio: 1 })}
+            ref={puzzleWrapperSignal}
+          >
+            <div
+              class={cx(
+                css({
+                  transition: 'filter 1.25s ease 0.5s',
+                  position: 'absolute',
+                  width: '100%',
+                  height: '100%',
+                  pointerEvents: 'none',
+                  overflow: 'hidden',
+                }),
+                'fullPuzzleContainer'
+              )}
+              style={{
+                '--animationState': sliderPuzzleStore.isComplete
+                  ? 'running'
+                  : 'paused',
+                '--fill': theme.value === 'dark' ? '#fafaf9' : '#171717',
+              }}
+            >
+              <FullLogo
+                class={cx(
+                  css({
+                    width: '100%',
+                    height: '100%',
+                    opacity: 0.5,
+                    transition: 'opacity 1000ms ease',
+                    '& g': {
+                      '& path:nth-child(1)': {
+                        animation: 'scaleColorBar 3000ms ease-in',
+                        animationPlayState: 'var(--animationState)',
+                      },
+                      '& path:nth-child(2)': {
+                        animation: 'scaleColorBar 3000ms ease-in 250ms',
+                        animationPlayState: 'var(--animationState)',
+                      },
+                      '& path:nth-child(3)': {
+                        animation: 'scaleColorBar 3000ms ease-in 500ms',
+                        animationPlayState: 'var(--animationState)',
+                      },
+                      '& path:nth-child(4)': {
+                        animation: 'scaleColorBar 3000ms ease-in 750ms',
+                        animationPlayState: 'var(--animationState)',
+                      },
+                    },
+                  }),
+                  'fullPuzzle'
+                )}
+                onAnimationEnd$={(e) => {
+                  const target = e.target as HTMLElement;
+                  const last = !!target.getAttribute('data-last');
+                  if (last) {
+                    sliderPuzzleStore.showPlayAgainButton = true;
+                  }
+                }}
+              />
+            </div>
+            <div
+              style={{
+                '--visibility': sliderPuzzleStore.isComplete
+                  ? 'hidden'
+                  : 'visible',
+                '--pointer-events': sliderPuzzleStore.isShuffled
+                  ? 'initial'
+                  : 'none',
+              }}
+              class={cx(
+                css({
+                  transition: 'opacity 1000ms ease, visibility 500ms',
+                  pointerEvents: 'var(--pointer-events)' as any,
+                  visibility: 'var(--visibility)' as any,
+                }),
+                'puzzleContainer'
+              )}
+              id="puzzle-container"
+              ref={puzzleContainerSignal}
+            >
+              <PuzzlePiece index={0}>
+                <Piece0 />
+              </PuzzlePiece>
+              <PuzzlePiece index={1}>
+                <Piece1 />
+              </PuzzlePiece>
+              <PuzzlePiece index={2}>
+                <Piece2 />
+              </PuzzlePiece>
+              <PuzzlePiece index={3}>
+                <Piece3 />
+              </PuzzlePiece>
+              <PuzzlePiece index={4}>
+                <Piece4 />
+              </PuzzlePiece>
+              <PuzzlePiece index={5}>
+                <Piece5 />
+              </PuzzlePiece>
+              <PuzzlePiece index={6}>
+                <Piece6 />
+              </PuzzlePiece>
+              <PuzzlePiece index={7}>
+                <Piece7 />
+              </PuzzlePiece>
+            </div>
+          </div>
         </div>
         <div
           style={{
-            '--visibility': sliderPuzzleStore.isComplete ? 'hidden' : 'visible',
-            '--pointer-events': sliderPuzzleStore.isShuffled
-              ? 'initial'
-              : 'none',
+            '--visibility':
+              sliderPuzzleStore.numTurns > 0 ||
+              sliderPuzzleStore.restartCounter > 0
+                ? 'visible'
+                : 'hidden',
           }}
-          class={cx(
-            css({
-              transition: 'opacity 1000ms ease, visibility 500ms',
-              pointerEvents: 'var(--pointer-events)' as any,
-              visibility: 'var(--visibility)' as any,
-            }),
-            'puzzleContainer'
-          )}
-          id="puzzle-container"
-          ref={puzzleContainerSignal}
-        >
-          <PuzzlePiece index={0}>
-            <Piece0 />
-          </PuzzlePiece>
-          <PuzzlePiece index={1}>
-            <Piece1 />
-          </PuzzlePiece>
-          <PuzzlePiece index={2}>
-            <Piece2 />
-          </PuzzlePiece>
-          <PuzzlePiece index={3}>
-            <Piece3 />
-          </PuzzlePiece>
-          <PuzzlePiece index={4}>
-            <Piece4 />
-          </PuzzlePiece>
-          <PuzzlePiece index={5}>
-            <Piece5 />
-          </PuzzlePiece>
-          <PuzzlePiece index={6}>
-            <Piece6 />
-          </PuzzlePiece>
-          <PuzzlePiece index={7}>
-            <Piece7 />
-          </PuzzlePiece>
-        </div>
-      </div>
-      {(sliderPuzzleStore.numTurns > 0 ||
-        sliderPuzzleStore.restartCounter > 0) && (
-        <span
-          class={cx(
-            css({
-              position: 'absolute',
-              bottom: '-40px',
-              left: '50%',
-              transform: 'translate(-50%)',
-              color: 'text',
-            }),
-            text({
-              size: {
-                base: 'mobileBody',
-                md: 'body',
-              },
-            })
-          )}
-        >
-          Turns: {sliderPuzzleStore.numTurns}
-        </span>
-      )}
-      {sliderPuzzleStore.showPlayAgainButton && (
-        <button
           class={css({
-            color: 'text',
-            position: 'absolute',
-            bottom: '-72px',
-            left: '50%',
-            transform: 'translate(-50%)',
-            _hover: {
-              color: 'teal.600',
-            },
+            display: 'grid',
+            width: 'full',
+            placeItems: 'center',
+            gap: '12px',
+            visibility: 'var(--visibility)' as any,
           })}
-          onClick$={() => {
-            sliderPuzzleStore.isComplete = false;
-            sliderPuzzleStore.showPlayAgainButton = false;
-            sliderPuzzleStore.isShuffled = false;
-            sliderPuzzleStore.numTurns = 0;
-            sliderPuzzleStore.shuffledBoard = shuffleBoard(initialBoard);
-            sliderPuzzleStore.restartCounter++;
-            puzzleWrapperSignal.value?.classList.remove('complete');
-            puzzleContainerSignal.value?.style.setProperty(
-              '--visibility',
-              'visible'
-            );
-          }}
         >
-          Play again?
-        </button>
-      )}
-    </div>
-  );
-});
+          <DSText
+            size="body"
+            class={css({
+              color: 'text',
+            })}
+          >
+            Turns: {sliderPuzzleStore.numTurns}
+          </DSText>
+          <DSButton
+            class={css({ width: 'fit-content' })}
+            variant="tertiary"
+            onClick$={resetState}
+          >
+            {sliderPuzzleStore.isComplete ? 'Play again?' : 'Reset'}
+          </DSButton>
+        </div>
+      </>
+    );
+  }
+);
 
 export default SliderPuzzle;

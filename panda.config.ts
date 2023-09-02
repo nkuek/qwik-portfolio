@@ -1,5 +1,6 @@
 import { defineConfig } from '@pandacss/dev';
 import { textRecipe } from './src/components/design-system/recipes/text';
+import { buttonRecipe } from '~/components/design-system/recipes/button';
 
 export default defineConfig({
   jsxFramework: 'qwik',
@@ -27,9 +28,17 @@ export default defineConfig({
           sourceCodePro: { value: 'Source Code Pro, monospace' },
           firaCode: { value: 'Fira Code, monospace' },
         },
+        colors: {
+          links: {
+            hover: {
+              value: '{colors.teal.700}',
+            },
+          },
+        },
       },
       recipes: {
         text: textRecipe,
+        button: buttonRecipe,
       },
       semanticTokens: {
         colors: {

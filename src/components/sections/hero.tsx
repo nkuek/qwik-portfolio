@@ -5,6 +5,7 @@ import { css } from '@styles/css';
 import { Link } from '@builder.io/qwik-city';
 import RoleTyper from '~/components/roleTyper';
 import { Image } from '@unpic/qwik';
+import { DSText } from '~/components/design-system/DSText';
 
 export const Hero = component$(() => {
   const hasScrolled = useSignal(false);
@@ -44,6 +45,7 @@ export const Hero = component$(() => {
           w: 'full',
         })}
       >
+        <DSText size="hero">Hello</DSText>
         <RoleTyper />
 
         <Image
@@ -77,6 +79,9 @@ export const Hero = component$(() => {
           position: 'absolute',
           bottom: 5,
           transition: 'opacity 500ms ease',
+          _hover: {
+            color: 'links.hover',
+          },
         })}
         aria-label="go to next section"
       >

@@ -1,8 +1,8 @@
 import { component$, useSignal } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
-import { css, cx } from '@styles/css';
+import { css } from '@styles/css';
 import { flex, hstack, vstack } from '@styles/patterns';
-import { text } from '@styles/recipes';
+import { DSLink } from '~/components/design-system/DSLink';
 import { ThemeToggle } from '~/components/themeToggle/themeTogle';
 import Logo from '~/images/logo.svg?jsx';
 type NavbarSection = {
@@ -172,22 +172,19 @@ const MobileNavbar = component$(() => {
             onClick$={() => (showNavDrawer.value = false)}
             role="none"
           >
-            <Link
+            <DSLink
+              size="body"
               href={section.href}
-              class={cx(
-                css({
-                  p: 3,
-                  width: 'full',
-                  borderBottomWidth: '1px',
-                  borderColor: 'zinc.700',
-                  '&:hover': { color: 'teal.600' },
-                }),
-                text({ size: 'body' })
-              )}
+              class={css({
+                p: 3,
+                width: 'full',
+                borderBottomWidth: '1px',
+                borderColor: 'zinc.700',
+              })}
               role="menuitem"
             >
               {section.title}
-            </Link>
+            </DSLink>
           </li>
         ))}
         <li
@@ -220,18 +217,15 @@ const DesktopNavbar = component$(() => {
     >
       {sections.map((section, idx) => (
         <li key={idx} class={css({ display: 'flex' })}>
-          <Link
+          <DSLink
+            size="body"
             href={section.href}
-            class={cx(
-              css({
-                h: 'full',
-                '&:hover': { color: 'teal.600' },
-              }),
-              text({ size: 'body' })
-            )}
+            class={css({
+              h: 'full',
+            })}
           >
             {section.title}
-          </Link>
+          </DSLink>
         </li>
       ))}
       <li>
