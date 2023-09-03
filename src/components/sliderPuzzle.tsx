@@ -122,6 +122,7 @@ type SliderPuzzleStore = {
   isSolving: boolean;
   isAnimating: boolean;
   disableButtons: boolean;
+  hideSolveButton: boolean;
 };
 
 const SliderPuzzle = component$(({ noShuffle }: { noShuffle?: boolean }) => {
@@ -136,6 +137,7 @@ const SliderPuzzle = component$(({ noShuffle }: { noShuffle?: boolean }) => {
     isSolving: false,
     isAnimating: false,
     disableButtons: false,
+    hideSolveButton: false,
   });
 
   const puzzleContainerSignal = useSignal<HTMLDivElement>();
@@ -359,6 +361,7 @@ const SliderPuzzle = component$(({ noShuffle }: { noShuffle?: boolean }) => {
     puzzleWrapperSignal.value?.classList.remove('complete');
     puzzleContainerSignal.value?.style.setProperty('--visibility', 'visible');
     sliderPuzzleStore.isSolving = false;
+    sliderPuzzleStore.hideSolveButton = false;
   });
 
   return (
@@ -474,26 +477,35 @@ const SliderPuzzle = component$(({ noShuffle }: { noShuffle?: boolean }) => {
           </div>
         </div>
       </div>
-      <DSButton
-        variant="secondary"
-        class={css({
-          color: 'text',
-          _hover: {
-            color: 'links.hover',
-          },
-          _disabled: {
-            pointerEvents: 'none',
-          },
-        })}
-        onClick$={() => {
-          sliderPuzzleStore.isSolving = true;
-          sliderPuzzleStore.disableButtons = true;
-          solvePuzzle();
-        }}
-        disabled={sliderPuzzleStore.disableButtons}
-      >
-        Solve
-      </DSButton>
+      {!noShuffle && (
+        <DSButton
+          variant="secondary"
+          style={{
+            '--visibility': sliderPuzzleStore.hideSolveButton
+              ? 'hidden'
+              : 'visibile',
+          }}
+          class={css({
+            color: 'text',
+            _hover: {
+              color: 'links.hover',
+            },
+            _disabled: {
+              pointerEvents: 'none',
+            },
+            visibility: 'var(--visibility)' as any,
+          })}
+          onClick$={() => {
+            sliderPuzzleStore.isSolving = true;
+            sliderPuzzleStore.disableButtons = true;
+            sliderPuzzleStore.hideSolveButton = true;
+            solvePuzzle();
+          }}
+          disabled={sliderPuzzleStore.disableButtons}
+        >
+          Solve
+        </DSButton>
+      )}
       <div
         style={{
           '--visibility':

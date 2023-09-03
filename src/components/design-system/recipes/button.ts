@@ -24,9 +24,9 @@ export const buttonRecipe = defineRecipe({
         _hover: {
           color: 'teal.700',
         },
+        background: 'transparent',
         _disabled: {
           opacity: 0.5,
-          background: 'neutral.600',
         },
         padding: '12px 24px',
         borderRadius: '12px',
