@@ -100,7 +100,7 @@ export default component$(() => {
             pointerEvents: 'none',
           })}
         >
-          <SliderPuzzle noShuffle />
+          <SliderPuzzle shuffle={false} showUI={false} />
         </div>
       </PreviewComponent>
     )),
