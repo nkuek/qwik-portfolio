@@ -68,7 +68,6 @@ const FooterNavigation = component$(() => {
 
               '& svg': {
                 height: '.75em',
-                marginBottom: '.31em',
               },
             })}
           >
@@ -78,7 +77,7 @@ const FooterNavigation = component$(() => {
                 href={`/${parentSlug}/${prev.slug}`}
                 aria-label={`Go to previous page: ${prev.title}`}
               >
-                <DSText size="caption">
+                <DSText size="caption" class={css({ marginBottom: '.44em' })}>
                   <ChevronLeft />
                 </DSText>
                 <div class={css({ display: 'grid', marginLeft: '6px' })}>
@@ -105,7 +104,7 @@ const FooterNavigation = component$(() => {
                   </DSText>
                   <DSText size="body">{next.title}</DSText>
                 </div>
-                <DSText size="body">
+                <DSText size="caption" class={css({ marginBottom: '.4em' })}>
                   <ChevronRight />
                 </DSText>
               </DSLinkContainer>
