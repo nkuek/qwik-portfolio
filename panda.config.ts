@@ -115,11 +115,6 @@ export default defineConfig({
             transform: 'translateX(0) rotate(-180deg)',
           },
         },
-        scaleColorBar: {
-          '50%': {
-            strokeWidth: '200vh',
-          },
-        },
         revealLeftToRight: {
           from: {
             clipPath: 'polygon(0 0, 0 0, 0 100%, 0% 100%)',

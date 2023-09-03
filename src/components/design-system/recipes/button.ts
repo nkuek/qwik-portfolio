@@ -5,6 +5,7 @@ export const buttonRecipe = defineRecipe({
   description: 'Text styles',
   base: {
     textAlign: 'center',
+    color: 'inherit',
   },
   variants: {
     type: {
@@ -22,6 +23,10 @@ export const buttonRecipe = defineRecipe({
         border: '1px solid',
         _hover: {
           color: 'teal.700',
+        },
+        _disabled: {
+          opacity: 0.5,
+          background: 'neutral.600',
         },
         padding: '12px 24px',
         borderRadius: '12px',
