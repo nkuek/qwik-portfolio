@@ -481,9 +481,10 @@ const SliderPuzzle = component$(({ noShuffle }: { noShuffle?: boolean }) => {
         <DSButton
           variant="secondary"
           style={{
-            '--visibility': sliderPuzzleStore.hideSolveButton
-              ? 'hidden'
-              : 'visibile',
+            '--visibility':
+              sliderPuzzleStore.hideSolveButton || sliderPuzzleStore.isComplete
+                ? 'hidden'
+                : 'visibile',
           }}
           class={css({
             color: 'text',
