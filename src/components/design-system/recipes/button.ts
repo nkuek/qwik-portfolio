@@ -15,8 +15,6 @@ export const buttonRecipe = defineRecipe({
         _hover: {
           background: 'teal.700',
         },
-        padding: '12px 24px',
-        borderRadius: '12px',
       },
       secondary: {
         transition: 'color 250ms ease',
@@ -28,17 +26,24 @@ export const buttonRecipe = defineRecipe({
         _disabled: {
           opacity: 0.5,
         },
-        padding: '12px 24px',
-        borderRadius: '12px',
       },
       tertiary: {
         background: 'teal.950',
-        padding: '6px 12px',
         borderRadius: '6px',
         color: 'stone.50',
         _hover: {
           background: 'teal.900',
         },
+      },
+    },
+    size: {
+      big: {
+        padding: '12px 24px',
+        borderRadius: '12px',
+      },
+      small: {
+        padding: '6px 12px',
+        borderRadius: '6px',
       },
     },
   },

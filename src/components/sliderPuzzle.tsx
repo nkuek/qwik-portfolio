@@ -21,7 +21,7 @@ import { css, cx } from '@styles/css';
 import { ThemeContext } from '~/root';
 import { DSButton } from '~/components/design-system/DSButton';
 import { DSText } from '~/components/design-system/DSText';
-import { solve8Puzzle } from '~/utils/puzzleSolver';
+import { LoadingDots } from '~/components/loading';
 
 const depth = 3;
 const numPuzzlePieces = depth ** 2 - 1; // 8
@@ -182,7 +182,15 @@ const SliderPuzzle = component$(({ noShuffle }: { noShuffle?: boolean }) => {
 
   const solvePuzzle = $(async () => {
     sliderPuzzleStore.isAnimating = true;
-    const solution = await solve8Puzzle(sliderPuzzleStore.shuffledBoard);
+    sliderPuzzleStore.disableButtons = true;
+    const solutionData = await fetch('/api/puzzle-solver', {
+      body: JSON.stringify(sliderPuzzleStore.shuffledBoard),
+      method: 'POST',
+    });
+
+    const solution = await solutionData.json();
+    sliderPuzzleStore.isSolving = false;
+
     for (const step of solution) {
       const buttonEl = document.getElementById(
         `index-${step}`
@@ -193,7 +201,6 @@ const SliderPuzzle = component$(({ noShuffle }: { noShuffle?: boolean }) => {
       swapTiles(parseInt(step), buttonEl);
     }
     sliderPuzzleStore.isAnimating = false;
-    sliderPuzzleStore.isSolving = false;
   });
 
   // Shuffle animation
@@ -368,10 +375,7 @@ const SliderPuzzle = component$(({ noShuffle }: { noShuffle?: boolean }) => {
     <>
       <div
         style={{
-          '--opacity':
-            sliderPuzzleStore.isSolving && !sliderPuzzleStore.isAnimating
-              ? '.5'
-              : '1',
+          '--opacity': sliderPuzzleStore.isSolving ? '.5' : '1',
         }}
         class={css({
           position: 'relative',
@@ -477,56 +481,57 @@ const SliderPuzzle = component$(({ noShuffle }: { noShuffle?: boolean }) => {
           </div>
         </div>
       </div>
-      {!noShuffle && (
-        <DSButton
-          variant="secondary"
-          style={{
-            '--visibility':
-              sliderPuzzleStore.hideSolveButton || sliderPuzzleStore.isComplete
-                ? 'hidden'
-                : 'visibile',
-          }}
-          class={css({
-            color: 'text',
-            _hover: {
-              color: 'links.hover',
-            },
-            _disabled: {
-              pointerEvents: 'none',
-            },
-            visibility: 'var(--visibility)' as any,
-          })}
-          onClick$={() => {
-            sliderPuzzleStore.isSolving = true;
-            sliderPuzzleStore.disableButtons = true;
-            sliderPuzzleStore.hideSolveButton = true;
-            solvePuzzle();
-          }}
-          disabled={sliderPuzzleStore.disableButtons}
-        >
-          Solve
-        </DSButton>
-      )}
+
       <div
-        style={{
-          '--visibility':
-            sliderPuzzleStore.numTurns > 0 ||
-            sliderPuzzleStore.restartCounter > 0
-              ? 'visible'
-              : 'hidden',
-        }}
         class={css({
-          display: 'grid',
+          display: 'flex',
           width: 'full',
-          placeItems: 'center',
+          justifyContent: 'space-between',
+          alignItems: 'center',
           gap: '12px',
-          visibility: 'var(--visibility)' as any,
+          marginTop: '24px',
         })}
       >
+        {!noShuffle && (
+          <DSButton
+            variant="secondary"
+            style={{
+              '--visibility':
+                sliderPuzzleStore.hideSolveButton ||
+                sliderPuzzleStore.isComplete
+                  ? 'hidden'
+                  : 'visibile',
+            }}
+            class={css({
+              color: 'text',
+              _hover: {
+                color: 'links.hover',
+              },
+              _disabled: {
+                pointerEvents: 'none',
+              },
+              visibility: 'var(--visibility)' as any,
+            })}
+            onClick$={() => {
+              sliderPuzzleStore.isSolving = true;
+              solvePuzzle();
+            }}
+            disabled={sliderPuzzleStore.disableButtons}
+          >
+            {sliderPuzzleStore.isSolving ? (
+              <LoadingDots class={css({ paddingBlock: '5px' })} />
+            ) : (
+              'Solve'
+            )}
+          </DSButton>
+        )}
         <DSText
           size="body"
           class={css({
             color: 'text',
+            position: 'absolute',
+            transform: 'translateX(-50%)',
+            left: '50%',
           })}
         >
           Turns: {sliderPuzzleStore.numTurns}

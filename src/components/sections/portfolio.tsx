@@ -260,6 +260,7 @@ const PortfolioSection = component$<PortfolioSectionProps>(({ project }) => {
             return (
               <DSButtonLink
                 variant="tertiary"
+                size="small"
                 href={technologyInfo.href}
                 target="_blank"
                 rel="noopener"

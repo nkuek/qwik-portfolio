@@ -37,8 +37,13 @@ export const DSLink = component$(
 type DSButtonLinkProps = QwikIntrinsicElements['a'] & DSButtonPropsBase;
 
 export const DSButtonLink = component$(
-  ({ variant, class: classExtension, ...props }: DSButtonLinkProps) => {
-    const buttonClass = getButtonClassFromVariant(variant);
+  ({
+    variant,
+    class: classExtension,
+    size = 'big',
+    ...props
+  }: DSButtonLinkProps) => {
+    const buttonClass = getButtonClassFromVariant(variant, size);
     return (
       <Link {...props} class={cx(buttonClass, classExtension)}>
         <Slot />

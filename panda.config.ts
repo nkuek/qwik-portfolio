@@ -131,6 +131,12 @@ export default defineConfig({
             clipPath: 'polygon(100% 0, 0 0, 0 100%, 100% 100%)',
           },
         },
+        loading: {
+          '50%': {
+            opacity: 0.7,
+            transform: 'translateY(-5px)',
+          },
+        },
       },
     },
   },
