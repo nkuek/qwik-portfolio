@@ -2,9 +2,12 @@ import { Resource, Slot, component$, useResource$ } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
 import { css } from '@styles/css';
 import { MDXProvider } from 'mdx-js-qwik';
-import { DSLink } from '~/components/design-system/DSLink';
+import { DSLinkContainer } from '~/components/design-system/DSLink';
+import { DSText } from '~/components/design-system/DSText';
 import mdxComponents from '~/components/mdxComponents';
 import { type Article, getArticles } from '~/routes/snippets';
+import ChevronRight from '~/images/chevronRight.svg?jsx';
+import ChevronLeft from '~/images/chevronLeft.svg?jsx';
 
 function getArticleNavigation(articleSlug: string, articles: Article[]) {
   const currentArticleIndex = articles.findIndex(
@@ -62,21 +65,50 @@ const FooterNavigation = component$(() => {
                   color: 'teal.600',
                 },
               },
+
+              '& svg': {
+                height: '.75em',
+                marginBottom: '.31em',
+              },
             })}
           >
             {prev && (
-              <DSLink size="body" href={`/${parentSlug}/${prev.slug}`}>
-                &lt; Previous: {prev.title}
-              </DSLink>
+              <DSLinkContainer
+                class={css({ display: 'flex', alignItems: 'flex-end' })}
+                href={`/${parentSlug}/${prev.slug}`}
+                aria-label={`Go to previous page: ${prev.title}`}
+              >
+                <DSText size="caption">
+                  <ChevronLeft />
+                </DSText>
+                <div class={css({ display: 'grid', marginLeft: '6px' })}>
+                  <DSText class={css({ opacity: 0.7 })} size="caption">
+                    Previous
+                  </DSText>
+                  <DSText size="body">{prev.title}</DSText>
+                </div>
+              </DSLinkContainer>
             )}
             {next && (
-              <DSLink
-                size="body"
-                class={css({ marginLeft: 'auto' })}
+              <DSLinkContainer
+                class={css({
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  marginLeft: 'auto',
+                })}
                 href={`/${parentSlug}/${next.slug}`}
+                aria-label={`Go to next page: ${next.title}`}
               >
-                Next: {next.title} &gt;
-              </DSLink>
+                <div class={css({ display: 'grid', marginRight: '6px' })}>
+                  <DSText class={css({ opacity: 0.6 })} size="body">
+                    Next
+                  </DSText>
+                  <DSText size="body">{next.title}</DSText>
+                </div>
+                <DSText size="body">
+                  <ChevronRight />
+                </DSText>
+              </DSLinkContainer>
             )}
           </div>
         );
