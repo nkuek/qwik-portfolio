@@ -11,6 +11,7 @@ export const buttonRecipe = defineRecipe({
     type: {
       primary: {
         background: 'teal.600',
+        color: 'stone.50',
         transition: 'background 250ms ease',
         _hover: {
           background: 'teal.700',

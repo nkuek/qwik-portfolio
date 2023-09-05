@@ -26,7 +26,7 @@ export const RouterHead = component$(() => {
         crossOrigin="anonymous"
       />
       <link
-        href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Poppins:wght@100;300;400&family=Source+Code+Pro&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Poppins:wght@100;300;400;600&family=Source+Code+Pro&display=swap"
         rel="stylesheet"
       />
       <link rel="preload" as="image" href="/images/overlay.png" />

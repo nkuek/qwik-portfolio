@@ -16,6 +16,12 @@ export default {
           whiteSpace: 'nowrap',
           fontFamily: 'sourceCodePro',
         },
+        '& > a': {
+          textDecoration: 'underline',
+          _hover: {
+            color: 'links.hover',
+          },
+        },
       })}
     >
       <Slot />
@@ -103,5 +109,10 @@ export default {
     <em class={css({ fontStyle: 'italic' })} {...props}>
       <Slot />
     </em>
+  )),
+  strong: component$((props) => (
+    <strong {...props} class={css({ fontWeight: 600 })}>
+      <Slot />
+    </strong>
   )),
 };

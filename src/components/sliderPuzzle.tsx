@@ -15,6 +15,7 @@ import {
   useSignal,
   useStore,
   useStylesScoped$,
+  useTask$,
   useVisibleTask$,
 } from '@builder.io/qwik';
 import { css, cx } from '@styles/css';
@@ -27,10 +28,10 @@ const depth = 3;
 const numPuzzlePieces = depth ** 2 - 1; // 8
 const gridGap = '7px';
 
-type TPuzzleMap = Record<number | 'empty', number>;
+type PuzzleMap = Record<number | 'empty', number>;
 
-function generateInitialBoard(): TPuzzleMap {
-  const puzzleMap: TPuzzleMap = { empty: 8 };
+function generateInitialBoard(): PuzzleMap {
+  const puzzleMap: PuzzleMap = { empty: 8 };
 
   for (let i = 0; i < numPuzzlePieces; i++) {
     puzzleMap[i] = i;
@@ -56,8 +57,12 @@ const translationMatrix = generateTranslationMatrix();
 
 // Fisher-Yates Shuffle
 // https://www.tutorialspoint.com/what-is-fisher-yates-shuffle-in-javascript
-function shuffleBoard(puzzleMap: TPuzzleMap): TPuzzleMap {
+function shuffleBoard(
+  puzzleMap: PuzzleMap,
+  shouldBeSolvable = true
+): PuzzleMap {
   const copy = { ...puzzleMap };
+  const shouldBeUnsolvable = !shouldBeSolvable;
 
   for (let i = Object.values(copy).length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -69,12 +74,19 @@ function shuffleBoard(puzzleMap: TPuzzleMap): TPuzzleMap {
     copy[j < 8 ? j : 'empty'] = piece1;
   }
 
-  const isUnsolvable = !checkSolvability(copy);
+  const isSolvable = checkSolvability(copy);
+  const isUnsolvable = !isSolvable;
 
-  // keep shuffling the board until it is solvable
-  if (isUnsolvable) {
+  // create unsolvable board
+  if (isSolvable && shouldBeUnsolvable) {
+    return shuffleBoard(puzzleMap, shouldBeSolvable);
+  }
+
+  // create solvable board
+  if (isUnsolvable && shouldBeSolvable) {
     return shuffleBoard(puzzleMap);
   }
+
   return copy;
 }
 
@@ -90,7 +102,7 @@ We could replace this with a merge sort algorithm, but that might be overly comp
 Sliding puzzles are only solvable if the number of inversions is even.
 See https://www.geeksforgeeks.org/check-instance-8-puzzle-solvable/ for more details.
 */
-function checkSolvability(puzzleMap: TPuzzleMap) {
+function checkSolvability(puzzleMap: PuzzleMap) {
   let inversions = 0;
   const array = Object.entries(puzzleMap);
   for (let i = 0; i < array.length - 1; i++) {
@@ -113,7 +125,7 @@ function checkSolvability(puzzleMap: TPuzzleMap) {
 
 type SliderPuzzleStore = {
   numTurns: number;
-  shuffledBoard: TPuzzleMap;
+  shuffledBoard: PuzzleMap;
   restartCounter: number;
   // prevent interacting with the board until the shuffle animation plays
   isShuffled: boolean;
@@ -123,15 +135,17 @@ type SliderPuzzleStore = {
   isAnimating: boolean;
   disableButtons: boolean;
   hideSolveButton: boolean;
+  showNoSolution: boolean;
 };
 
 type SliderPuzzleProps = {
   shuffle?: boolean;
   showUI?: boolean;
+  isSolvable?: boolean;
 };
 
 const SliderPuzzle = component$(
-  ({ shuffle = true, showUI = true }: SliderPuzzleProps) => {
+  ({ shuffle = true, showUI = true, isSolvable = true }: SliderPuzzleProps) => {
     const theme = useContext(ThemeContext);
     const sliderPuzzleStore = useStore<SliderPuzzleStore>({
       numTurns: 0,
@@ -139,11 +153,14 @@ const SliderPuzzle = component$(
       isShuffled: false,
       isComplete: false,
       showPlayAgainButton: false,
-      shuffledBoard: shuffle ? shuffleBoard(initialBoard) : initialBoard,
+      shuffledBoard: shuffle
+        ? shuffleBoard(initialBoard, isSolvable)
+        : initialBoard,
       isSolving: false,
       isAnimating: false,
       disableButtons: false,
       hideSolveButton: false,
+      showNoSolution: false,
     });
 
     const puzzleContainerSignal = useSignal<HTMLDivElement>();
@@ -194,7 +211,7 @@ const SliderPuzzle = component$(
         method: 'POST',
       });
 
-      const solution = await solutionData.json();
+      const solution: string[] = await solutionData.json();
       sliderPuzzleStore.isSolving = false;
 
       for (const step of solution) {
@@ -205,6 +222,10 @@ const SliderPuzzle = component$(
         await new Promise((resolve) => setTimeout(resolve, 250));
         // Trigger the swapTiles function for each step
         swapTiles(parseInt(step), buttonEl);
+      }
+      if (!solution.length) {
+        sliderPuzzleStore.disableButtons = false;
+        sliderPuzzleStore.showNoSolution = true;
       }
       sliderPuzzleStore.isAnimating = false;
     });
@@ -280,6 +301,30 @@ const SliderPuzzle = component$(
         const isAdjacent = await checkAdjacency(i);
         tileElement.disabled = sliderPuzzleStore.isAnimating || !isAdjacent;
       }
+    });
+
+    // If no solution, hide after 5 seconds
+    useTask$(({ track, cleanup }) => {
+      track(() => sliderPuzzleStore.showNoSolution);
+
+      const timeout = setTimeout(() => {
+        sliderPuzzleStore.showNoSolution = false;
+      }, 5000);
+
+      cleanup(() => clearTimeout(timeout));
+    });
+
+    const resetState = $(() => {
+      sliderPuzzleStore.isComplete = false;
+      sliderPuzzleStore.showPlayAgainButton = false;
+      sliderPuzzleStore.isShuffled = false;
+      sliderPuzzleStore.numTurns = 0;
+      sliderPuzzleStore.shuffledBoard = shuffleBoard(initialBoard, isSolvable);
+      sliderPuzzleStore.restartCounter++;
+      puzzleWrapperSignal.value?.classList.remove('complete');
+      puzzleContainerSignal.value?.style.setProperty('--visibility', 'visible');
+      sliderPuzzleStore.isSolving = false;
+      sliderPuzzleStore.hideSolveButton = false;
     });
 
     useStylesScoped$(`
@@ -364,19 +409,6 @@ const SliderPuzzle = component$(
       );
     });
 
-    const resetState = $(() => {
-      sliderPuzzleStore.isComplete = false;
-      sliderPuzzleStore.showPlayAgainButton = false;
-      sliderPuzzleStore.isShuffled = false;
-      sliderPuzzleStore.numTurns = 0;
-      sliderPuzzleStore.shuffledBoard = shuffleBoard(initialBoard);
-      sliderPuzzleStore.restartCounter++;
-      puzzleWrapperSignal.value?.classList.remove('complete');
-      puzzleContainerSignal.value?.style.setProperty('--visibility', 'visible');
-      sliderPuzzleStore.isSolving = false;
-      sliderPuzzleStore.hideSolveButton = false;
-    });
-
     return (
       <>
         <div
@@ -401,6 +433,21 @@ const SliderPuzzle = component$(
             class={css({ aspectRatio: 1 })}
             ref={puzzleWrapperSignal}
           >
+            {sliderPuzzleStore.showNoSolution && (
+              <div
+                class={css({
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'rgba(23, 23, 23, .5)',
+                  zIndex: 1,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                })}
+              >
+                <DSText size="hero">No solution found</DSText>
+              </div>
+            )}
             <div
               class={cx(
                 css({
@@ -550,7 +597,7 @@ const SliderPuzzle = component$(
                     pointerEvents: 'none',
                   },
                 })}
-                variant="tertiary"
+                variant="primary"
                 onClick$={resetState}
                 disabled={sliderPuzzleStore.disableButtons}
               >

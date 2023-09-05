@@ -12,10 +12,126 @@ import SliderPuzzle from '~/components/sliderPuzzle';
 
 # Slider Puzzle
 
-_{head.frontmatter.caption}_
+Recreating a classic slider puzzle with JavaScript
 
 ---
 
 ## The finished product:
 
 <SliderPuzzle />
+
+## What is a slider puzzle?
+
+A slider puzzle, also known as a sliding block puzzle or _n_ puzzle, is a type of combination puzzle that involves rearranging pieces by sliding around the board. The puzzle consists of a grid or board with various pieces that can be moved horizontally or vertically.
+
+To solve a slider puzzle, you typically start with a scrambled arrangement of pieces with a goal of rearranging the pieces in a specific order or pattern. The most common pattern is to arrange the pieces in numerical or sequential order.
+
+A simpler visualization of the above puzzle might look something like this:
+
+```text title="Start State"
+6, 5, 7,
+3, 4, _,
+1, 8, 2
+```
+
+with the end goal being:
+
+```text title="End State"
+1, 2, 3,
+4, 5, 6,
+7, 8, _
+```
+
+There are many variations of the slider puzzle, such as the 15- or 25-puzzle, but it realistically could be any form of an n<sup>2</sup> - 1 square.
+
+## Solving a slider puzzle
+
+Are slider puzzles always solvable? The answer, surprisingly, is **no**. Obviously, slider puzzles that do not container an empty space are unsolvable since you wouldn't even be able to make any moves, but even seemingly normal looking puzzles can be unsolvable. Don't believe me? Test your luck on the modified puzzle below. You're welcome to cheat and even use the `Solve` button.
+
+<br />
+<SliderPuzzle isSolvable={false} />
+<br />
+
+Why does this happen? It all stems from the _number of inversions_ the puzzle has. An inversion occurs when two pieces in the puzzle are out of their desired order. For example, if a number 3 tile appears before a number 2 tile in a numerical slider puzzle, it is considered an inversion. If the number of inversions in a puzzle is _odd_, the puzzle is considered **unsolvable**.
+
+Each time you make an inversion in the puzzle, you are creating an even number of inversions. This is because the number of inversions changes by an even amount (+2 or -2) with each move. Therefore, if a puzzle starts with an even number of inversions, it can only be solved with an even number of additional moves, resulting in a solvable puzzle. Similarly, if a puzzle starts with an odd number of inversions, it can only be solved with an odd number of additional moves, which is _impossible_.
+
+## Checking for solvability
+
+This leads to our first bit of code. Obviously, we want to ensure that a player doesn't waste their time on an unsolvable puzzle, so let's make sure that never happens by creating a function that takes an initial shuffled puzzle state and counts the number of inversions.
+
+The initial board could be any arbitrary shape as long as it follows the guidelines I've explained above. For this example, I've decided to structure my board state as an object with the `keys` being the final index the piece should be in (i.e. the _correct_ index) and the `values` being the current index. I've also decided to create an `empty` key to represent the empty tile.
+
+```typescript
+type PuzzleMap = Record<number | 'empty', number>;
+
+function checkSolvability(puzzleMap: PuzzleMap) {
+  let inversions = 0;
+  const array = Object.entries(puzzleMap);
+  // Loop over pairs in the puzzle board
+  for (let i = 0; i < array.length - 1; i++) {
+    for (let j = i + 1; j < array.length; j++) {
+      // [key, value]
+      const [correctIndex1, currentIndex1] = array[i];
+      const [correctIndex2, currentIndex2] = array[j];
+      /*
+      Check that neither piece is empty
+      and that the pieces are out of order.
+      We know there's an inversion that needs to happen
+      if, for example, 3 comes before 2,
+      since they are not in numerical order
+      */
+      if (
+        currentIndex1 > currentIndex2 &&
+        correctIndex1 !== 'empty' &&
+        correctIndex2 !== 'empty'
+      ) {
+        inversions++;
+      }
+    }
+  }
+
+  const isEven = inversions % 2 === 0;
+  return isEven;
+}
+```
+
+Now that we've properly handled an important edge case, we can move on to generating a shuffled board.
+
+## Shuffling the board
+
+You can choose any method you'd like to randomize an array, but the way I chose is called the [Fisher-Yates Shuffle](https://www.tutorialspoint.com/what-is-fisher-yates-shuffle-in-javascript), which involves selecting a random element in an array and swapping it with the last element. Since we now have the functionality to determine whether the randomized array is a solvable combination, we can easily just recursively call the randomizer if the combination is unsolvable.
+
+```typescript
+function shuffleBoard(puzzleMap: PuzzleMap): PuzzleMap {
+  const copy = { ...puzzleMap };
+
+  for (let i = Object.values(copy).length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+
+    /* My implementation uses index 8 to represent the empty tile so
+    I must replace it with the appropriate key.
+    I am only swapping the values in the object here.
+     */
+    const piece1 = copy[i < 8 ? i : 'empty'];
+    const piece2 = copy[j < 8 ? j : 'empty'];
+
+    copy[i < 8 ? i : 'empty'] = piece2;
+    copy[j < 8 ? j : 'empty'] = piece1;
+  }
+
+  const isSolvable = checkSolvability(copy);
+  const isUnsolvable = !isSolvable;
+
+  if (isUnsolvable) {
+    // here we go again
+    return shuffleBoard(puzzleMap);
+  }
+
+  return copy;
+}
+```
+
+---
+
+_{head.frontmatter.caption}_

@@ -78,6 +78,9 @@ export function solve8Puzzle(initialState: PuzzleState): PuzzleMove[] {
     empty: 8,
   };
 
+  const startTime = Date.now();
+  const timeoutMilliseconds = 6000;
+
   // Priority queue to perform A* search
   const queue = createPriorityQueue<PuzzleStep>();
   queue.enqueue({ state: initialState, cost: 0 }, 0);
@@ -91,7 +94,7 @@ export function solve8Puzzle(initialState: PuzzleState): PuzzleMove[] {
   const cameFrom: Record<string, PuzzleStep | undefined> = {};
 
   // While there are states in the queue
-  while (!queue.isEmpty()) {
+  while (!queue.isEmpty() && Date.now() - startTime < timeoutMilliseconds) {
     const currentStep = queue.dequeue()!;
 
     // Check if the current state is the goal state
@@ -106,6 +109,11 @@ export function solve8Puzzle(initialState: PuzzleState): PuzzleMove[] {
       }
 
       return moves;
+    }
+
+    // If the elapsed time exceeds 6 seconds, return an empty array
+    if (Date.now() - startTime >= timeoutMilliseconds) {
+      return [];
     }
 
     // Generate next states by swapping the 'empty' piece with an adjacent piece
@@ -135,7 +143,7 @@ export function solve8Puzzle(initialState: PuzzleState): PuzzleMove[] {
     }
   }
 
-  // If no solution is found, return null
+  // If no solution is found, return empty array
   return [];
 }
 
