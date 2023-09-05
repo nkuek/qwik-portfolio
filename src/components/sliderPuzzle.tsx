@@ -445,7 +445,9 @@ const SliderPuzzle = component$(
                   alignItems: 'center',
                 })}
               >
-                <DSText size="hero">No solution found</DSText>
+                <DSText class={css({ color: 'stone.50' })} size="hero">
+                  No solution found
+                </DSText>
               </div>
             )}
             <div
