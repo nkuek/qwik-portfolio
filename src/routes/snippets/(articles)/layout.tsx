@@ -60,7 +60,9 @@ const FooterNavigation = component$(() => {
               flexWrap: 'wrap',
               display: 'flex',
               '& a': {
-                padding: 2,
+                display: 'flex',
+                position: 'relative',
+                alignItems: 'flex-end',
                 _hover: {
                   color: 'teal.600',
                 },
@@ -73,11 +75,17 @@ const FooterNavigation = component$(() => {
           >
             {prev && (
               <DSLinkContainer
-                class={css({ display: 'flex', alignItems: 'flex-end' })}
                 href={`/${parentSlug}/${prev.slug}`}
                 aria-label={`Go to previous page: ${prev.title}`}
               >
-                <DSText size="caption" class={css({ marginBottom: '.44em' })}>
+                <DSText
+                  size="caption"
+                  class={css({
+                    top: '1.8em',
+                    left: -2,
+                    position: 'absolute',
+                  })}
+                >
                   <ChevronLeft />
                 </DSText>
                 <div class={css({ display: 'grid', marginLeft: '6px' })}>
@@ -91,8 +99,6 @@ const FooterNavigation = component$(() => {
             {next && (
               <DSLinkContainer
                 class={css({
-                  display: 'flex',
-                  alignItems: 'flex-end',
                   marginLeft: 'auto',
                 })}
                 href={`/${parentSlug}/${next.slug}`}
@@ -104,7 +110,14 @@ const FooterNavigation = component$(() => {
                   </DSText>
                   <DSText size="body">{next.title}</DSText>
                 </div>
-                <DSText size="caption" class={css({ marginBottom: '.4em' })}>
+                <DSText
+                  size="caption"
+                  class={css({
+                    top: '1.8em',
+                    position: 'absolute',
+                    right: -2,
+                  })}
+                >
                   <ChevronRight />
                 </DSText>
               </DSLinkContainer>
@@ -124,6 +137,9 @@ export default component$(() => {
           class={css({
             '& > *:not(h1, h2, hr)': {
               margin: '16px auto 0',
+            },
+            '& > :is(h1, h2) + p': {
+              marginTop: '8px',
             },
           })}
         >
