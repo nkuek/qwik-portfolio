@@ -28,7 +28,7 @@ export default {
     </DSText>
   )),
   hr: component$(() => (
-    <hr class={css({ color: 'teal.700', margin: '24px auto 48px' })} />
+    <hr class={css({ color: 'teal.700', margin: '24px auto' })} />
   )),
   h1: component$(() => {
     return (
