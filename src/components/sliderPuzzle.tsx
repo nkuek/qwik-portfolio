@@ -209,29 +209,31 @@ const SliderPuzzle = component$(
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 6000);
 
-      const solutionData = await fetch('/api/puzzle-solver', {
-        body: JSON.stringify(sliderPuzzleStore.shuffledBoard),
-        method: 'POST',
-        signal: controller.signal,
-      });
+      try {
+        const solutionData = await fetch('/api/puzzle-solver', {
+          body: JSON.stringify(sliderPuzzleStore.shuffledBoard),
+          method: 'POST',
+          signal: controller.signal,
+        });
 
-      clearTimeout(timeout);
-      const solution: string[] = await solutionData.json();
-      sliderPuzzleStore.isSolving = false;
+        clearTimeout(timeout);
+        const solution: string[] = await solutionData.json();
+        sliderPuzzleStore.isSolving = false;
 
-      for (const step of solution) {
-        const buttonEl = document.getElementById(
-          `index-${step}`
-        ) as HTMLButtonElement;
-        // Add a delay for each step to create an animation effect
-        await new Promise((resolve) => setTimeout(resolve, 250));
-        // Trigger the swapTiles function for each step
-        swapTiles(parseInt(step), buttonEl);
-      }
-      if (!solution.length) {
-        sliderPuzzleStore.disableButtons = false;
+        for (const step of solution) {
+          const buttonEl = document.getElementById(
+            `index-${step}`
+          ) as HTMLButtonElement;
+          // Add a delay for each step to create an animation effect
+          await new Promise((resolve) => setTimeout(resolve, 250));
+          // Trigger the swapTiles function for each step
+          swapTiles(parseInt(step), buttonEl);
+        }
+      } catch {
         sliderPuzzleStore.showNoSolution = true;
       }
+      sliderPuzzleStore.disableButtons = false;
+      sliderPuzzleStore.isSolving = false;
       sliderPuzzleStore.isAnimating = false;
     });
 
