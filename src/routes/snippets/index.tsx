@@ -160,7 +160,11 @@ export default component$(() => {
                     <DSText
                       size="caption"
                       tag="p"
-                      class={css({ fontStyle: 'italic', marginTop: '24px' })}
+                      class={css({
+                        fontStyle: 'italic',
+                        marginTop: '12px',
+                        textAlign: 'center',
+                      })}
                     >
                       {article.caption}
                     </DSText>
