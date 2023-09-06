@@ -206,11 +206,16 @@ const SliderPuzzle = component$(
     const solvePuzzle = $(async () => {
       sliderPuzzleStore.isAnimating = true;
       sliderPuzzleStore.disableButtons = true;
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 6000);
+
       const solutionData = await fetch('/api/puzzle-solver', {
         body: JSON.stringify(sliderPuzzleStore.shuffledBoard),
         method: 'POST',
+        signal: controller.signal,
       });
 
+      clearTimeout(timeout);
       const solution: string[] = await solutionData.json();
       sliderPuzzleStore.isSolving = false;
 
@@ -379,7 +384,7 @@ const SliderPuzzle = component$(
             position: 'absolute',
             width: 'var(--side-length)',
             height: 'var(--side-length)',
-            borderRadius: '14%',
+            borderRadius: '24px',
             border: '2.65px solid gray',
             background: 'rgba(250, 250, 249, 0.2)',
             transition: 'transform 250ms ease',
@@ -438,11 +443,13 @@ const SliderPuzzle = component$(
                 class={css({
                   position: 'absolute',
                   inset: 0,
-                  background: 'rgba(23, 23, 23, .5)',
+                  background: 'rgba(23, 23, 23, .8)',
                   zIndex: 1,
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
+                  borderRadius: '24px',
+                  backdropFilter: 'blur(5px)',
                 })}
               >
                 <DSText class={css({ color: 'stone.50' })} size="hero">
