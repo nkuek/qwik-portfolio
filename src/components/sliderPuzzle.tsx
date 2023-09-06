@@ -207,7 +207,7 @@ const SliderPuzzle = component$(
       sliderPuzzleStore.isAnimating = true;
       sliderPuzzleStore.disableButtons = true;
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 6000);
+      const timeout = setTimeout(() => controller.abort(), 8000);
 
       try {
         const solutionData = await fetch('/api/puzzle-solver', {
