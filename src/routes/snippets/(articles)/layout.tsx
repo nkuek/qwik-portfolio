@@ -1,4 +1,5 @@
 import { Resource, Slot, component$, useResource$ } from '@builder.io/qwik';
+import type { DocumentHead } from '@builder.io/qwik-city';
 import { useLocation } from '@builder.io/qwik-city';
 import { css } from '@styles/css';
 import { MDXProvider } from 'mdx-js-qwik';
@@ -150,3 +151,9 @@ export default component$(() => {
     </article>
   );
 });
+
+export const head: DocumentHead = ({ head }) => {
+  return {
+    title: `${head.title} | Nick Kuek`,
+  };
+};

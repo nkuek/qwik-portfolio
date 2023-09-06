@@ -154,14 +154,16 @@ export default component$(() => {
                       <DSText size="title" tag="h2">
                         {article.title}
                       </DSText>
-                      <DSText
-                        size="caption"
-                        class={css({ fontStyle: 'italic' })}
-                      >
-                        {article.caption}
-                      </DSText>
+                      <DSText size="body">{article.description}</DSText>
                     </div>
                     {PreviewComponent && <PreviewComponent />}
+                    <DSText
+                      size="caption"
+                      tag="p"
+                      class={css({ fontStyle: 'italic', marginTop: '24px' })}
+                    >
+                      {article.caption}
+                    </DSText>
                   </DSLinkContainer>
                 </li>
               );
@@ -174,7 +176,7 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-  title: 'Snippets',
+  title: 'Snippets | Nick Kuek',
   meta: [
     {
       name: 'description',
