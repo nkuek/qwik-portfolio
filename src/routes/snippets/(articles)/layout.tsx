@@ -82,7 +82,10 @@ const FooterNavigation = component$(() => {
                 <DSText
                   size="caption"
                   class={css({
-                    top: '1.8em',
+                    top: {
+                      base: '1.8em',
+                      md: '2.05em',
+                    },
                     left: -2,
                     position: 'absolute',
                   })}
@@ -114,7 +117,10 @@ const FooterNavigation = component$(() => {
                 <DSText
                   size="caption"
                   class={css({
-                    top: '1.8em',
+                    top: {
+                      base: '1.8em',
+                      md: '2.05em',
+                    },
                     position: 'absolute',
                     right: -2,
                   })}

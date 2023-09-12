@@ -1,8 +1,8 @@
 import { defineRecipe } from '@pandacss/dev';
 
 export const buttonRecipe = defineRecipe({
-  className: 'text',
-  description: 'Text styles',
+  className: 'ds-button',
+  description: 'Button styles',
   base: {
     textAlign: 'center',
     color: 'inherit',
