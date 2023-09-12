@@ -1,7 +1,7 @@
 import { defineRecipe } from '@pandacss/dev';
 
 export const textRecipe = defineRecipe({
-  className: 'text',
+  className: 'ds-text',
   description: 'Text styles',
   variants: {
     size: {
