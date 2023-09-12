@@ -12,6 +12,7 @@ import {
   Slot,
   component$,
   useContext,
+  useId,
   useSignal,
   useStore,
   useStylesScoped$,
@@ -163,6 +164,8 @@ const SliderPuzzle = component$(
       showNoSolution: false,
     });
 
+    const instanceId = useId();
+
     const puzzleContainerSignal = useSignal<HTMLDivElement>();
     const puzzleWrapperSignal = useSignal<HTMLDivElement>();
 
@@ -222,7 +225,7 @@ const SliderPuzzle = component$(
 
         for (const step of solution) {
           const buttonEl = document.getElementById(
-            `index-${step}`
+            `index-${step}-${instanceId}`
           ) as HTMLButtonElement;
           // Add a delay for each step to create an animation effect
           await new Promise((resolve) => setTimeout(resolve, 250));
@@ -381,7 +384,7 @@ const SliderPuzzle = component$(
           style={{
             transform: translationMatrix[index],
           }}
-          id={`index-${index}`}
+          id={`index-${index}-${instanceId}`}
           class={css({
             position: 'absolute',
             width: 'var(--side-length)',
