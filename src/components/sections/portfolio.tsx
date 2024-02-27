@@ -30,7 +30,7 @@ const projects: Project[] = [
     technologies: ['React', 'TypeScript', 'MaterialUI', 'CSS'],
     description:
       'Elevate your typing experience with this meticulously designed, fully-themed type tester. Calculate and visualize your words per minute in style.',
-    liveLink: 'https://archetyper.vercel.app/',
+    liveLink: 'https://archetyper.xyz/',
     githubLink: 'https://github.com/nkuek/archetyper',
     src: 'https://res.cloudinary.com/dunbkcyqq/image/upload/v1692465807/archetyper_itxv7j.png',
   },
