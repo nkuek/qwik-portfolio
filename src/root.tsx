@@ -6,25 +6,26 @@ import {
   useSignal,
   useVisibleTask$,
   useServerData,
-} from '@builder.io/qwik';
+} from "@builder.io/qwik";
 import {
   QwikCityProvider,
   RouterOutlet,
   ServiceWorkerRegister,
-} from '@builder.io/qwik-city';
-import { css } from '@styles/css';
-import { RouterHead } from './components/router-head/router-head';
-import { inject } from '@vercel/analytics';
+} from "@builder.io/qwik-city";
+import { css } from "@styles/css";
+import { RouterHead } from "./components/router-head/router-head";
+import { inject } from "@vercel/analytics";
 
-import './global.css';
+import "./global.css";
 import {
   type ThemePreference,
   colorSchemeChangeListener,
   getColorPreference,
   setPreference,
-} from '~/components/themeToggle/themeTogle';
+} from "~/components/themeToggle/themeTogle";
+import { injectSpeedInsights } from "@vercel/speed-insights";
 
-export const ThemeContext = createContextId<Signal<ThemePreference>>('dark');
+export const ThemeContext = createContextId<Signal<ThemePreference>>("dark");
 
 export default component$(() => {
   /**
@@ -37,18 +38,19 @@ export default component$(() => {
   useVisibleTask$(() => {
     theme.value = getColorPreference();
     return colorSchemeChangeListener((isDark) => {
-      theme.value = isDark ? 'dark' : 'light';
+      theme.value = isDark ? "dark" : "light";
       setPreference(theme.value);
     });
   });
 
   useVisibleTask$(() => {
     inject();
+    injectSpeedInsights();
   });
 
   useContextProvider(ThemeContext, theme);
 
-  const nonce = useServerData<string | undefined>('nonce');
+  const nonce = useServerData<string | undefined>("nonce");
 
   return (
     <QwikCityProvider>
@@ -60,13 +62,13 @@ export default component$(() => {
       <body
         lang="en"
         class={css({
-          fontFamily: 'poppins',
-          backgroundColor: 'background',
-          color: 'text',
-          minH: '100vh',
-          backgroundImage: 'backgroundImage',
+          fontFamily: "poppins",
+          backgroundColor: "background",
+          color: "text",
+          minH: "100vh",
+          backgroundImage: "backgroundImage",
           transition:
-            'background 500ms ease, backgroundImage 500ms ease, color 500ms ease',
+            "background 500ms ease, backgroundImage 500ms ease, color 500ms ease",
         })}
       >
         <RouterOutlet />

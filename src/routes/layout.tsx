@@ -1,10 +1,8 @@
-import { component$, Slot, useVisibleTask$ } from '@builder.io/qwik';
-import type { RequestHandler } from '@builder.io/qwik-city';
-import { css } from '@styles/css';
-import { Navbar } from '~/components/navbar';
-import { getVitals } from '~/vitals';
-import { useLocation } from '@builder.io/qwik-city';
-import Footer from '~/components/footer';
+import { component$, Slot } from "@builder.io/qwik";
+import type { RequestHandler } from "@builder.io/qwik-city";
+import { css } from "@styles/css";
+import { Navbar } from "~/components/navbar";
+import Footer from "~/components/footer";
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
   // Control caching for this request for best performance and to reduce hosting costs:
@@ -17,23 +15,11 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
   });
 };
 
-const analyticsId = import.meta.env.VITE_VERCEL_ANALYTICS_ID;
-
 export default component$(() => {
-  const location = useLocation();
-
-  useVisibleTask$(({ track }) => {
-    track(() => location.url.pathname);
-    getVitals({
-      pathname: location.url.pathname,
-      analyticsId,
-      params: location.params,
-    });
-  });
   return (
     <>
       <Navbar />
-      <div class={css({ position: 'relative', top: '70px' })}>
+      <div class={css({ position: "relative", top: "70px" })}>
         <Slot />
       </div>
       <Footer />
