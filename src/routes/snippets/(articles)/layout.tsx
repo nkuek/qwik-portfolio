@@ -1,14 +1,14 @@
-import { Resource, Slot, component$, useResource$ } from '@builder.io/qwik';
-import type { DocumentHead } from '@builder.io/qwik-city';
-import { useLocation } from '@builder.io/qwik-city';
-import { css } from '@styles/css';
-import { MDXProvider } from 'mdx-js-qwik';
-import { DSLinkContainer } from '~/components/design-system/DSLink';
-import { DSText } from '~/components/design-system/DSText';
-import mdxComponents from '~/components/mdxComponents';
-import { type Article, getArticles } from '~/routes/snippets';
-import ChevronRight from '~/images/chevronRight.svg?jsx';
-import ChevronLeft from '~/images/chevronLeft.svg?jsx';
+import { Resource, Slot, component$, useResource$ } from "@builder.io/qwik";
+import type { DocumentHead } from "@builder.io/qwik-city";
+import { useLocation } from "@builder.io/qwik-city";
+import { css } from "@styles/css";
+import { DSLinkContainer } from "~/components/design-system/DSLink";
+import { DSText } from "~/components/design-system/DSText";
+import mdxComponents from "~/components/mdxComponents";
+import { type Article, getArticles } from "~/routes/snippets";
+import ChevronRight from "~/images/chevronRight.svg?jsx";
+import ChevronLeft from "~/images/chevronLeft.svg?jsx";
+import { MDXProvider } from "~/components/mdxProvider";
 
 function getArticleNavigation(articleSlug: string, articles: Article[]) {
   const currentArticleIndex = articles.findIndex(
@@ -48,29 +48,29 @@ const FooterNavigation = component$(() => {
       value={articleSlugs}
       onResolved={(slugs) => {
         const pathname = location.url.pathname;
-        const [parentSlug, articleSlug] = pathname.split('/').filter(Boolean);
+        const [parentSlug, articleSlug] = pathname.split("/").filter(Boolean);
         const { prev, next } = getArticleNavigation(articleSlug, slugs);
         return (
           <div
             class={css({
-              position: 'relative',
-              width: 'full',
-              marginTop: '24px',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              flexWrap: 'wrap',
-              display: 'flex',
-              '& a': {
-                display: 'flex',
-                position: 'relative',
-                alignItems: 'flex-end',
+              position: "relative",
+              width: "full",
+              marginTop: "24px",
+              justifyContent: "space-between",
+              alignItems: "flex-start",
+              flexWrap: "wrap",
+              display: "flex",
+              "& a": {
+                display: "flex",
+                position: "relative",
+                alignItems: "flex-end",
                 _hover: {
-                  color: 'teal.600',
+                  color: "teal.600",
                 },
               },
 
-              '& svg': {
-                height: '.75em',
+              "& svg": {
+                height: ".75em",
               },
             })}
           >
@@ -83,16 +83,16 @@ const FooterNavigation = component$(() => {
                   size="caption"
                   class={css({
                     top: {
-                      base: '1.8em',
-                      md: '2.05em',
+                      base: "1.8em",
+                      md: "2.05em",
                     },
                     left: -2,
-                    position: 'absolute',
+                    position: "absolute",
                   })}
                 >
                   <ChevronLeft />
                 </DSText>
-                <div class={css({ display: 'grid', marginLeft: '6px' })}>
+                <div class={css({ display: "grid", marginLeft: "6px" })}>
                   <DSText class={css({ opacity: 0.7 })} size="caption">
                     Previous
                   </DSText>
@@ -103,12 +103,12 @@ const FooterNavigation = component$(() => {
             {next && (
               <DSLinkContainer
                 class={css({
-                  marginLeft: 'auto',
+                  marginLeft: "auto",
                 })}
                 href={`/${parentSlug}/${next.slug}`}
                 aria-label={`Go to next page: ${next.title}`}
               >
-                <div class={css({ display: 'grid', marginRight: '6px' })}>
+                <div class={css({ display: "grid", marginRight: "6px" })}>
                   <DSText class={css({ opacity: 0.6 })} size="body">
                     Next
                   </DSText>
@@ -118,10 +118,10 @@ const FooterNavigation = component$(() => {
                   size="caption"
                   class={css({
                     top: {
-                      base: '1.8em',
-                      md: '2.05em',
+                      base: "1.8em",
+                      md: "2.05em",
                     },
-                    position: 'absolute',
+                    position: "absolute",
                     right: -2,
                   })}
                 >
@@ -138,15 +138,15 @@ const FooterNavigation = component$(() => {
 
 export default component$(() => {
   return (
-    <article class={css({ minHeight: '100vh' })}>
+    <article class={css({ minHeight: "100vh" })}>
       <MDXProvider components={mdxComponents}>
         <div
           class={css({
-            '& > *:not(h1, h2, hr)': {
-              margin: '16px auto 0',
+            "& > *:not(h1, h2, hr)": {
+              margin: "16px auto 0",
             },
-            '& > :is(h1, h2) + p': {
-              marginTop: '8px',
+            "& > :is(h1, h2) + p": {
+              marginTop: "8px",
             },
           })}
         >

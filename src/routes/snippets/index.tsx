@@ -1,12 +1,12 @@
-import type { Component } from '@builder.io/qwik';
-import { component$, Slot, useResource$, Resource } from '@builder.io/qwik';
-import { type DocumentHead, useLocation } from '@builder.io/qwik-city';
-import { css, cx } from '@styles/css';
-import { vstack } from '@styles/patterns';
-import { DSLinkContainer } from '~/components/design-system/DSLink';
-import { DSText } from '~/components/design-system/DSText';
-import { LiquidFillButton } from '~/components/liquidFillButton';
-import SliderPuzzle from '~/components/sliderPuzzle';
+import type { Component } from "@builder.io/qwik";
+import { component$, Slot, useResource$, Resource } from "@builder.io/qwik";
+import { type DocumentHead, useLocation } from "@builder.io/qwik-city";
+import { css, cx } from "@styles/css";
+import { vstack } from "@styles/patterns";
+import { DSLinkContainer } from "~/components/design-system/DSLink";
+import { DSText } from "~/components/design-system/DSText";
+import { LiquidFillButton } from "~/components/liquidFillButton";
+import SliderPuzzle from "~/components/sliderPuzzle";
 
 const extractSlugFromFilePath = (path: string) => {
   // matches ./(articles)/article-slug/index.mdx
@@ -31,16 +31,16 @@ type ArbitraryFileType = {
   };
 };
 
-export type Article = ArbitraryFileType['frontmatter'] & {
+export type Article = ArbitraryFileType["frontmatter"] & {
   slug: string | undefined;
 };
 
-const articleMdxFiles = import.meta.glob<ArbitraryFileType>('./**/*.mdx');
+const articleMdxFiles = import.meta.glob<ArbitraryFileType>("./**/*.mdx");
 
 const getArticleList = () => {
   return Object.entries(articleMdxFiles).map(async ([articlePath, file]) => {
     const articleData = await file();
-    const slug = await extractSlugFromFilePath(articlePath);
+    const slug = extractSlugFromFilePath(articlePath);
     return {
       ...articleData.frontmatter,
       slug,
@@ -60,12 +60,12 @@ const PreviewComponent = component$(
       <div
         class={cx(
           css({
-            background: '#282a36',
-            padding: '12px',
-            borderRadius: '6px',
-            display: 'flex',
-            justifyContent: 'center',
-            marginTop: '24px',
+            background: "#282a36",
+            padding: "12px",
+            borderRadius: "6px",
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "24px",
           }),
           extraClass
         )}
@@ -82,22 +82,22 @@ export default component$(() => {
   const location = useLocation();
 
   const snippetPreviewMap: Record<string, Component<{}>> = {
-    'liquid-fill-button': component$(() => (
+    "liquid-fill-button": component$(() => (
       <PreviewComponent>
         <LiquidFillButton darkBackground showcase>
           Hover
         </LiquidFillButton>
       </PreviewComponent>
     )),
-    'slider-puzzle': component$(() => (
-      <PreviewComponent extraClass={css({ height: '30vh' })}>
+    "slider-puzzle": component$(() => (
+      <PreviewComponent extraClass={css({ height: "30vh" })}>
         <div
           class={css({
             aspectRatio: 1,
-            height: 'full',
-            width: 'auto',
-            marginInline: 'auto',
-            pointerEvents: 'none',
+            height: "full",
+            width: "auto",
+            marginInline: "auto",
+            pointerEvents: "none",
           })}
         >
           <SliderPuzzle shuffle={false} showUI={false} />
@@ -107,8 +107,8 @@ export default component$(() => {
   };
 
   return (
-    <div class={vstack({ width: 'full', gap: '96px' })}>
-      <div class={vstack({ gap: '24px' })}>
+    <div class={vstack({ width: "full", gap: "96px" })}>
+      <div class={vstack({ gap: "24px" })}>
         <DSText tag="h1" size="hero">
           Snippets
         </DSText>
@@ -116,8 +116,8 @@ export default component$(() => {
           tag="p"
           size="body"
           class={css({
-            color: 'caption',
-            textAlign: 'center',
+            color: "caption",
+            textAlign: "center",
           })}
         >
           Exploring elegant solutions through code. A collection of carefully
@@ -128,7 +128,7 @@ export default component$(() => {
       <Resource
         value={articles}
         onResolved={(articles) => (
-          <ol class={css({ width: 'full' })}>
+          <ol class={css({ width: "full" })}>
             {articles.map((article) => {
               let PreviewComponent = null;
 
@@ -140,13 +140,13 @@ export default component$(() => {
                   <DSLinkContainer
                     href={location.url.pathname + article.slug}
                     class={css({
-                      borderTop: '1px solid',
-                      padding: '24px 0 64px',
-                      justifyContent: 'space-between',
-                      width: 'full',
-                      display: 'block',
+                      borderTop: "1px solid",
+                      padding: "24px 0 64px",
+                      justifyContent: "space-between",
+                      width: "full",
+                      display: "block",
                       _hover: {
-                        borderColor: 'text',
+                        borderColor: "text",
                       },
                     })}
                   >
@@ -161,9 +161,9 @@ export default component$(() => {
                       size="caption"
                       tag="p"
                       class={css({
-                        fontStyle: 'italic',
-                        marginTop: '12px',
-                        textAlign: 'center',
+                        fontStyle: "italic",
+                        marginTop: "12px",
+                        textAlign: "center",
                       })}
                     >
                       {article.caption}
@@ -180,20 +180,20 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-  title: 'Snippets | Nick Kuek',
+  title: "Snippets | Nick Kuek",
   meta: [
     {
-      name: 'description',
-      content: 'Exploring elegant solutions through code.',
+      name: "description",
+      content: "Exploring elegant solutions through code.",
     },
     {
-      name: 'og:title',
-      content: 'Snippets',
+      name: "og:title",
+      content: "Snippets",
     },
     {
-      name: 'og:description',
-      content: 'Exploring elegant solutions through code.',
+      name: "og:description",
+      content: "Exploring elegant solutions through code.",
     },
   ],
-  links: [{ rel: 'canonical', href: 'https://www.nkuek.dev/snippets/' }],
+  links: [{ rel: "canonical", href: "https://www.nkuek.dev/snippets/" }],
 };
