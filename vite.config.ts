@@ -5,6 +5,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { macroPlugin } from "@builder.io/vite-plugin-macro";
 import rehypePrettyCode from 'rehype-pretty-code'
 import {recmaJsxRewriteQwik} from 'mdx-js-qwik/plugins'
+import glsl from 'vite-plugin-glsl'
 
 export default defineConfig(({mode, command}) => {
   const env = loadEnv(mode, process.cwd(), '')
@@ -22,6 +23,7 @@ export default defineConfig(({mode, command}) => {
       }),
       qwikVite(),
       tsconfigPaths(),
+      glsl(),
     ],
     define: {
       'import.meta.env.VITE_VERCEL_ANALYTICS_ID': JSON.stringify(env.VERCEL_ANALYTICS_ID)
