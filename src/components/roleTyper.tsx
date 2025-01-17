@@ -8,6 +8,7 @@ const roles = [
   "Keyboard Hobbyist",
   "Frontend Developer",
   "CSS Enthusiast",
+  "Coffee Fanatic",
 ];
 
 const RoleTyper = component$(() => {
