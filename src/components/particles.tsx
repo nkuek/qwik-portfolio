@@ -53,6 +53,7 @@ const ParticlesAnimation = component$(() => {
   const theme = useContext(ThemeContext);
   const tweaks = useStore({
     numParticles: 3000,
+    color: "white",
   });
 
   const handleResize = $(() => {
@@ -90,7 +91,7 @@ const ParticlesAnimation = component$(() => {
       fragmentShader,
       uniforms: {
         uTime: new THREE.Uniform(0),
-        uColor: new THREE.Uniform(new THREE.Color("white")),
+        uColor: new THREE.Uniform(new THREE.Color(tweaks.color)),
       },
       blending: THREE.AdditiveBlending,
       transparent: true,
@@ -138,7 +139,6 @@ const ParticlesAnimation = component$(() => {
   useVisibleTask$(({ track, cleanup }) => {
     track(() => url.searchParams.has("debug"));
     if (!url.searchParams.has("debug")) return;
-    console.log(url.searchParams.has("debug"));
     const gui = new GUI({ width: 300 });
     if (!store.points) return;
     const material = store.points.material as THREE.ShaderMaterial;

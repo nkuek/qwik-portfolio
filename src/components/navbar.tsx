@@ -1,21 +1,21 @@
-import { component$, useSignal } from '@builder.io/qwik';
-import { Link } from '@builder.io/qwik-city';
-import { css } from '@styles/css';
-import { flex, hstack, vstack } from '@styles/patterns';
-import { DSLink } from '~/components/design-system/DSLink';
-import { ThemeToggle } from '~/components/themeToggle/themeTogle';
-import Logo from '~/images/logo.svg?jsx';
+import { component$, useSignal } from "@builder.io/qwik";
+import { Link } from "@builder.io/qwik-city";
+import { css } from "@styles/css";
+import { flex, hstack, vstack } from "@styles/patterns";
+import { ThemeToggle } from "~/components/themeToggle/themeTogle";
+import { DSLink } from "~/design-system/components/DSLink";
+import Logo from "~/images/logo.svg?jsx";
 type NavbarSection = {
   title: string;
   href: string;
 };
 
 const sections: NavbarSection[] = [
-  { title: 'Resume', href: '/KuekResume.pdf' },
-  { title: 'About Me', href: '/#about-me' },
-  { title: 'Portfolio', href: '/#portfolio' },
-  { title: 'Skills', href: '/#skills' },
-  { title: 'Snippets', href: '/snippets' },
+  { title: "Resume", href: "/KuekResume.pdf" },
+  { title: "About Me", href: "/#about-me" },
+  { title: "Portfolio", href: "/#portfolio" },
+  { title: "Skills", href: "/#skills" },
+  { title: "Snippets", href: "/snippets" },
 ];
 
 export const Navbar = component$(() => {
@@ -23,30 +23,30 @@ export const Navbar = component$(() => {
     <>
       <nav
         class={css({
-          position: 'fixed',
+          position: "fixed",
           zIndex: 2,
-          w: 'full',
-          backdropFilter: 'blur(5px)',
+          w: "full",
+          backdropFilter: "blur(5px)",
           top: 0,
           _before: {
             content: '""',
             inset: 0,
-            position: 'absolute',
-            backgroundImage: 'backgroundImage',
-            opacity: '.7',
+            position: "absolute",
+            backgroundImage: "backgroundImage",
+            opacity: ".7",
             zIndex: -1,
           },
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          '& a': {
-            outlineOffset: '5px',
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          "& a": {
+            outlineOffset: "5px",
           },
         })}
       >
-        <div class={css({ padding: '16px 24px' })}>
+        <div class={css({ padding: "16px 24px" })}>
           <Link href="/" aria-label="Home">
-            <Logo class={css({ width: '44px', height: 'auto' })} />
+            <Logo style={{ width: "44px", height: "auto" }} />
           </Link>
         </div>
         <MobileNavbar />
@@ -60,12 +60,12 @@ const MobileNavbar = component$(() => {
   const showNavDrawer = useSignal(false);
   return (
     <>
-      <div class={css({ hideFrom: 'md', background: 'inherit' })}>
+      <div class={css({ hideFrom: "md", background: "inherit" })}>
         <div
           class={flex({
-            background: 'inherit',
-            justifyContent: 'flex-end',
-            minH: '14',
+            background: "inherit",
+            justifyContent: "flex-end",
+            minH: "14",
             left: 0,
             right: 0,
           })}
@@ -85,32 +85,32 @@ const MobileNavbar = component$(() => {
           >
             <div
               class={vstack({
-                color: 'inherit',
+                color: "inherit",
                 gap: 1.5,
-                transform: showNavDrawer.value ? 'translateY(4px)' : 'none',
-                transition: 'transform linear 200ms',
-                '& > div': {
-                  w: '23.5px',
-                  h: '2px',
-                  background: 'text',
-                  transition: 'transform linear 200ms',
-                  '&:first-child': {
+                transform: showNavDrawer.value ? "translateY(4px)" : "none",
+                transition: "transform linear 200ms",
+                "& > div": {
+                  w: "23.5px",
+                  h: "2px",
+                  background: "text",
+                  transition: "transform linear 200ms",
+                  "&:first-child": {
                     transform: showNavDrawer.value
-                      ? 'rotateZ(45deg) translateY(2px)'
-                      : 'none',
-                    transformOrigin: 'center',
+                      ? "rotateZ(45deg) translateY(2px)"
+                      : "none",
+                    transformOrigin: "center",
                   },
-                  '&:nth-child(2)': {
+                  "&:nth-child(2)": {
                     transform: showNavDrawer.value
-                      ? 'rotate(-45deg) scaleX(1.37) translate(2.75px, -.75px)'
-                      : 'none',
-                    transformOrigin: 'center',
+                      ? "rotate(-45deg) scaleX(1.37) translate(2.75px, -.75px)"
+                      : "none",
+                    transformOrigin: "center",
                   },
-                  '&:last-child': {
+                  "&:last-child": {
                     transform: showNavDrawer.value
-                      ? 'rotateZ(45deg) translateY(-1.1px)'
-                      : 'none',
-                    transformOrigin: '23.5px',
+                      ? "rotateZ(45deg) translateY(-1.1px)"
+                      : "none",
+                    transformOrigin: "23.5px",
                   },
                 },
               })}
@@ -123,40 +123,40 @@ const MobileNavbar = component$(() => {
         </div>
         <div
           style={{
-            '--visible': showNavDrawer.value ? 'visible' : 'hidden',
-            '--opacity': showNavDrawer.value ? '.5' : '0',
+            "--visible": showNavDrawer.value ? "visible" : "hidden",
+            "--opacity": showNavDrawer.value ? ".5" : "0",
           }}
           class={css({
-            visibility: 'var(--visible)' as any,
-            w: 'screen',
-            h: 'screen',
+            visibility: "var(--visible)" as any,
+            w: "screen",
+            h: "screen",
             zIndex: 1,
-            position: 'fixed',
+            position: "fixed",
             top: 0,
             left: 0,
-            background: 'neutral.800',
-            opacity: 'var(--opacity)',
-            transition: 'visibility 500ms ease, opacity 500ms ease',
+            background: "neutral.800",
+            opacity: "var(--opacity)",
+            transition: "visibility 500ms ease, opacity 500ms ease",
           })}
           onClick$={() => (showNavDrawer.value = false)}
         />
       </div>
       <ul
         class={vstack({
-          gap: '0',
-          height: '100vh',
+          gap: "0",
+          height: "100vh",
           transform: !showNavDrawer.value
-            ? 'translateX(-100%)'
-            : 'translateX(0)',
-          transition: 'transform ease 250ms',
-          background: 'background',
-          top: '0',
-          position: 'fixed',
-          width: 'max(40vw, 266px)',
-          alignItems: 'flex-start',
+            ? "translateX(-100%)"
+            : "translateX(0)",
+          transition: "transform ease 250ms",
+          background: "background",
+          top: "0",
+          position: "fixed",
+          width: "max(40vw, 266px)",
+          alignItems: "flex-start",
           zIndex: 3,
           pt: 6,
-          hideFrom: 'md',
+          hideFrom: "md",
         })}
         role="menu"
         id="nav-menu"
@@ -165,8 +165,8 @@ const MobileNavbar = component$(() => {
           <li
             key={idx}
             class={css({
-              display: 'flex',
-              width: 'full',
+              display: "flex",
+              width: "full",
               paddingInline: 4,
             })}
             onClick$={() => (showNavDrawer.value = false)}
@@ -177,9 +177,9 @@ const MobileNavbar = component$(() => {
               href={section.href}
               class={css({
                 p: 3,
-                width: 'full',
-                borderBottomWidth: '1px',
-                borderColor: 'zinc.700',
+                width: "full",
+                borderBottomWidth: "1px",
+                borderColor: "zinc.700",
               })}
               role="menuitem"
             >
@@ -189,10 +189,10 @@ const MobileNavbar = component$(() => {
         ))}
         <li
           class={css({
-            display: 'flex',
-            w: 'full',
-            justifyContent: 'center',
-            paddingBlock: '24px',
+            display: "flex",
+            w: "full",
+            justifyContent: "center",
+            paddingBlock: "24px",
           })}
           role="menuitem"
         >
@@ -208,20 +208,20 @@ const DesktopNavbar = component$(() => {
     <ul
       class={hstack({
         gap: 6,
-        justifyContent: 'flex-end',
+        justifyContent: "flex-end",
         paddingInline: 6,
-        paddingBlock: '16px',
+        paddingBlock: "16px",
         fontSize: 16,
-        hideBelow: 'sm',
+        hideBelow: "sm",
       })}
     >
       {sections.map((section, idx) => (
-        <li key={idx} class={css({ display: 'flex' })}>
+        <li key={idx} class={css({ display: "flex" })}>
           <DSLink
             size="body"
             href={section.href}
             class={css({
-              h: 'full',
+              h: "full",
             })}
           >
             {section.title}

@@ -1,12 +1,12 @@
-import FullLogo from '~/images/puzzle/full.svg?jsx';
-import Piece0 from '~/images/puzzle/piece-0.svg?jsx';
-import Piece1 from '~/images/puzzle/piece-1.svg?jsx';
-import Piece2 from '~/images/puzzle/piece-2.svg?jsx';
-import Piece3 from '~/images/puzzle/piece-3.svg?jsx';
-import Piece4 from '~/images/puzzle/piece-4.svg?jsx';
-import Piece5 from '~/images/puzzle/piece-5.svg?jsx';
-import Piece6 from '~/images/puzzle/piece-6.svg?jsx';
-import Piece7 from '~/images/puzzle/piece-7.svg?jsx';
+import FullLogo from "~/images/puzzle/full.svg?jsx";
+import Piece0 from "~/images/puzzle/piece-0.svg?jsx";
+import Piece1 from "~/images/puzzle/piece-1.svg?jsx";
+import Piece2 from "~/images/puzzle/piece-2.svg?jsx";
+import Piece3 from "~/images/puzzle/piece-3.svg?jsx";
+import Piece4 from "~/images/puzzle/piece-4.svg?jsx";
+import Piece5 from "~/images/puzzle/piece-5.svg?jsx";
+import Piece6 from "~/images/puzzle/piece-6.svg?jsx";
+import Piece7 from "~/images/puzzle/piece-7.svg?jsx";
 import {
   $,
   Slot,
@@ -18,18 +18,18 @@ import {
   useStylesScoped$,
   useTask$,
   useVisibleTask$,
-} from '@builder.io/qwik';
-import { css, cx } from '@styles/css';
-import { ThemeContext } from '~/root';
-import { DSButton } from '~/components/design-system/DSButton';
-import { DSText } from '~/components/design-system/DSText';
-import { LoadingDots } from '~/components/loading';
+} from "@builder.io/qwik";
+import { css, cx } from "@styles/css";
+import { ThemeContext } from "~/root";
+import { LoadingDots } from "~/components/loading";
+import { DSText } from "~/design-system/components/DSText";
+import { DSButton } from "~/design-system/components/DSButton";
 
 const depth = 3;
 const numPuzzlePieces = depth ** 2 - 1; // 8
-const gridGap = '7px';
+const gridGap = "7px";
 
-type PuzzleMap = Record<number | 'empty', number>;
+type PuzzleMap = Record<number | "empty", number>;
 
 function generateInitialBoard(): PuzzleMap {
   const puzzleMap: PuzzleMap = { empty: 8 };
@@ -68,11 +68,11 @@ function shuffleBoard(
   for (let i = Object.values(copy).length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
 
-    const piece1 = copy[i < 8 ? i : 'empty'];
-    const piece2 = copy[j < 8 ? j : 'empty'];
+    const piece1 = copy[i < 8 ? i : "empty"];
+    const piece2 = copy[j < 8 ? j : "empty"];
 
-    copy[i < 8 ? i : 'empty'] = piece2;
-    copy[j < 8 ? j : 'empty'] = piece1;
+    copy[i < 8 ? i : "empty"] = piece2;
+    copy[j < 8 ? j : "empty"] = piece1;
   }
 
   const isSolvable = checkSolvability(copy);
@@ -112,8 +112,8 @@ function checkSolvability(puzzleMap: PuzzleMap) {
       const [initialIndex2, currentIndex2] = array[j];
       if (
         currentIndex1 > currentIndex2 &&
-        initialIndex1 !== 'empty' &&
-        initialIndex2 !== 'empty'
+        initialIndex1 !== "empty" &&
+        initialIndex2 !== "empty"
       ) {
         inversions++;
       }
@@ -213,9 +213,9 @@ const SliderPuzzle = component$(
       const timeout = setTimeout(() => controller.abort(), 8000);
 
       try {
-        const solutionData = await fetch('/api/puzzle-solver', {
+        const solutionData = await fetch("/api/puzzle-solver", {
           body: JSON.stringify(sliderPuzzleStore.shuffledBoard),
-          method: 'POST',
+          method: "POST",
           signal: controller.signal,
         });
 
@@ -276,7 +276,7 @@ const SliderPuzzle = component$(
 
       const allCorrect = Object.entries(sliderPuzzleStore.shuffledBoard).every(
         ([correctIndex, currentIndex]) => {
-          if (correctIndex === 'empty') {
+          if (correctIndex === "empty") {
             return currentIndex === 8;
           }
           return currentIndex === parseInt(correctIndex);
@@ -288,7 +288,7 @@ const SliderPuzzle = component$(
       }
 
       setTimeout(() => {
-        puzzleWrapperSignal.value?.classList.add('complete');
+        puzzleWrapperSignal.value?.classList.add("complete");
         sliderPuzzleStore.isComplete = true;
       }, 750);
     });
@@ -331,8 +331,8 @@ const SliderPuzzle = component$(
       sliderPuzzleStore.numTurns = 0;
       sliderPuzzleStore.shuffledBoard = shuffleBoard(initialBoard, isSolvable);
       sliderPuzzleStore.restartCounter++;
-      puzzleWrapperSignal.value?.classList.remove('complete');
-      puzzleContainerSignal.value?.style.setProperty('--visibility', 'visible');
+      puzzleWrapperSignal.value?.classList.remove("complete");
+      puzzleContainerSignal.value?.style.setProperty("--visibility", "visible");
       sliderPuzzleStore.isSolving = false;
       sliderPuzzleStore.hideSolveButton = false;
     });
@@ -386,26 +386,26 @@ const SliderPuzzle = component$(
           }}
           id={`index-${index}-${instanceId}`}
           class={css({
-            position: 'absolute',
-            width: 'var(--side-length)',
-            height: 'var(--side-length)',
-            borderRadius: '24px',
-            border: '2.65px solid gray',
-            background: 'rgba(250, 250, 249, 0.2)',
-            transition: 'transform 250ms ease',
-            backdropFilter: 'blur(6px)',
-            overflow: 'hidden',
+            position: "absolute",
+            width: "var(--side-length)",
+            height: "var(--side-length)",
+            borderRadius: "24px",
+            border: "2.65px solid gray",
+            background: "rgba(250, 250, 249, 0.2)",
+            transition: "transform 250ms ease",
+            backdropFilter: "blur(6px)",
+            overflow: "hidden",
             left: 0,
-            '& svg': {
-              pointerEvents: 'none',
-              width: '100%',
-              height: '100%',
+            "& svg": {
+              pointerEvents: "none",
+              width: "100%",
+              height: "100%",
             },
 
             _focus: {
-              outlineWidth: '4px',
-              outlineStyle: 'solid',
-              outlineColor: 'rgba(70, 94, 209)',
+              outlineWidth: "4px",
+              outlineStyle: "solid",
+              outlineColor: "rgba(70, 94, 209)",
             },
           })}
           aria-label={`Puzzle piece ${index + 1}`}
@@ -423,22 +423,22 @@ const SliderPuzzle = component$(
       <>
         <div
           style={{
-            '--opacity': sliderPuzzleStore.isSolving ? '.5' : '1',
+            "--opacity": sliderPuzzleStore.isSolving ? ".5" : "1",
           }}
           class={css({
-            position: 'relative',
-            width: 'full',
-            height: 'auto',
+            position: "relative",
+            width: "full",
+            height: "auto",
             aspectRatio: 1,
-            opacity: 'var(--opacity)',
+            opacity: "var(--opacity)",
           })}
         >
           <div
             style={{
-              '--depth': 3,
-              '--grid-gap': '7px',
-              '--side-length':
-                'calc((100% - var(--grid-gap) * (var(--depth) - 1)) / var(--depth))',
+              "--depth": 3,
+              "--grid-gap": "7px",
+              "--side-length":
+                "calc((100% - var(--grid-gap) * (var(--depth) - 1)) / var(--depth))",
             }}
             class={css({ aspectRatio: 1 })}
             ref={puzzleWrapperSignal}
@@ -446,18 +446,18 @@ const SliderPuzzle = component$(
             {sliderPuzzleStore.showNoSolution && (
               <div
                 class={css({
-                  position: 'absolute',
+                  position: "absolute",
                   inset: 0,
-                  background: 'rgba(23, 23, 23, .8)',
+                  background: "rgba(23, 23, 23, .8)",
                   zIndex: 1,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderRadius: '24px',
-                  backdropFilter: 'blur(5px)',
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "24px",
+                  backdropFilter: "blur(5px)",
                 })}
               >
-                <DSText class={css({ color: 'stone.50' })} size="hero">
+                <DSText class={css({ color: "stone.50" })} size="hero">
                   No solution found
                 </DSText>
               </div>
@@ -465,35 +465,35 @@ const SliderPuzzle = component$(
             <div
               class={cx(
                 css({
-                  transition: 'filter 1.25s ease 0.5s',
-                  position: 'absolute',
-                  width: '100%',
-                  height: '100%',
-                  pointerEvents: 'none',
-                  overflow: 'hidden',
+                  transition: "filter 1.25s ease 0.5s",
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  pointerEvents: "none",
+                  overflow: "hidden",
                 }),
-                'fullPuzzleContainer'
+                "fullPuzzleContainer"
               )}
               style={{
-                '--fill': theme.value === 'dark' ? '#fafaf9' : '#171717',
+                "--fill": theme.value === "dark" ? "#fafaf9" : "#171717",
               }}
             >
               <FullLogo
                 class={cx(
                   css({
-                    width: '100%',
-                    height: '100%',
+                    width: "100%",
+                    height: "100%",
                     opacity: 0.5,
-                    transition: 'opacity 1000ms ease',
+                    transition: "opacity 1000ms ease",
                   }),
-                  'fullPuzzle'
+                  "fullPuzzle"
                 )}
                 onAnimationStart$={() => {
                   sliderPuzzleStore.disableButtons = true;
                 }}
                 onAnimationEnd$={(e) => {
                   const target = e.target as HTMLElement;
-                  const last = !!target.getAttribute('data-last');
+                  const last = !!target.getAttribute("data-last");
                   if (last) {
                     sliderPuzzleStore.showPlayAgainButton = true;
                     sliderPuzzleStore.disableButtons = false;
@@ -503,20 +503,20 @@ const SliderPuzzle = component$(
             </div>
             <div
               style={{
-                '--visibility': sliderPuzzleStore.isComplete
-                  ? 'hidden'
-                  : 'visible',
-                '--pointer-events': sliderPuzzleStore.isShuffled
-                  ? 'initial'
-                  : 'none',
+                "--visibility": sliderPuzzleStore.isComplete
+                  ? "hidden"
+                  : "visible",
+                "--pointer-events": sliderPuzzleStore.isShuffled
+                  ? "initial"
+                  : "none",
               }}
               class={cx(
                 css({
-                  transition: 'opacity 1000ms ease, visibility 500ms',
-                  pointerEvents: 'var(--pointer-events)' as any,
-                  visibility: 'var(--visibility)' as any,
+                  transition: "opacity 1000ms ease, visibility 500ms",
+                  pointerEvents: "var(--pointer-events)" as any,
+                  visibility: "var(--visibility)" as any,
                 }),
-                'puzzleContainer'
+                "puzzleContainer"
               )}
               id="puzzle-container"
               ref={puzzleContainerSignal}
@@ -551,12 +551,12 @@ const SliderPuzzle = component$(
 
         <div
           class={css({
-            display: 'flex',
-            width: 'full',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            gap: '12px',
-            marginTop: '24px',
+            display: "flex",
+            width: "full",
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: "12px",
+            marginTop: "24px",
           })}
         >
           {showUI && (
@@ -564,21 +564,21 @@ const SliderPuzzle = component$(
               <DSButton
                 variant="secondary"
                 style={{
-                  '--visibility':
+                  "--visibility":
                     sliderPuzzleStore.hideSolveButton ||
                     sliderPuzzleStore.isComplete
-                      ? 'hidden'
-                      : 'visibile',
+                      ? "hidden"
+                      : "visibile",
                 }}
                 class={css({
-                  color: 'text',
+                  color: "text",
                   _hover: {
-                    color: 'links.hover',
+                    color: "links.hover",
                   },
                   _disabled: {
-                    pointerEvents: 'none',
+                    pointerEvents: "none",
                   },
-                  visibility: 'var(--visibility)' as any,
+                  visibility: "var(--visibility)" as any,
                 })}
                 onClick$={() => {
                   sliderPuzzleStore.isSolving = true;
@@ -587,28 +587,28 @@ const SliderPuzzle = component$(
                 disabled={sliderPuzzleStore.disableButtons}
               >
                 {sliderPuzzleStore.isSolving ? (
-                  <LoadingDots class={css({ paddingBlock: '5px' })} />
+                  <LoadingDots class={css({ paddingBlock: "5px" })} />
                 ) : (
-                  'Solve'
+                  "Solve"
                 )}
               </DSButton>
               <DSText
                 size="body"
                 class={css({
-                  color: 'text',
-                  position: 'absolute',
-                  transform: 'translateX(-50%)',
-                  left: '50%',
+                  color: "text",
+                  position: "absolute",
+                  transform: "translateX(-50%)",
+                  left: "50%",
                 })}
               >
                 Turns: {sliderPuzzleStore.numTurns}
               </DSText>
               <DSButton
                 class={css({
-                  width: 'fit-content',
+                  width: "fit-content",
                   _disabled: {
                     opacity: 0.5,
-                    pointerEvents: 'none',
+                    pointerEvents: "none",
                   },
                 })}
                 variant="primary"
@@ -616,8 +616,8 @@ const SliderPuzzle = component$(
                 disabled={sliderPuzzleStore.disableButtons}
               >
                 {sliderPuzzleStore.showPlayAgainButton
-                  ? 'Play again?'
-                  : 'Reset'}
+                  ? "Play again?"
+                  : "Reset"}
               </DSButton>
             </>
           )}

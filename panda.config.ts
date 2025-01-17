@@ -1,22 +1,22 @@
-import { defineConfig } from '@pandacss/dev';
-import { textRecipe } from './src/components/design-system/recipes/text';
-import { buttonRecipe } from '~/components/design-system/recipes/button';
+import { defineConfig } from "@pandacss/dev";
+import { buttonRecipe } from "~/design-system/recipes/button";
+import { textRecipe } from "~/design-system/recipes/text";
 
 export default defineConfig({
-  jsxFramework: 'qwik',
+  jsxFramework: "qwik",
 
   // Whether to use css reset
   preflight: true,
 
   // Where to look for your css declarations
-  include: ['./src/**/*.{js,jsx,ts,tsx}'],
+  include: ["./src/**/*.{js,jsx,ts,tsx}"],
 
   // Files to exclude
   exclude: [],
 
   conditions: {
-    light: '[data-theme=light] &',
-    dark: '[data-theme=dark] &',
+    light: "[data-theme=light] &",
+    dark: "[data-theme=dark] &",
   },
 
   // Useful for theme customization
@@ -24,14 +24,14 @@ export default defineConfig({
     extend: {
       tokens: {
         fonts: {
-          poppins: { value: 'Poppins, sans-serif' },
-          sourceCodePro: { value: 'Source Code Pro, monospace' },
-          firaCode: { value: 'Fira Code, monospace' },
+          poppins: { value: "Poppins, sans-serif" },
+          sourceCodePro: { value: "Source Code Pro, monospace" },
+          firaCode: { value: "Fira Code, monospace" },
         },
         colors: {
           links: {
             hover: {
-              value: '{colors.teal.700}',
+              value: "{colors.teal.700}",
             },
           },
         },
@@ -44,27 +44,27 @@ export default defineConfig({
         colors: {
           background: {
             value: {
-              base: '{colors.neutral.900}',
-              _light: '{colors.stone.50}',
+              base: "{colors.neutral.900}",
+              _light: "{colors.stone.50}",
             },
           },
 
           text: {
             value: {
-              base: '{colors.stone.50}',
-              _light: '{colors.neutral.900}',
+              base: "{colors.stone.50}",
+              _light: "{colors.neutral.900}",
             },
           },
           caption: {
             value: {
-              base: '{colors.stone.300}',
-              _light: '{colors.neutral.600}',
+              base: "{colors.stone.300}",
+              _light: "{colors.neutral.600}",
             },
           },
           inlineCode: {
             value: {
-              base: '{colors.neutral.600}',
-              _light: '{colors.neutral.300}',
+              base: "{colors.neutral.600}",
+              _light: "{colors.neutral.300}",
             },
           },
         },
@@ -89,52 +89,52 @@ export default defineConfig({
       },
       keyframes: {
         blink: {
-          '0%, 50%': {
+          "0%, 50%": {
             opacity: 1,
           },
-          '60%': {
+          "60%": {
             opacity: 0,
           },
-          '70%, 100%': {
+          "70%, 100%": {
             opacity: 1,
           },
         },
         type: {
-          '0%': {
+          "0%": {
             left: 0,
           },
-          '40%, 75%': {
-            left: '100%',
+          "40%, 75%": {
+            left: "100%",
           },
-          '100%': {
+          "100%": {
             left: 0,
           },
         },
         buttonShowcase: {
-          '25%, 75%': {
-            transform: 'translateX(0) rotate(-180deg)',
+          "25%, 75%": {
+            transform: "translateX(0) rotate(-180deg)",
           },
         },
         revealLeftToRight: {
           from: {
-            clipPath: 'polygon(0 0, 0 0, 0 100%, 0% 100%)',
+            clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)",
           },
           to: {
-            clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+            clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
           },
         },
         revealRightToLeft: {
           from: {
-            clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)',
+            clipPath: "polygon(100% 0, 100% 0, 100% 100%, 100% 100%)",
           },
           to: {
-            clipPath: 'polygon(100% 0, 0 0, 0 100%, 100% 100%)',
+            clipPath: "polygon(100% 0, 0 0, 0 100%, 100% 100%)",
           },
         },
         loading: {
-          '50%': {
+          "50%": {
             opacity: 0.7,
-            transform: 'translateY(-5px)',
+            transform: "translateY(-5px)",
           },
         },
       },
@@ -142,5 +142,5 @@ export default defineConfig({
   },
 
   // The output directory for your css system
-  outdir: 'src/styled-system',
+  outdir: "src/styled-system",
 });

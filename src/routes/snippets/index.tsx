@@ -3,10 +3,10 @@ import { component$, Slot, useResource$, Resource } from "@builder.io/qwik";
 import { type DocumentHead, useLocation } from "@builder.io/qwik-city";
 import { css, cx } from "@styles/css";
 import { vstack } from "@styles/patterns";
-import { DSLinkContainer } from "~/components/design-system/DSLink";
-import { DSText } from "~/components/design-system/DSText";
 import { LiquidFillButton } from "~/components/liquidFillButton";
 import SliderPuzzle from "~/components/sliderPuzzle";
+import { DSLinkContainer } from "~/design-system/components/DSLink";
+import { DSText } from "~/design-system/components/DSText";
 
 const extractSlugFromFilePath = (path: string) => {
   // matches ./(articles)/article-slug/index.mdx

@@ -2,13 +2,13 @@ import { Resource, Slot, component$, useResource$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import { useLocation } from "@builder.io/qwik-city";
 import { css } from "@styles/css";
-import { DSLinkContainer } from "~/components/design-system/DSLink";
-import { DSText } from "~/components/design-system/DSText";
 import mdxComponents from "~/components/mdxComponents";
 import { type Article, getArticles } from "~/routes/snippets";
 import ChevronRight from "~/images/chevronRight.svg?jsx";
 import ChevronLeft from "~/images/chevronLeft.svg?jsx";
 import { MDXProvider } from "~/components/mdxProvider";
+import { DSLinkContainer } from "~/design-system/components/DSLink";
+import { DSText } from "~/design-system/components/DSText";
 
 function getArticleNavigation(articleSlug: string, articles: Article[]) {
   const currentArticleIndex = articles.findIndex(

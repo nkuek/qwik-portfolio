@@ -1,8 +1,8 @@
-import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
-import { css } from '@styles/css';
-import { text } from '@styles/recipes';
-import { Image } from '@unpic/qwik';
-import { DSText } from '~/components/design-system/DSText';
+import { component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
+import { css } from "@styles/css";
+import { text } from "@styles/recipes";
+import { Image } from "@unpic/qwik";
+import { DSText } from "~/design-system/components/DSText";
 
 const AboutMeText = component$(() => {
   const textContainerRef = useSignal<Element>();
@@ -27,65 +27,65 @@ const AboutMeText = component$(() => {
     <div
       ref={textContainerRef}
       style={{
-        '--visible': visible.value ? 1 : 0,
-        '--translate': visible.value ? '0' : '15%',
+        "--visible": visible.value ? 1 : 0,
+        "--translate": visible.value ? "0" : "15%",
       }}
       class={css({
-        position: 'relative',
-        background: 'rgba(23, 23, 23, .95)',
-        width: 'full',
-        alignSelf: 'flex-end',
+        position: "relative",
+        background: "rgba(23, 23, 23, .95)",
+        width: "full",
+        alignSelf: "flex-end",
         flexGrow: 1,
         md: {
-          transition: 'opacity 750ms ease, transform 750ms ease',
-          opacity: 'var(--visible)',
-          transform: 'translateY(var(--translate))',
+          transition: "opacity 750ms ease, transform 750ms ease",
+          opacity: "var(--visible)",
+          transform: "translateY(var(--translate))",
         },
-        color: 'stone.50',
+        color: "stone.50",
       })}
     >
       <div
         class={css({
-          display: 'grid',
-          '@media (min-width: 979px)': {
-            gridTemplateColumns: '1fr 1fr 1fr',
-            minHeight: '35vh',
+          display: "grid",
+          "@media (min-width: 979px)": {
+            gridTemplateColumns: "1fr 1fr 1fr",
+            minHeight: "35vh",
           },
-          margin: '0 auto',
-          gridTemplateColumns: '1fr',
-          w: 'full',
-          maxWidth: '1408px',
+          margin: "0 auto",
+          gridTemplateColumns: "1fr",
+          w: "full",
+          maxWidth: "1408px",
           gap: {
             base: 4,
             md: 10,
           },
           padding: {
-            base: '48px 0 64px',
-            md: '104px 0',
+            base: "48px 0 64px",
+            md: "104px 0",
           },
           paddingInline: {
-            base: '16px',
-            sm: '32px',
-            md: '48px',
+            base: "16px",
+            sm: "32px",
+            md: "48px",
           },
         })}
       >
         <div
           class={css({
             gap: 4,
-            display: 'flex',
-            flexDir: 'column',
-            '@media (min-width: 979px)': {
-              textAlign: 'left',
+            display: "flex",
+            flexDir: "column",
+            "@media (min-width: 979px)": {
+              textAlign: "left",
             },
-            textAlign: 'center',
-            marginBottom: '24px',
+            textAlign: "center",
+            marginBottom: "24px",
           })}
         >
           <DSText tag="h2" size="hero">
             About Me
           </DSText>
-          <h3 class={text({ size: 'mobileSubtitle' })}>
+          <h3 class={text({ size: "mobileSubtitle" })}>
             An EMT turned Software Engineer
           </h3>
         </div>
@@ -114,20 +114,20 @@ const AboutMe = component$(() => {
     <section
       id="about-me"
       class={css({
-        minH: '100vh',
-        position: 'relative',
+        minH: "100vh",
+        position: "relative",
         smDown: {
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-end',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-end",
         },
-        scrollMargin: '56px',
-        display: 'flex',
-        clipPath: 'inset(0)',
-        overflow: 'hidden',
+        scrollMargin: "56px",
+        display: "flex",
+        clipPath: "inset(0)",
+        overflow: "hidden",
         _before: {
           content: '""',
-          position: 'absolute',
+          position: "absolute",
           inset: 0,
           zIndex: -1,
           backgroundImage: "url('/images/overlay.png')",
@@ -139,11 +139,11 @@ const AboutMe = component$(() => {
         class={css({
           zIndex: -2,
           md: {
-            position: 'fixed',
-            inset: '0',
-            height: '100vh',
-            objectFit: 'cover',
-            width: 'full',
+            position: "fixed",
+            inset: "0",
+            height: "100vh",
+            objectFit: "cover",
+            width: "full",
           },
         })}
         src="https://res.cloudinary.com/dunbkcyqq/image/upload/v1692465808/overlook_zindcs.jpg"

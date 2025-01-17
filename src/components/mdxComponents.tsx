@@ -1,7 +1,7 @@
 import type { HTMLAttributes } from "@builder.io/qwik";
 import { Slot, component$ } from "@builder.io/qwik";
 import { css } from "@styles/css";
-import { DSText } from "~/components/design-system/DSText";
+import { DSText } from "~/design-system/components/DSText";
 
 export default {
   p: component$((props: HTMLAttributes<HTMLParagraphElement>) => (

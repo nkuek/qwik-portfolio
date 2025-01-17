@@ -1,13 +1,10 @@
 {
   "name": "my-qwik-empty-starter",
   "description": "App with Routing built-in ready to create your app",
-  "engines": {
-    "node": ">=15.0.0"
-  },
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "qwik build",
+    "build": "panda codegen --silent && qwik build",
     "build.client": "vite build",
     "build.preview": "vite build --ssr src/entry.preview.tsx",
     "build.server": "vite build -c adapters/vercel-edge/vite.config.ts",
