@@ -197,16 +197,10 @@ const Skills = component$(() => {
                 _hover: {
                   transform: "scale(1.05)",
                 },
-              })}
-              target="_blank"
-              rel="noopener"
-              aria-label={skill.name}
-            >
-              <skill.logo
-                class={css({
+                "& > *": {
                   aspectRatio: 1,
                   width: "full",
-                  height: "full",
+                  height: "auto",
                   transitionProperty: "transform",
                   transitionDelay: "var(--delay)",
                   transitionTimingFunction: "ease",
@@ -214,9 +208,13 @@ const Skills = component$(() => {
                   transform: "scale(var(--scale, .75))",
                   maxWidth: "200px",
                   fill: "text",
-                })}
-                alt={skill.name}
-              />
+                },
+              })}
+              target="_blank"
+              rel="noopener"
+              aria-label={skill.name}
+            >
+              <skill.logo alt={skill.name} />
             </Link>
           );
         })}
