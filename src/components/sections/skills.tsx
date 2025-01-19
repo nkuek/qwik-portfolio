@@ -13,13 +13,9 @@ const showcaseSkills: Technology[] = [
   "JavaScript",
   "React",
   "Next.js",
+  "Three.js",
   "Qwik",
   "CSS",
-  "HTML",
-  "Svelte",
-  "Redux",
-  "Python",
-  "NodeJS",
   "GSAP",
 ];
 

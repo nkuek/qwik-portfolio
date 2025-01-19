@@ -9,9 +9,9 @@ import GSAPLogo from "~/images/gsap.png?jsx";
 import QwikLogo from "~/images/qwik.svg?jsx";
 import NextJSLogo from "~/images/nextjs.svg?jsx";
 import CSSLogo from "~/images/css.svg?jsx";
-import HTMLLogo from "~/images/html.svg?jsx";
 import SvelteLogo from "~/images/svelte.svg?jsx";
 import NodeJSLogo from "~/images/node.svg?jsx";
+import ThreeJSLogo from "~/images/threejs.svg?jsx";
 
 export type Technology =
   | "React"
@@ -27,7 +27,7 @@ export type Technology =
   | "Qwik"
   | "GSAP"
   | "NodeJS"
-  | "HTML";
+  | "Three.js";
 
 type TechnologyMap = {
   logo: typeof ReactLogo | typeof GSAPLogo;
@@ -72,8 +72,8 @@ export const logoMap: Record<Technology, TechnologyMap> = {
     logo: NodeJSLogo,
     href: "https://nodejs.org/en/",
   },
-  HTML: {
-    logo: HTMLLogo,
-    href: "https://developer.mozilla.org/en-US/docs/Web/HTML",
+  "Three.js": {
+    logo: ThreeJSLogo,
+    href: "https://threejs.org/",
   },
 };
